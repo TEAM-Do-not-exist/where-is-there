@@ -5,9 +5,11 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.ssafy.project1.dto.MemberDTO" alias="MemberDTO" />
+		<typeAlias type="com.ssafy.project1.dto.CrawlingDTO" alias="MemberDTO" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mybatis/MemberSQLMapper.xml" />
+		<mapper resource="mybatis/CrawlingSQLMapper.xml" />
 	</mappers>
 </configuration>
