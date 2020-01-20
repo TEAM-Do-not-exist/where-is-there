@@ -3,9 +3,16 @@ from django.db import models
 # Create your models here.
 
 
-class Test(models.Model):
-    name = models.CharField(max_length=10)
-    content = models.TextField()
+class HashTag(models.Model):
+    hashtag = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
+
+class Tour(models.Model):
+    link = models.TextField()
+    hashtags = models.ManyToManyField(HashTag, related_name='tours')
+
+
+class Image(models.Model):
+    url = models.TextField()
+    tour = models.ForeignKey(
+        Tour, on_delete=models.CASCADE, related_name='images')
