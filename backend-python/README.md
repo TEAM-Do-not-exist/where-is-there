@@ -4,6 +4,8 @@
 
 ### 이번 주에 할 일
 
+- git branch 설정
+
 1. django 기본 세팅 진행
 
 2. django에 mysql 연결
