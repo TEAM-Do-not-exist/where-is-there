@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+
+from decouple import config
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -78,9 +80,9 @@ WSGI_APPLICATION = 'whereisthere.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'whereisthere_test',
-        'USER': 'root',
-        'PASSWORD': 'password',
+        'NAME': config('SETTING_DB_NAME'),
+        'USER': config('SETTING_USER_NAME'),
+        'PASSWORD': config('SETTING_PASSWORD_NAME'),
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
