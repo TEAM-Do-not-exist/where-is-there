@@ -4,10 +4,8 @@
 
 ### 이번 주에 할 일
 
-- git branch 설정
+- django 기본 세팅 진행
 
-1. django 기본 세팅 진행
+- django에 mysql 연결
 
-2. django에 mysql 연결
-
-3. django instagram crawling 테스트
+- django instagram crawling 테스트
