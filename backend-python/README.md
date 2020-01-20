@@ -9,3 +9,9 @@
 2. django에 mysql 연결
 
 3. django instagram crawling 테스트
+
+   3.1 instagram
+
+   3.2 naver band
+
+   3.3 tour api
