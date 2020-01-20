@@ -1,28 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <v-container>
+      <div v-for="(item, index) in src.hashtags" :key="index">
+        {{item.id}} : {{item.hashtag}}
+      </div>
+      <div v-for="(item, index) in src.images" :key="index">
+        {{item.id}}
+        <img :src="item.url">
+      </div>
+      <p>{{src.link}}</p>
+    </v-container>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from 'axios'
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  props: {
+    source: String,
+  },
+  data: () => ({
+    drawer: null,
+    src: null,
+  }),
+  mounted(){
+    axios
+    .get('') //여기에 url이 들어갑니다
+    .then(response => {
+      this.data.src = response;
+    })
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
