@@ -28,11 +28,11 @@
     <v-app-bar
       app
       color="blue"
-      collapse
       dark
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>사이트 이름</v-toolbar-title>
+      <img width="40" src="https://lab.ssafy.com/uploads/-/system/appearance/header_logo/1/ssafy_logo.png">
+      <v-toolbar-title>TEAM 404</v-toolbar-title>
     </v-app-bar>
 
     <v-content>
@@ -43,6 +43,19 @@
       app
     >
       <span class="white--text">&copy; 2019 어쩌구 저쩌구 팀 404</span>
+      <v-fab-transition>
+              <v-btn
+                v-show="!hidden"
+                color="blue"
+                dark
+                absolute
+                top
+                right
+                fab
+              >
+                <v-icon>mdi-chevron-up</v-icon>
+              </v-btn>
+            </v-fab-transition>
     </v-footer>
   </v-app>
 </template>
