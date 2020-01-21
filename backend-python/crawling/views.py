@@ -8,6 +8,9 @@ import os
 
 # Create your views here.
 
+mid_output = './crawling/instagram-crawler/output'
+output = './crawling/output'
+
 
 def get_tour_info(info, idx):
     source = [info.get('key'), 'instagram', 'travelholic_insta']
@@ -16,9 +19,9 @@ def get_tour_info(info, idx):
     if len(tour) == 0:
         code = idx + 1
         url = info.get('img_urls')
+        words = info.get('caption')
 
         hashtags = []
-        words = info.get('caption')
         if words != None:
             words = words.replace('\n', '')
             for i in range(len(words)):
@@ -27,12 +30,15 @@ def get_tour_info(info, idx):
                         if words[j] in [' ', '#']:
                             hashtags.append(words[i + 1:j])
                             break
+
         return code, url, source, hashtags
     else:
         return tour.pcode, tour.pplace, tour.purl, tour.pname, tour.psource
 
 
 def crawling(target, length):
+    global mid_output, output
+
     if target == 'tour':
         account = 'travelholic_insta'
         filename = 'travelholic'
@@ -40,22 +46,23 @@ def crawling(target, length):
         account = 'greedeat'
         filename = account
 
+    crawler = './crawling/instagram-crawler/crawler.py'
+    address = f'{mid_output}/{filename}.json'
+
     get_data = 0
-    files = os.listdir('./crawling/instagram-crawler/output')
+    files = os.listdir(mid_output)
     if target == 'tour':
-        mid_ouput = f'./crawling/instagram-crawler/output/{filename}.json'
         if 'travelholic.json' not in files:
-            crawler = './crawling/instagram-crawler/crawler.py'
             get_data = 1
     else:
         pass
 
     if get_data == 1:
         subprocess.call(
-            f'python {crawler} posts_full -u {account} -n {length} -o {mid_ouput} --fetch_details', shell=True)
+            f'python {crawler} posts_full -u {account} -n {length} -o {address} --fetch_details', shell=True)
 
-    with open(mid_ouput, 'r', encoding='utf-8') as travelholic:
-        datas = json.load(travelholic)
+    with open(address, 'r', encoding='utf-8') as f:
+        datas = json.load(f)
 
     res = {}
     for data in datas:
@@ -71,11 +78,8 @@ def crawling(target, length):
             'pplace_pname': hashtags
         }
 
-    if target == 'tour':
-        with open('./crawling/output/travelholic.json', 'w', encoding='utf-8') as f:
-            json.dump(res, f)
-    else:
-        pass
+    with open(f'{output}/{filename}.json', 'w', encoding='utf-8') as f:
+        json.dump(res, f)
 
     return res
 
@@ -87,25 +91,29 @@ def root(request):
 
 @api_view(['GET', ])
 def instagram(request):
-    length = int(request.GET.get('length'))
+    global mid_output, output
+
     target = request.GET.get('target')
+    length = int(request.GET.get('length'))
 
-    files = os.listdir('./crawling/output')
+    files = os.listdir(output)
     if target == 'tour':
-        if 'travelholic.json' not in files:
-            res = crawling(target='tour', length=length)
-        else:
-            with open('./crawling/instagram-crawler/output/travelholic.json', 'r', encoding='utf-8') as travelholic:
-                datas = json.load(travelholic)
-
-            end = datas[0].get('datetime')[:10]
-            now = date.strftime(date.today(), '%Y-%m-%d')
-            if len(datas) != length or now != end:
-                res = crawling(target='tour', length=length)
-            else:
-                with open('./crawling/output/travelholic.json', 'r', encoding='utf-8') as f:
-                    res = json.load(f)
+        filename = 'travelholic'
     else:
         pass
+
+    if f'{filename}.json' not in files:
+        res = crawling(target=target, length=length)
+    else:
+        with open(f'{mid_output}/{filename}.json', 'r', encoding='utf-8') as f:
+            datas = json.load(f)
+
+        end = datas[0].get('datetime')[:10]
+        now = date.strftime(date.today(), '%Y-%m-%d')
+        if len(datas) != length or now != end:
+            res = crawling(target='tour', length=length)
+        else:
+            with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
+                res = json.load(f)
 
     return Response(res, 200)
