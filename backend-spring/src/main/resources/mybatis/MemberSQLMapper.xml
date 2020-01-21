@@ -18,8 +18,8 @@
 	<update id="update" parameterType="MemberDTO">
 		update mem_p1 set pw=#{pw},
 						name=#{name},
-						addr=#{email},
-						tel=#{phone}
+						email=#{email},
+						phone=#{phone}
 		where id=#{id}
 	</update>
 	<select id="selectList" resultType="MemberDTO">
