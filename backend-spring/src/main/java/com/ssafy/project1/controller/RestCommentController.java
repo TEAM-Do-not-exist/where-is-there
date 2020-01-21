@@ -87,4 +87,24 @@ public class RestCommentController {
 		}
 		return resEntity;
 	}
+	
+	@GetMapping("/selectPhotoList/{ccode}")
+	@ApiOperation(value="comment 사진별 댓글 조회 서비스")
+	public ResponseEntity<Map> comSelect(@PathVariable("ccode")int ccode){
+		ResponseEntity<Map> resEntity=null;
+		try {
+			CommentDTO dto = new CommentDTO();
+			dto.setCcode(ccode);
+			List<CommentDTO> selectMyList = comSer.selectPhotoList(dto);
+			Map<String,Object> msg = new HashMap<String, Object>();
+			msg.put("regmsg", "조회했습니다");
+			msg.put("resvalue",selectMyList);
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}catch(RuntimeException e) {
+			Map<String, Object> msg = new HashMap<String, Object>();
+			msg.put("resmsg","조회실패");
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}
+		return resEntity;
+	}
 }

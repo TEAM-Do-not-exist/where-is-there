@@ -12,7 +12,7 @@ public interface ICommentService {
 
 	public List<CommentDTO> selectMyList(CommentDTO dto);
 	
-	public List<CommentDTO> selectPhotoList();
+	public List<CommentDTO> selectPhotoList(CommentDTO dto);
 	
 
 }

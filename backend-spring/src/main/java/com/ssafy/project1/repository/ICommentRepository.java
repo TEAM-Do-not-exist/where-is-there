@@ -10,7 +10,7 @@ public interface ICommentRepository {
 	
 	public List<CommentDTO> selectMyList(CommentDTO dto);
 	
-	public List<CommentDTO> selectPhotoList();
+	public List<CommentDTO> selectPhotoList(CommentDTO dto);
 	
 	public int delete(int ccode);
 	

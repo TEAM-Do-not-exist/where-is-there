@@ -29,9 +29,9 @@ public class CommentRepositoryImpl implements ICommentRepository {
 	}
 
 	@Override
-	public List<CommentDTO> selectPhotoList() {
+	public List<CommentDTO> selectPhotoList(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		return session.selectList("ssafy.comment.selectPhotoList");
+		return session.selectList("ssafy.comment.selectPhotoList",dto);
 	}
 
 	

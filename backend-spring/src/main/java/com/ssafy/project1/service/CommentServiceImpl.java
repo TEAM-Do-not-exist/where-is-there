@@ -27,9 +27,9 @@ public class CommentServiceImpl implements ICommentService{
 	}
 
 	@Override
-	public List<CommentDTO> selectPhotoList() {
+	public List<CommentDTO> selectPhotoList(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		return comRepo.selectPhotoList();
+		return comRepo.selectPhotoList(dto);
 	}
 	
 	@Override
