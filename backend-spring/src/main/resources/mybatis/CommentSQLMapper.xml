@@ -28,7 +28,7 @@
 	
 	<update id="update" parameterType="CommentDTO">
 		update comment 
-		set content = #{content}
+		set content = #{content}, ctime=now()
 		where ccode = #{ccode} and cid = #{cid}
 	</update>
 
