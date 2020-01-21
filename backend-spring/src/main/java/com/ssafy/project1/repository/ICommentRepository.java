@@ -9,8 +9,8 @@ public interface ICommentRepository {
 	public int insert(CommentDTO dto);
 	
 	public List<CommentDTO> selectList();
-//	
-//	public int delete(int ccode);
+	
+	public int delete(int ccode);
 	
 
 }

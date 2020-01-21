@@ -49,24 +49,24 @@ public class RestCommentController {
 		return resEntity;
 	}
 	
-//	@DeleteMapping("/delete/{ccode}")
-//	@ApiOperation(value="comment 삭제 서비스")
-//	public ResponseEntity<Map> comDelete(int ccode){
-//		ResponseEntity<Map> resEntity=null;
-//		try {
-//			
-//			int delete = comSer.delete(ccode);
-//			Map<String,Object> msg = new HashMap<String, Object>();
-//			msg.put("regmsg", "삭제했습니다");
-//			msg.put("resvalue",delete);
-//			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
-//		}catch(RuntimeException e) {
-//			Map<String, Object> msg = new HashMap<String, Object>();
-//			msg.put("resmsg","삭제실패");
-//			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
-//		}
-//		return resEntity;
-//	}
+	@DeleteMapping("/delete/{ccode}")
+	@ApiOperation(value="comment 삭제 서비스")
+	public ResponseEntity<Map> comDelete(int ccode){
+		ResponseEntity<Map> resEntity=null;
+		try {
+			
+			int delete = comSer.delete(ccode);
+			Map<String,Object> msg = new HashMap<String, Object>();
+			msg.put("regmsg", "삭제했습니다");
+			msg.put("resvalue",delete);
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}catch(RuntimeException e) {
+			Map<String, Object> msg = new HashMap<String, Object>();
+			msg.put("resmsg","삭제실패");
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}
+		return resEntity;
+	}
 	
 	@GetMapping("/selectList")
 	@ApiOperation(value="comment 전체 조회 서비스")

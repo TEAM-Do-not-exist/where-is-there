@@ -27,12 +27,12 @@ public class CommentRepositoryImpl implements ICommentRepository {
 		// TODO Auto-generated method stub
 		return session.selectList("ssafy.comment.selectList");
 	}
-//
-//
-//	@Override
-//	public int delete(int ccode) {
-//		// TODO Auto-generated method stub
-//		return session.delete("ssafy.comment.delete",ccode);
-//	}
+
+
+	@Override
+	public int delete(int ccode) {
+		// TODO Auto-generated method stub
+		return session.delete("ssafy.comment.delete",ccode);
+	}
 
 }
