@@ -80,6 +80,7 @@ public class RestCommentController {
 			CommentDTO dto = new CommentDTO();
 			dto.setCid(cid);
 			List<CommentDTO> selectMyList = comSer.selectMyList(dto);
+			System.out.println(selectMyList.toString());
 			Map<String,Object> msg = new HashMap<String, Object>();
 			msg.put("regmsg", "조회했습니다");
 			msg.put("resvalue",selectMyList);

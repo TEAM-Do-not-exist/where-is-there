@@ -16,10 +16,10 @@
 	</insert>
 	
 	<select id="selectMyList" resultType="CommentDTO">
-		select (content) from comment where cid = #{cid}
+		select * from comment where cid = #{cid}
 	</select>
 		<select id="selectPhotoList" resultType="CommentDTO">
-		select (content) from comment where ccode = #{ccode}
+		select * from comment where ccode = #{ccode}
 	</select>
 	
 	<delete id="delete" parameterType="CommentDTO">
