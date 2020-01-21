@@ -21,7 +21,11 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/ssafy_project1?serverTimezone=UTC&useSSL=false&useUniCode=yes&characterEncoding=UTF-8
+<<<<<<< HEAD
     username: ssafy
+=======
+    username: root
+>>>>>>> backend-spring-active
     password: ssafy
     dbcp2:
       max-idle: 20
