@@ -15,8 +15,12 @@
 		)
 	</insert>
 	
-	<select id="selectList" resultType="CommentDTO">
-		select * from comment
+	<select id="selectMyList" resultType="CommentDTO">
+		select (content) from comment where cid = #{cid}
+	</select>
+	
+		<select id="selectPhotoList" resultType="CommentDTO">
+		select (content) from comment where ccode = #{ccode}
 	</select>
 	
 	<delete id="delete" parameterType="int">

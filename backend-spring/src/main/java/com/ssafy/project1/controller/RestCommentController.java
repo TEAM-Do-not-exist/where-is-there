@@ -68,15 +68,17 @@ public class RestCommentController {
 		return resEntity;
 	}
 	
-	@GetMapping("/selectList")
-	@ApiOperation(value="comment 전체 조회 서비스")
-	public ResponseEntity<Map> comSelect(){
+	@GetMapping("/selectMyList/{cid}")
+	@ApiOperation(value="comment 내가 쓴 댓글 조회 서비스")
+	public ResponseEntity<Map> comSelect(@PathVariable("cid")String cid){
 		ResponseEntity<Map> resEntity=null;
 		try {
-			List<CommentDTO> selectList = comSer.selectList();
+			CommentDTO dto = new CommentDTO();
+			dto.setCid(cid);
+			List<CommentDTO> selectMyList = comSer.selectMyList(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
 			msg.put("regmsg", "조회했습니다");
-			msg.put("resvalue",selectList);
+			msg.put("resvalue",selectMyList);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();

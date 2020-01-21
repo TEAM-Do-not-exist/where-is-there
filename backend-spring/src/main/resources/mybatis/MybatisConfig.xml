@@ -6,11 +6,15 @@
 	<typeAliases>
 		<typeAlias type="com.ssafy.project1.dto.MemberDTO" alias="MemberDTO" />
 		<typeAlias type="com.ssafy.project1.dto.CommentDTO" alias="CommentDTO" />
+		<typeAlias type="com.ssafy.project1.dto.FavoriteDTO" alias="FavoriteDTO" />
+		
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mybatis/MemberSQLMapper.xml" />
 		<mapper resource="mybatis/CommentSQLMapper.xml" />
+		<mapper resource="mybatis/FavoriteSQLMapper.xml" />
+		
 	</mappers>
 	
 </configuration>

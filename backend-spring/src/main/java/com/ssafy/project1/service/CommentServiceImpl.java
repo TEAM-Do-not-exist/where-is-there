@@ -21,11 +21,17 @@ public class CommentServiceImpl implements ICommentService{
 	}
 
 	@Override
-	public List<CommentDTO> selectList() {
+	public List<CommentDTO> selectMyList(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		return comRepo.selectList();
+		return comRepo.selectMyList(dto);
 	}
 
+	@Override
+	public List<CommentDTO> selectPhotoList() {
+		// TODO Auto-generated method stub
+		return comRepo.selectPhotoList();
+	}
+	
 	@Override
 	public int delete(int ccode) {
 		// TODO Auto-generated method stub

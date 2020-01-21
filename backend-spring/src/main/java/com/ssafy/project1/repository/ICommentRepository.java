@@ -8,7 +8,9 @@ public interface ICommentRepository {
 	
 	public int insert(CommentDTO dto);
 	
-	public List<CommentDTO> selectList();
+	public List<CommentDTO> selectMyList(CommentDTO dto);
+	
+	public List<CommentDTO> selectPhotoList();
 	
 	public int delete(int ccode);
 	

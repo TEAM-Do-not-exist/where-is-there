@@ -23,11 +23,18 @@ public class CommentRepositoryImpl implements ICommentRepository {
 
 
 	@Override
-	public List<CommentDTO> selectList() {
+	public List<CommentDTO> selectMyList(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		return session.selectList("ssafy.comment.selectList");
+		return session.selectList("ssafy.comment.selectMyList",dto);
 	}
 
+	@Override
+	public List<CommentDTO> selectPhotoList() {
+		// TODO Auto-generated method stub
+		return session.selectList("ssafy.comment.selectPhotoList");
+	}
+
+	
 
 	@Override
 	public int delete(int ccode) {

@@ -17,13 +17,13 @@ insert into mem_p1 values('aaa','aaa','박명수','asdf@naver.com','01012345678'
 select * from mem_p1;
 select count(*) from mem_p1 where pw='ssafy' and id='ssafy';
 
--- create table photo(
--- 	pcode int comment '코드' auto_increment primary key,
---     pplace varchar(300) comment '장소',
---     purl varchar(300) comment 'URL' unique,
---     pname varchar(200) comment '상호명',
---     psource varchar(200) comment '출처'
--- ) comment='크롤링정보';
+create table photo(
+	pcode int comment '코드' auto_increment primary key,
+    pplace varchar(300) comment '장소',
+    purl varchar(300) comment 'URL' unique,
+    pname varchar(200) comment '상호명',
+    psource varchar(200) comment '출처'
+) comment='크롤링정보';
 
 select * from photo;
 select * from mem_p1;
@@ -39,7 +39,7 @@ create table comment(
 	foreign key(ccode) references photo(pcode),
     primary key(cid,ccode)
 ) comment='댓글';
-drop table comment;
+-- drop table comment;
 
 insert into comment values (1,'aaa','asdf',now());
 
