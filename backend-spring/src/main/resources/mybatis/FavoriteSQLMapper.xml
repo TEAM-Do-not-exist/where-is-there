@@ -11,6 +11,18 @@
 			#{fcode}
 		)
 	</insert>
+	<delete id="delete" parameterType="FavoriteDTO">
+		delete from favorite 
+		where fid=#{fid} and
+				fcode=#{fcode}
+	</delete>
+		<select id="selectMyList" resultType="FavoriteDTO">
+		select * from favorite
+				 where fid = #{fid} 
+	</select>
+		<select id="selectPhotoList" resultType="FavoriteDTO">
+		select count(*) from favorite where fcode = #{fcode}
+	</select>
 	
 
 </mapper>

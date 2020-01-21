@@ -18,13 +18,18 @@
 	<select id="selectMyList" resultType="CommentDTO">
 		select (content) from comment where cid = #{cid}
 	</select>
-	
 		<select id="selectPhotoList" resultType="CommentDTO">
 		select (content) from comment where ccode = #{ccode}
 	</select>
 	
-	<delete id="delete" parameterType="int">
-		delete from comment where ccode = #{ccode}
+	<delete id="delete" parameterType="CommentDTO">
+		delete from comment where ccode = #{ccode} and cid = #{cid}
 	</delete>
+	
+	<update id="update" parameterType="CommentDTO">
+		update comment 
+		set content = #{content}
+		where ccode = #{ccode} and cid = #{cid}
+	</update>
 
 </mapper>

@@ -33,9 +33,16 @@ public class CommentServiceImpl implements ICommentService{
 	}
 	
 	@Override
-	public int delete(int ccode) {
+	public int delete(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		return comRepo.delete(ccode);
+		return comRepo.delete(dto);
 	}
+	
+	@Override
+	public int update(CommentDTO dto) {
+		// TODO Auto-generated method stub
+		return comRepo.update(dto);
+	}
+	
 
 }

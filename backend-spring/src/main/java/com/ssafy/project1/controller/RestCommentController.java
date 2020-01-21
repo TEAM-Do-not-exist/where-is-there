@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.project1.dto.CommentDTO;
+import com.ssafy.project1.dto.MemberDTO;
 import com.ssafy.project1.service.ICommentService;
 
 import io.swagger.annotations.ApiOperation;
@@ -49,13 +51,15 @@ public class RestCommentController {
 		return resEntity;
 	}
 	
-	@DeleteMapping("/delete/{ccode}")
+	@DeleteMapping("/delete/{ccode}/{cid}")
 	@ApiOperation(value="comment 삭제 서비스")
-	public ResponseEntity<Map> comDelete(int ccode){
+	public ResponseEntity<Map> comDelete(@PathVariable("ccode")int ccode,@PathVariable("cid")String cid){
 		ResponseEntity<Map> resEntity=null;
 		try {
-			
-			int delete = comSer.delete(ccode);
+			CommentDTO dto = new CommentDTO();
+			dto.setCcode(ccode);
+			dto.setCid(cid);
+			int delete = comSer.delete(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
 			msg.put("regmsg", "삭제했습니다");
 			msg.put("resvalue",delete);
@@ -104,6 +108,25 @@ public class RestCommentController {
 			Map<String, Object> msg = new HashMap<String, Object>();
 			msg.put("resmsg","조회실패");
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}
+		return resEntity;
+	}
+	
+	@PutMapping("/update")
+	@ApiOperation(value="댓글 수정 서비스")
+	public ResponseEntity<Map<String,Object>> update(@RequestBody CommentDTO dto) {
+		ResponseEntity<Map<String, Object>> resEntity = null;
+
+		try {
+			int update = comSer.update(dto);
+			Map<String, Object> map = new HashMap();
+			map.put("resmsg","수정성공");
+			map.put("resvalue",update);
+			resEntity = new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+		}catch(RuntimeException e){
+			Map<String, Object> map = new HashMap();
+			map.put("resmsg", "수정실패");
+			resEntity = new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
 		return resEntity;
 	}

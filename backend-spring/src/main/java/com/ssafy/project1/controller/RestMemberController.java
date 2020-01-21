@@ -109,7 +109,7 @@ public class RestMemberController {
 			dto.setId(id);
 			MemberDTO selectOneId = memSer.selectOneId(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
-			msg.put("regmsg", "조회했습니다");
+			msg.put("regmsg", "지윤이가 노랠한다 홍홍");
 			msg.put("resvalue",selectOneId);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {

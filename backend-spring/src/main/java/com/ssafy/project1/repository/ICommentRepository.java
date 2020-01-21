@@ -12,7 +12,10 @@ public interface ICommentRepository {
 	
 	public List<CommentDTO> selectPhotoList(CommentDTO dto);
 	
-	public int delete(int ccode);
+	public int delete(CommentDTO dto);
+	
+	public int update(CommentDTO dto);
+	
 	
 
 }
