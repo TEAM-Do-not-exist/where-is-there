@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Tour
+from .models import Crawling
 from datetime import datetime, date
 import subprocess
 import json
@@ -9,41 +9,75 @@ import os
 # Create your views here.
 
 
-def init_datas(length):
-    subprocess.call(
-        f'python ./crawling/instagram-crawler/crawler.py posts_full -u travelholic_insta -n {length} -o ./crawling/output/travelholic.json --fetch_details', shell=True)
+def get_tour_info(info, idx):
+    source = [info.get('key'), 'instagram', 'travelholic_insta']
+    tour = Crawling.objects.filter(psource=source)
 
-    with open('./crawling/output/travelholic.json', 'r', encoding='utf-8') as travelholic:
+    if len(tour) == 0:
+        code = idx + 1
+        url = info.get('img_urls')
+
+        hashtags = []
+        words = info.get('caption')
+        if words != None:
+            words = words.replace('\n', '')
+            for i in range(len(words)):
+                if words[i] == '#':
+                    for j in range(i + 1, len(words)):
+                        if words[j] in [' ', '#']:
+                            hashtags.append(words[i + 1:j])
+                            break
+        return code, url, source, hashtags
+    else:
+        return tour.pcode, tour.pplace, tour.purl, tour.pname, tour.psource
+
+
+def crawling(target, length):
+    if target == 'tour':
+        account = 'travelholic_insta'
+        filename = 'travelholic'
+    else:
+        account = 'greedeat'
+        filename = account
+
+    get_data = 0
+    files = os.listdir('./crawling/instagram-crawler/output')
+    if target == 'tour':
+        mid_ouput = f'./crawling/instagram-crawler/output/{filename}.json'
+        if 'travelholic.json' not in files:
+            crawler = './crawling/instagram-crawler/crawler.py'
+            get_data = 1
+    else:
+        pass
+
+    if get_data == 1:
+        subprocess.call(
+            f'python {crawler} posts_full -u {account} -n {length} -o {mid_ouput} --fetch_details', shell=True)
+
+    with open(mid_ouput, 'r', encoding='utf-8') as travelholic:
         datas = json.load(travelholic)
 
-    tours = {}
+    res = {}
     for data in datas:
-        source = data.get('key')
-        tour = Tour.objects.filter(psource=source)
+        if target == 'tour':
+            code, url, source, hashtags = get_tour_info(data, len(res))
+        else:
+            pass
 
-        if len(tour) == 0:
-            code = len(tours) + 1
-            url = data.get('img_urls')
+        res[code] = {
+            'pcode': code,
+            'purl': url,
+            'psource': source,
+            'pplace_pname': hashtags
+        }
 
-            hashtags = []
-            words = data.get('caption')
-            if words != None:
-                words = words.replace('\n', '')
-                for i in range(len(words)):
-                    if words[i] == '#':
-                        for j in range(i + 1, len(words)):
-                            if words[j] in [' ', '#']:
-                                hashtags.append(words[i + 1:j])
-                                break
+    if target == 'tour':
+        with open('./crawling/output/travelholic.json', 'w', encoding='utf-8') as f:
+            json.dump(res, f)
+    else:
+        pass
 
-            tours[code] = {
-                'pcode': code,
-                'purl': url,
-                'psource': source,
-                'pplace_pname': hashtags
-            }
-
-    return tours
+    return res
 
 
 @api_view(['GET', ])
@@ -52,21 +86,23 @@ def root(request):
 
 
 @api_view(['GET', ])
-def insta_tour(request):
+def instagram(request):
     length = int(request.GET.get('length'))
+    target = request.GET.get('target')
 
     files = os.listdir('./crawling/output')
-    if 'travelholic.json' not in files:
-        tours = init_datas(length)
-    else:
-        with open('./crawling/output/travelholic.json', 'r', encoding='utf-8') as travelholic:
-            datas = json.load(travelholic)
-
-        end_date = datas[0].get('datetime')[:10]
-        now_date = date.strftime(date.today(), '%Y-%m-%d')
-        if len(datas) != length or now_date != end_date:
-            tours = init_datas(length)
+    if target == 'tour':
+        if 'travelholic.json' not in files:
+            res = crawling(target='tour', length=length)
         else:
-            return Response(status=200)
+            with open('./crawling/instagram-crawler/output/travelholic.json', 'r', encoding='utf-8') as travelholic:
+                datas = json.load(travelholic)
 
-    return Response(tours, 200)
+            end = datas[0].get('datetime')[:10]
+            now = date.strftime(date.today(), '%Y-%m-%d')
+            if len(datas) != length or now != end:
+                res = crawling(target='tour', length=length)
+    else:
+        pass
+
+    return Response(res, 200)
