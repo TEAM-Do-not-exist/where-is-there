@@ -8,5 +8,7 @@ public interface ICommentService {
 	public int insert(CommentDTO dto);
 	
 	public List<CommentDTO> selectList();
+	
+//	public int delete(int ccode);
 
 }

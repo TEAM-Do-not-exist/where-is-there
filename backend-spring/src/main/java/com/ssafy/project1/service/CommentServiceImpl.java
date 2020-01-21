@@ -26,4 +26,10 @@ public class CommentServiceImpl implements ICommentService{
 		return comRepo.selectList();
 	}
 
+//	@Override
+//	public int delete(int ccode) {
+//		// TODO Auto-generated method stub
+//		return comRepo.delete(ccode);
+//	}
+
 }

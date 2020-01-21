@@ -18,7 +18,6 @@ public class CommentRepositoryImpl implements ICommentRepository {
 	@Override
 	public int insert(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		System.out.println(123);
 		return session.insert("ssafy.comment.insert",dto);
 	}
 
@@ -28,5 +27,12 @@ public class CommentRepositoryImpl implements ICommentRepository {
 		// TODO Auto-generated method stub
 		return session.selectList("ssafy.comment.selectList");
 	}
+//
+//
+//	@Override
+//	public int delete(int ccode) {
+//		// TODO Auto-generated method stub
+//		return session.delete("ssafy.comment.delete",ccode);
+//	}
 
 }

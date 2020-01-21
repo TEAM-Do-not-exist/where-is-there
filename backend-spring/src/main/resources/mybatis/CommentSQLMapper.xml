@@ -18,5 +18,9 @@
 	<select id="selectList" resultType="CommentDTO">
 		select * from comment
 	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from comment where ccode = #{ccode}
+	</delete>
 
 </mapper>
