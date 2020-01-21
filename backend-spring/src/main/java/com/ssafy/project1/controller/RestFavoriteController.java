@@ -92,13 +92,15 @@ public class RestFavoriteController {
 	@ApiOperation(value=" 사진별 좋아요 개수 조회 서비스")
 	public ResponseEntity<Map> comSelect(@PathVariable("fcode")int fcode){
 		ResponseEntity<Map> resEntity=null;
+		int cnt=0;
 		try {
 			FavoriteDTO dto = new FavoriteDTO();
 			dto.setFcode(fcode);
 			List<FavoriteDTO> selectMyList = favSer.selectPhotoList(dto);
+			cnt = selectMyList.size();
 			Map<String,Object> msg = new HashMap<String, Object>();
 			msg.put("regmsg", "조회했습니다");
-			msg.put("resvalue",selectMyList);
+			msg.put("resvalue",cnt);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
