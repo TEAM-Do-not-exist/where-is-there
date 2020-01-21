@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+<<<<<<< HEAD
 
 
 class Crawling(models.Model):
@@ -9,3 +10,5 @@ class Crawling(models.Model):
     purl = models.TextField()
     pname = models.CharField(max_length=50)
     psource = models.CharField(max_length=25)
+=======
+>>>>>>> backend-spring-active
