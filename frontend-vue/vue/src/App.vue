@@ -51,19 +51,19 @@
       app
     >
       <span class="white--text">&copy; 2019 어쩌구 저쩌구 팀 404</span>
-      <v-fab-transition>
-              <v-btn
-                v-show="!hidden"
-                color="blue"
-                dark
-                absolute
-                top
-                right
-                fab
-              >
-                <v-icon>mdi-chevron-up</v-icon>
-              </v-btn>
-            </v-fab-transition>
+        <v-fab-transition>
+          <v-btn
+            v-show="!hidden"
+            color="blue"
+            dark
+            absolute
+            top
+            right
+            fab
+          >
+            <v-icon>mdi-chevron-up</v-icon>
+          </v-btn>
+        </v-fab-transition>
     </v-footer>
   </v-app>
 </template>
