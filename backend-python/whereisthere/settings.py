@@ -32,11 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'crawling',
-<<<<<<< HEAD
     'rest_framework',
     'corsheaders',
-=======
->>>>>>> backend-spring-active
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
