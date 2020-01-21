@@ -102,6 +102,9 @@ def instagram(request):
             now = date.strftime(date.today(), '%Y-%m-%d')
             if len(datas) != length or now != end:
                 res = crawling(target='tour', length=length)
+            else:
+                with open('./crawling/output/travelholic.json', 'r', encoding='utf-8') as f:
+                    res = json.load(f)
     else:
         pass
 
