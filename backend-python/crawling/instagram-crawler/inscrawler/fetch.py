@@ -24,6 +24,7 @@ def fetch_mentions(raw_test, dict_obj):
     if mentions:
         dict_obj["mentions"] = mentions
 
+
 def fetch_hashtags(raw_test, dict_obj):
     if not settings.fetch_hashtags:
         return
@@ -60,6 +61,7 @@ def fetch_imgs(browser, dict_post):
 
     dict_post["img_urls"] = list(img_urls)
 
+
 def fetch_likes_plays(browser, dict_post):
     if not settings.fetch_likes_plays:
         return
@@ -70,7 +72,8 @@ def fetch_likes_plays(browser, dict_post):
 
     if el_see_likes is not None:
         el_plays = browser.find_one(".vcOH2 > span")
-        dict_post["views"] = int(el_plays.text.replace(",", "").replace(".", ""))
+        dict_post["views"] = int(
+            el_plays.text.replace(",", "").replace(".", ""))
         el_see_likes.click()
         el_likes = browser.find_one(".vJRqr > span")
         likes = el_likes.text
@@ -116,15 +119,15 @@ def fetch_caption(browser, dict_post):
 
     if len(ele_comments) > 0:
 
-        temp_element = browser.find("span",ele_comments[0])
+        temp_element = browser.find("span", ele_comments[0])
 
         for element in temp_element:
 
-            if element.text not in ['Verified',''] and 'caption' not in dict_post:
+            if element.text not in ['Verified', ''] and 'caption' not in dict_post:
                 dict_post["caption"] = element.text
 
-        fetch_mentions(dict_post.get("caption",""), dict_post)
-        fetch_hashtags(dict_post.get("caption",""), dict_post)
+        fetch_mentions(dict_post.get("caption", ""), dict_post)
+        fetch_hashtags(dict_post.get("caption", ""), dict_post)
 
 
 def fetch_comments(browser, dict_post):
@@ -154,7 +157,7 @@ def fetch_comments(browser, dict_post):
 
         for element in temp_element:
 
-            if element.text not in ['Verified','']:
+            if element.text not in ['Verified', '']:
                 comment = element.text
 
         comment_obj = {"author": author, "comment": comment}
