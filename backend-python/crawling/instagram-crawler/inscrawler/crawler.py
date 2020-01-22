@@ -34,7 +34,8 @@ class Logging(object):
         try:
             timestamp = int(time.time())
             self.cleanup(timestamp)
-            self.logger = open("/tmp/%s-%s.log" % (Logging.PREFIX, timestamp), "w")
+            self.logger = open("/tmp/%s-%s.log" %
+                               (Logging.PREFIX, timestamp), "w")
             self.log_disable = False
         except Exception:
             self.log_disable = True
@@ -115,7 +116,8 @@ class InsCrawler(Logging):
         url = "%s/%s/" % (InsCrawler.URL, username)
         browser.get(url)
         source = browser.driver.page_source
-        p = re.compile(r"window._sharedData = (?P<json>.*?);</script>", re.DOTALL)
+        p = re.compile(
+            r"window._sharedData = (?P<json>.*?);</script>", re.DOTALL)
         json_data = re.search(p, source).group("json")
         data = json.loads(json_data)
 
@@ -161,7 +163,8 @@ class InsCrawler(Logging):
         ele_post.click()
 
         for _ in range(maximum):
-            heart = browser.find_one(".dCJp8 .glyphsSpriteHeart__outline__24__grey_9")
+            heart = browser.find_one(
+                ".dCJp8 .glyphsSpriteHeart__outline__24__grey_9")
             if heart:
                 heart.click()
                 randmized_sleep(2)
@@ -230,7 +233,7 @@ class InsCrawler(Logging):
                 sys.stderr.write(
                     "\x1b[1;31m"
                     + "Failed to fetch the post: "
-                    + cur_key if isinstance(cur_key,str) else 'URL not fetched'
+                    + cur_key if isinstance(cur_key, str) else 'URL not fetched'
                     + "\x1b[0m"
                     + "\n"
                 )
@@ -269,7 +272,7 @@ class InsCrawler(Logging):
             for ele in ele_posts:
                 key = ele.get_attribute("href")
                 if key not in key_set:
-                    dict_post = { "key": key }
+                    dict_post = {"key": key}
                     ele_img = browser.find_one(".KL4Bh img", ele)
                     dict_post["caption"] = ele_img.get_attribute("alt")
                     dict_post["img_url"] = ele_img.get_attribute("src")
