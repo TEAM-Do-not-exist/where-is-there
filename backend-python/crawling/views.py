@@ -2,7 +2,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Crawling
 from datetime import datetime, date
-import subprocess
 import json
 import os
 
@@ -13,12 +12,12 @@ output = './crawling/output'
 
 
 # crawling feat. travelholic
-def get_tour_info(info, idx):
-    source = [info.get('key'), 'instagram', 'travelholic_insta']
-    tour = Crawling.objects.filter(psource=source)
+def crawling_info(info, idx, filename):
+    source = info.get('key')
+    datas = Crawling.objects.filter(psource=source)
 
     # there is not duplicated tour info
-    if len(tour) == 0:
+    if len(datas) == 0:
         code = idx + 1
         url = info.get('img_urls')
         words = info.get('caption')
@@ -39,16 +38,14 @@ def get_tour_info(info, idx):
         return [False] * 4
 
 
-def crawling(target, length):
+def crawling(target, length, filename):
     global mid_output, output
 
     # check crawling target(tour or resturant)
     if target == 'tour':
         account = 'travelholic_insta'
-        filename = 'travelholic'
-    else:
+    elif target == 'eat':
         account = 'greedeat'
-        filename = account
 
     # set crawler address and mid output address
     crawler = './crawling/instagram-crawler/crawler.py'
@@ -57,16 +54,13 @@ def crawling(target, length):
     # check crawling is needed
     get_data = 0
     files = os.listdir(mid_output)
-    if target == 'tour':
-        if 'travelholic.json' not in files:
-            get_data = 1
-    else:
-        pass
+    if f'{filename}.json' not in files:
+        get_data = 1
 
     # if crawling is needed, do it
     if get_data == 1:
-        subprocess.call(
-            f'python {crawler} posts_full -u {account} -n {length} -o {address} --fetch_details', shell=True)
+        os.system(
+            f'python {crawler} posts_full -u {account} -n {length} -o {address} --fetch_details')
 
     with open(address, 'r', encoding='utf-8') as f:
         datas = json.load(f)
@@ -74,11 +68,7 @@ def crawling(target, length):
     # return results
     res = {}
     for data in datas:
-        if target == 'tour':
-            code, url, source, hashtags = get_tour_info(data, len(res))
-        else:
-            pass
-
+        code, url, source, hashtags = crawling_info(data, len(res), filename)
         if code != False:
             res[code] = {
                 'pcode': code,
@@ -112,12 +102,14 @@ def instagram(request):
     files = os.listdir(output)
     if target == 'tour':
         filename = 'travelholic'
+    elif target == 'eat':
+        filename = 'greedeat'
     else:
-        pass
+        return Response(status=400)
 
     # if there is not file, make file
     if f'{filename}.json' not in files:
-        res = crawling(target=target, length=length)
+        res = crawling(target=target, length=length, filename=filename)
     else:
         # or not, compare files
         with open(f'{mid_output}/{filename}.json', 'r', encoding='utf-8') as f:
@@ -126,7 +118,7 @@ def instagram(request):
         end = datas[0].get('datetime')[:10]
         now = date.strftime(date.today(), '%Y-%m-%d')
         if len(datas) != length or now != end:
-            res = crawling(target='tour', length=length)
+            res = crawling(target=target, length=length, filename=filename)
         else:
             # just unpack this line for test
             with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
