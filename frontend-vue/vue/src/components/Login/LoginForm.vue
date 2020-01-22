@@ -1,7 +1,7 @@
 <template>
   <v-layout align-center justify-center>
     <v-flex xs12 sm6>
-      <h1>지윤이의 채팅방에 오신 것을 환영합니다!</h1>
+      <h1>채팅</h1>
       <v-text-field
         v-model="userName"
         label="대화명"
