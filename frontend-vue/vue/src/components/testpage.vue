@@ -8,9 +8,6 @@
     min-height="1000"
     transition="fade-transition">
       <v-container>
-        <!-- <div 
-        data-infinite-scroll='{ "path": ".pagination__next", "append": ".post", "history": false }'
-        > -->
         <div v-for="(item3, index) in imgs" :key="index">
             pcode : {{index+1}}
             <div v-for="(itemi,idx) in item3" :key="idx">  
@@ -25,7 +22,6 @@
         </v-lazy>
             </div>
         </div>
-        <!-- </div> -->
         <a @click="ax" href="#">click</a>
       </v-container>
     </v-lazy>

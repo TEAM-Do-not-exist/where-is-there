@@ -14,12 +14,14 @@
     "infinite-scroll": "^3.0.6",
     "masonry-layout": "^4.2.2",
     "roboto-fontface": "*",
+    "upgrade": "^1.1.0",
     "vue": "^2.6.10",
     "vue-kakao-login": "^1.0.5",
     "vue-naver-login": "^1.0.4",
     "vue-router": "^3.1.5",
     "vuetify": "^2.2.4",
-    "vuex": "^3.1.2"
+    "vuex": "^3.1.2",
+    "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",

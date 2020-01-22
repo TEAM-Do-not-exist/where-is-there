@@ -32,6 +32,9 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <v-footer>
+        ??
+      </v-footer>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -51,7 +54,7 @@
       color="blue"
       app
     >
-      <span class="white--text">&copy; 2019 어쩌구 저쩌구 팀 404</span>
+      <span class="white--text">&copy; 2020, Team 404</span>
         <v-fab-transition>
           <v-btn
             color="blue"
