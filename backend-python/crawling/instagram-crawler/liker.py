@@ -10,7 +10,8 @@ def usage():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Instagram Liker", usage=usage())
+    parser = argparse.ArgumentParser(
+        description="Instagram Liker", usage=usage())
     parser.add_argument("hashtag", help="hashtag name")
     parser.add_argument(
         "-n", "--number", type=int, default=1000, help="number of posts to like"

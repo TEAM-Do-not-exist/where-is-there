@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssafy.favorite">
+	<insert id="insert" parameterType="FavoriteDTO">
+		insert into favorite 
+		(fid,fcode)
+		values(
+			#{fid},
+			#{fcode}
+		)
+	</insert>
+	
+	<delete id="delete" parameterType="FavoriteDTO">
+		delete from favorite 
+		where fid=#{fid} and
+				fcode=#{fcode}
+	</delete>
+	
+	
+	<select id="selectMyList" resultType="FavoriteDTO">
+		select * from favorite
+				 where fid = #{fid} 
+	</select>
+	
+		<select id="selectPhotoList" resultType="FavoriteDTO">
+		select * from favorite where fcode = #{fcode}
+	</select>
+	
+
+</mapper>
