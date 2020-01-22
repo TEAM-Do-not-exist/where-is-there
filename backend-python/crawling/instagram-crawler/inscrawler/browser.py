@@ -61,7 +61,8 @@ class Browser:
         try:
             if waittime:
                 WebDriverWait(obj, waittime).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, css_selector))
+                    EC.presence_of_element_located(
+                        (By.CSS_SELECTOR, css_selector))
                 )
         except TimeoutException:
             return None
@@ -72,7 +73,8 @@ class Browser:
             return None
 
     def scroll_down(self, wait=0.3):
-        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+        self.driver.execute_script(
+            "window.scrollTo(0, document.body.scrollHeight)")
         randmized_sleep(wait)
 
     def scroll_up(self, offset=-1, wait=2):
@@ -86,7 +88,7 @@ class Browser:
         self.driver.execute_script("arguments[0].click();", elem)
 
     def open_new_tab(self, url):
-        self.driver.execute_script("window.open('%s');" %url)
+        self.driver.execute_script("window.open('%s');" % url)
         self.driver.switch_to.window(self.driver.window_handles[1])
 
     def close_current_tab(self):
