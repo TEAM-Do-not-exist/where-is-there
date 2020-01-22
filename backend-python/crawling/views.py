@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Crawling
+from .models import Photo
 from datetime import datetime, date
 import json
 import os
@@ -108,6 +108,7 @@ def instagram(request):
         return Response(status=400)
 
     # if there is not file, make file
+    res = {}
     if f'{filename}.json' not in files:
         res = crawling(target=target, length=length, filename=filename)
     else:
@@ -124,11 +125,6 @@ def instagram(request):
             with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
                 res = json.load(f)
             # # just unpack this line for service
-            # res = {'1': {
-            #     'pcode': 'there is no more data',
-            #     'purl': ['https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/13ur/image/dMMFg4Edthw4Bh0uohu3VjISNCE.jpeg'],
-            #     'psource': [],
-            #     'pplace_pname': []
-            # }}
+            # return Response(res, status=200)
 
     return Response(res, 200)
