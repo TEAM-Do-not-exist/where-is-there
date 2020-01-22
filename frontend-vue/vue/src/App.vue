@@ -30,6 +30,14 @@
             <v-list-item-title>Administator page</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+          <v-list-item router-link href="/chat">
+          <v-list-item-action>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>chat room</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
