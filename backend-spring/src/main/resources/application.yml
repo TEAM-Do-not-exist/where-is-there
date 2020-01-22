@@ -28,8 +28,19 @@ spring:
   servlet:
     multipart:
       max-file-size: 2000
-        
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: sunghana92@gmail.com
+    password: 92tjddnjs93iu
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  messages:
+    basename: messages/message           
 
 mybatis:
   config-location: classpath:/mybatis/mybatisConfig.xml
-
