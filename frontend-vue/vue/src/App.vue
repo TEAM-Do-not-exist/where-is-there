@@ -35,7 +35,7 @@
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>채팅방</v-list-item-title>
+            <v-list-item-title>채팅방에들어오지마십쇼</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
