@@ -2,6 +2,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Photo
 from datetime import datetime, date
+from bs4 import BeautifulSoup as bs
+from urllib.parse import quote
+from decouple import config
+import requests
 import json
 import os
 
@@ -14,7 +18,7 @@ output = './crawling/output'
 # crawling feat. travelholic
 def crawling_info(info, idx, filename):
     source = info.get('key')
-    datas = Crawling.objects.filter(psource=source)
+    datas = Photo.objects.filter(psource=source)
 
     # there is not duplicated tour info
     if len(datas) == 0:
@@ -87,7 +91,7 @@ def crawling(target, length, filename):
 
 @api_view(['GET', ])
 def root(request):
-    return Response({'message': 'main page'}, 200)
+    return Response(status=200)
 
 
 @api_view(['GET', ])
@@ -127,4 +131,62 @@ def instagram(request):
             # # just unpack this line for service
             # return Response(res, status=200)
 
-    return Response(res, 200)
+    return Response(res, status=200)
+
+
+@api_view(['GET', ])
+def tour_api(request):
+    keyword = quote(request.GET.get('keyword', '광주'))
+    tour_url = f'http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/gallerySearchList?MobileOS=ETC&MobileApp=AppTest&ServiceKey={config("TOUR_API_KEY")}&keyword={keyword}&_type=json'
+    api_res = requests.get(tour_url).json()
+    items = api_res.get('response').get('body').get('items').get('item')
+
+    res = {}
+    if items != None:
+        for item in items:
+            code = len(res) + 1
+            place = item.get('galSearchKeyword').split(', ')
+            url = item.get('galWebImageUrl')
+            name = item.get('galTitle')
+            source = 'http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList'
+
+            res[code] = {
+                'pcode': code,
+                'purl': url,
+                'psource': source,
+                'pplace_pname': [place, name]
+            }
+
+    return Response(res, status=200)
+
+
+@api_view(['GET', ])
+def mango(request):
+    keyword = quote(request.GET.get('keyword', '광주'))
+    mango_url = f'https://www.mangoplate.com/search/{keyword}'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36',
+        'Referer': 'https://www.mangoplate.com/',
+    }
+    html = requests.get(mango_url, headers=headers).text
+
+    bs_object = bs(html, 'html.parser')
+    titles = bs_object.find_all('h2', class_='title')
+    images = bs_object.find_all('img', class_='center-croping lazy')
+
+    res = {}
+    for i in range(len(titles)):
+        code = i + 1
+        place = images[i]['alt'].split(' - ')[-1]
+        url = images[i]['data-original']
+        name = titles[i].get_text().replace('\n', '')
+        source = mango_url
+
+        res[code] = {
+            'pcode': code,
+            'purl': url,
+            'psource': source,
+            'pplace_pname': [place, name]
+        }
+
+    return Response(res, status=200)

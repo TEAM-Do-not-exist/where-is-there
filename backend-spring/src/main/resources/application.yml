@@ -21,19 +21,26 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/ssafy_project1?serverTimezone=UTC&useSSL=false&useUniCode=yes&characterEncoding=UTF-8
-<<<<<<< HEAD
     username: ssafy
-=======
-    username: root
->>>>>>> backend-spring-active
     password: ssafy
     dbcp2:
       max-idle: 20
   servlet:
     multipart:
       max-file-size: 2000
-        
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: sunghana92@gmail.com
+    password: 92tjddnjs93iu
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  messages:
+    basename: messages/message           
 
 mybatis:
   config-location: classpath:/mybatis/mybatisConfig.xml
-
