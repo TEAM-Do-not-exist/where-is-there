@@ -7,6 +7,7 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
 Vue.config.productionTip = false
+export const $EventBus = new Vue();
 
 new Vue({
   router,
