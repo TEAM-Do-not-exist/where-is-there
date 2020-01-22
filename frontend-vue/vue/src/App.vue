@@ -3,6 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       class=".d-flex"
+      temporary
       app
     >
       <v-list dense>

@@ -1,15 +1,35 @@
 <template>
-  <div>
+  <v-app>
+    <v-lazy
+    false
+    :options="{
+      threshold: .5
+    }"
+    min-height="1000"
+    transition="fade-transition">
       <v-container>
+        <!-- <div 
+        data-infinite-scroll='{ "path": ".pagination__next", "append": ".post", "history": false }'
+        > -->
         <div v-for="(item3, index) in imgs" :key="index">
             pcode : {{index+1}}
             <div v-for="(itemi,idx) in item3" :key="idx">  
+        <v-lazy
+        false
+        :options="{
+          threshold: .5
+        }"
+        min-height="200"
+        transition="fade-transition">
             <img width="100%" :src="itemi">
+        </v-lazy>
             </div>
         </div>
+        <!-- </div> -->
         <a @click="ax" href="#">click</a>
       </v-container>
-  </div>
+    </v-lazy>
+  </v-app>
 </template>
 
 <script>
@@ -17,7 +37,7 @@ import axios from 'axios'
 
 export default {
   data: () => ({
-    imsrg: null,
+    src: null,
     length: 100,
     tmp: [],
     imgs: [],
@@ -27,8 +47,6 @@ export default {
       axios
       .get('http://127.0.0.1:8000/instagram/?length='+this.length+'&target=tour') //여기에 url이 들어갑니다
       .then(response => {
-        this.arr = response.data.purl;
-        this.imsrg = response.data.images;
         this.src = response.data;
         for (let index = 1; index < 100; index++) {
           this.tmp.push(response.data[index])
