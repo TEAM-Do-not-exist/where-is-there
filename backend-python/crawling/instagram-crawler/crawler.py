@@ -60,11 +60,13 @@ def output(data, filepath):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Instagram Crawler", usage=usage())
+    parser = argparse.ArgumentParser(
+        description="Instagram Crawler", usage=usage())
     parser.add_argument(
         "mode", help="options: [posts, posts_full, profile, profile_script, hashtag]"
     )
-    parser.add_argument("-n", "--number", type=int, help="number of returned posts")
+    parser.add_argument("-n", "--number", type=int,
+                        help="number of returned posts")
     parser.add_argument("-u", "--username", help="instagram's username")
     parser.add_argument("-t", "--tag", help="instagram's tag name")
     parser.add_argument("-o", "--output", help="output file name(json format)")
@@ -93,7 +95,8 @@ if __name__ == "__main__":
     elif args.mode == "hashtag":
         arg_required("tag")
         output(
-            get_posts_by_hashtag(args.tag, args.number or 100, args.debug), args.output
+            get_posts_by_hashtag(
+                args.tag, args.number or 100, args.debug), args.output
         )
     else:
         usage()
