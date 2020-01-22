@@ -10,8 +10,10 @@ export default new router({
     mode : 'history',
     routes : [
         {
+            name : 'index',
             path : '/',
-            component : index
+            component : index,
+            alias : '/index'
         },
         {
             path : '/test',
