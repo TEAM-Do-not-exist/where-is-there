@@ -7,7 +7,7 @@
       app
     >
       <v-list dense>
-        <v-list-item router-link href="/">
+        <v-list-item @click="to_home">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
@@ -15,7 +15,7 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item router-link href="/signin">
+        <v-list-item @click="to_sign_in">
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
@@ -23,7 +23,7 @@
             <v-list-item-title>Sign in</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item router-link href="/test">
+        <v-list-item @click="to_test">
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
@@ -31,7 +31,7 @@
             <v-list-item-title>Administator page</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-          <v-list-item router-link href="/chat">
+          <v-list-item @click="to_chat">
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
@@ -40,7 +40,9 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-footer>
+      <v-footer
+        bottom
+      >
         ??
       </v-footer>
     </v-navigation-drawer>
@@ -102,15 +104,29 @@ export default {
       this.data.src = response;
     })
   },
-    computed: {
-      options () {
-        return {
-          duration: 300,
-          offset: 0,
-          easing: 0,
-        }
+  computed: {
+    options () {
+      return {
+        duration: 300,
+        offset: 0,
+        easing: 0,
       }
+    }
+  },
+  methods: {
+    to_home(){
+      this.$router.push('/')
     },
+    to_sign_in(){
+      this.$router.push('/signin')
+    },
+    to_test(){
+      this.$router.push('/testpage')
+    },
+    to_chat(){
+      this.$router.push('/chat')
+    },
+  }
 };
 </script>
 
