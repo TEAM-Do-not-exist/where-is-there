@@ -24,18 +24,40 @@
             </template>
           </v-img>
           <v-card-actions>
-            <v-btn color="blue" text>Check Information</v-btn>
+            <AdminPageModal :item="item" />
           </v-card-actions>
         </v-card>
       </v-container>
+
+      <!-- pagination -->
+      <!-- <div class="text-center">
+        <v-container>
+          <v-row justify="center">
+            <v-col cols="8">
+              <v-container class="max-width">
+                <v-pagination
+                  v-model="page"
+                  class="my-4"
+                  color="blue"
+                  :length="length"
+                ></v-pagination>
+              </v-container>
+            </v-col>
+          </v-row>
+        </v-container>
+      </div> -->
     </v-col>
   </v-app>
 </template>
 
 <script>
 import axios from "axios";
+import AdminPageModel from "./AdminPageModal.vue";
 
 export default {
+  components: {
+    AdminPageModal: AdminPageModel
+  },
   data: () => ({
     btnNames: {
       1: {
@@ -51,7 +73,10 @@ export default {
         length: 100
       }
     },
-    src: null
+    src: {}
+    // pagedSrc: {},
+    // page: 0,
+    // length: 0
   }),
   methods: {
     ax(name) {
@@ -63,6 +88,8 @@ export default {
         .get(url)
         .then(r => {
           this.src = r.data;
+          // this.page = 1;
+          // this.length = Object.keys(this.src).length / 10;
         })
         .catch();
     }
