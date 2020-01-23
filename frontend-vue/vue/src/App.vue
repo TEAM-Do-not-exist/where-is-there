@@ -6,15 +6,16 @@
       temporary
       app
     >
-      <v-header
-        absolute
-      >
-        <v-container>
-          <h3>
-            거기 어디니?
-          </h3>
-        </v-container>
-      </v-header>
+      <v-container>
+        <img 
+          width="80" 
+          @click="to_home"
+          src="https://lab.ssafy.com/uploads/-/system/appearance/header_logo/1/ssafy_logo.png"
+        >
+        <!-- <h3>
+          거기 어디니?
+        </h3> -->
+      </v-container>
       <v-list dense>
         <v-list-item @click="to_home">
           <v-list-item-action>
@@ -59,29 +60,29 @@
 
     <!-- <v-app-bar
       app
-      color="blue"
-      dark
+      light
+      flat
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <img width="40" src="https://lab.ssafy.com/uploads/-/system/appearance/header_logo/1/ssafy_logo.png">
       <v-toolbar-title>TEAM 404</v-toolbar-title>
     </v-app-bar> -->
-    <v-fab-transition>
+    
+
+    <v-content>
+      <router-view/>
+      <div>
       <v-btn
-        color="blue"
-        dark
-        fix
+        fixed
         top
         left
-        fab
+        class="elevation-0"
+        large
         @click.stop="drawer = !drawer"
       >
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-    </v-fab-transition>
-
-    <v-content>
-      <router-view/>
+      </div>
     </v-content>
     <v-footer
       color="blue"
@@ -155,4 +156,7 @@ export default {
 </script>
 
 <style>
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+  background-color : #fff0;
+}
 </style>
