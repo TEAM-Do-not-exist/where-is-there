@@ -1,7 +1,9 @@
 <template>
-  <div>
-    destroy~
-  </div>
+  <v-app>
+    <v-container>
+      destroy~
+    </v-container>
+  </v-app>
 </template>
 
 <script>
