@@ -41,7 +41,7 @@
             />
           </v-container>
           <p>
-            <a href="/signup">sign up</a>
+            <a @click="to_sign_up">sign up</a>
           </p>
           <v-btn
               :disabled="!valid"
@@ -125,6 +125,9 @@ export default {
     onSuccess,
     onFailure,
     callbackFunction,
+    to_sign_up() {
+      this.$router.push('/signup')
+    }
   }
 }
 
