@@ -6,6 +6,15 @@
       temporary
       app
     >
+      <v-header
+        absolute
+      >
+        <v-container>
+          <h3>
+            거기 어디니?
+          </h3>
+        </v-container>
+      </v-header>
       <v-list dense>
         <v-list-item @click="to_home">
           <v-list-item-action>
@@ -41,13 +50,14 @@
         </v-list-item>
       </v-list>
       <v-footer
+        absolute
         bottom
       >
         ??
       </v-footer>
     </v-navigation-drawer>
 
-    <v-app-bar
+    <!-- <v-app-bar
       app
       color="blue"
       dark
@@ -55,7 +65,20 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <img width="40" src="https://lab.ssafy.com/uploads/-/system/appearance/header_logo/1/ssafy_logo.png">
       <v-toolbar-title>TEAM 404</v-toolbar-title>
-    </v-app-bar>
+    </v-app-bar> -->
+    <v-fab-transition>
+      <v-btn
+        color="blue"
+        dark
+        fix
+        top
+        left
+        fab
+        @click.stop="drawer = !drawer"
+      >
+        <v-icon>mdi-menu</v-icon>
+      </v-btn>
+    </v-fab-transition>
 
     <v-content>
       <router-view/>
@@ -96,6 +119,7 @@ export default {
     src: null,
     easing: 'easeInOutCubic',
     easings: Object.keys(easings),
+    enter: true,
   }),
   mounted(){
     axios
@@ -121,11 +145,11 @@ export default {
       this.$router.push('/signin')
     },
     to_test(){
-      this.$router.push('/testpage')
+      this.$router.push('/test')
     },
     to_chat(){
       this.$router.push('/chat')
-    },
+    }
   }
 };
 </script>
