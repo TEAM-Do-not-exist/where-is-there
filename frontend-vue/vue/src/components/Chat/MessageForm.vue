@@ -12,20 +12,20 @@
 
 <script>
 export default {
-  name: 'MessageForm',
+  name: "MessageForm",
   data() {
     return {
-      msg: '',
+      msg: ""
     };
   },
   methods: {
     submitMessageFunc() {
       if (this.msg.length === 0) return false;
-      this.$emit('submitMessage', this.msg);
-      this.msg = '';
+      this.$emit("submitMessage", this.msg);
+      this.msg = "";
       return true;
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -1,56 +1,56 @@
 <template>
   <div class="inner-wrap" fluid fill-height inner-wrap>
     <Message-List :msgs="msgDatas" class="msg-list"></Message-List>
-    <Message-From v-on:submitMessage="sendMessage" class="msg-form" ></Message-From>
+    <Message-From v-on:submitMessage="sendMessage" class="msg-form"></Message-From>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
-import MessageList from '@/components/Chat/MessageList.vue';
-import MessageForm from '@/components/Chat/MessageForm.vue';
-import Constant from '@/Constant';
+import { mapMutations, mapState } from "vuex";
+import MessageList from "@/components/Chat/MessageList.vue";
+import MessageForm from "@/components/Chat/MessageForm.vue";
+import Constant from "@/Constant";
 
 export default {
-  name: 'ChatRoom',
+  name: "ChatRoom",
   data() {
     return {
-      datas: [],
+      datas: []
     };
   },
   components: {
-    'Message-List': MessageList,
-    'Message-From': MessageForm,
+    "Message-List": MessageList,
+    "Message-From": MessageForm
   },
   computed: {
     ...mapState({
-      msgDatas: state => state.socket.msgDatas,
-    }),
+      msgDatas: state => state.socket.msgDatas
+    })
   },
   created() {
     const $ths = this;
-    this.$socket.on('chat', (data) => {
+    this.$socket.on("chat", data => {
       this.pushMsgData(data);
       $ths.datas.push(data);
     });
   },
   methods: {
     ...mapMutations({
-      pushMsgData: Constant.PUSH_MSG_DATA,
+      pushMsgData: Constant.PUSH_MSG_DATA
     }),
     sendMessage(msg) {
       this.pushMsgData({
         from: {
-          name: '나:',
+          name: "나:"
         },
-        msg,
+        msg
       });
       this.$sendMessage({
         name: this.$route.params.username,
-        msg,
+        msg
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

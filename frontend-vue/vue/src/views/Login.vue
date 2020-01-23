@@ -5,23 +5,21 @@
 </template>
 
 <script>
-import LoginForm from '@/components/Login/LoginForm.vue';
+import LoginForm from "@/components/Login/LoginForm.vue";
 
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
-    return {
-    };
+    return {};
   },
   components: {
-    'Loginform-component': LoginForm,
+    "Loginform-component": LoginForm
   },
-  created() {
-  },
+  created() {},
   methods: {
     joinSubmit(userName) {
       this.$router.push(`/char-room/${userName}`);
-    },
-  },
+    }
+  }
 };
 </script>
