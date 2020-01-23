@@ -4,8 +4,8 @@
 
 ### 이번 주에 할 일
 
-- django 기본 세팅 진행
+1. django 기본 세팅 진행
 
-- django에 mysql 연결
+2. django에 mysql 연결
 
-- django instagram crawling 테스트
+3. django instagram crawling 테스트
