@@ -1,11 +1,12 @@
 import vue from 'vue';
 import router from 'vue-router';
-import index from './components/index';
-import testpage from './components/testpage';
+import index from './components/Basic/index';
+import testpage from './components/Basic/testpage';
 import Login from './views/Login.vue';
 import ChatRoom from './views/ChatRoom.vue';
-import signin from './components/SignIn';
-import signup from './components/SignUp';
+import signin from './components/Basic/SignIn';
+import signup from './components/Basic/SignUp';
+import error from './components/Error/errorpage';
 vue.use(router);
 
 export default new router({
@@ -38,6 +39,10 @@ export default new router({
             path: '/char-room/:username',
             name: 'ChatRoom',
             component: ChatRoom,
+        },
+        {
+            path: '*',
+            component: error
         },
     ]
 })
