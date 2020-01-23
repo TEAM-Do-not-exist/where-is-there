@@ -1,7 +1,9 @@
 <template>
   <v-app id="inspire">
     <v-container>
-      <v-card>
+      <v-card
+        flat
+      >
         <v-card-title>
           <h1>SIGN IN</h1>
         </v-card-title>
@@ -47,10 +49,10 @@
               :disabled="!valid"
               @click="submit"
               color="indigo"
+              right
           >
               Sign in
           </v-btn>
-          <v-btn @click="clear">clear</v-btn>
           
           </v-form>
         </v-card-text>
