@@ -4,6 +4,8 @@ import index from './components/index';
 import testpage from './components/testpage';
 import Login from './views/Login.vue';
 import ChatRoom from './views/ChatRoom.vue';
+import signin from './components/SignIn';
+import signup from './components/SignUp';
 vue.use(router);
 
 export default new router({
@@ -23,11 +25,19 @@ export default new router({
             path: '/chat',
             name: 'Login',
             component: Login,
-          },
-          {
+        },
+        {
+            path : '/signin',
+            component : signin
+        },
+        {
+            path: '/signup',
+            component: signup,
+        },
+        {
             path: '/char-room/:username',
             name: 'ChatRoom',
             component: ChatRoom,
-          },
+        },
     ]
 })
