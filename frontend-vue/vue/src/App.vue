@@ -58,20 +58,20 @@
       </v-footer>
     </v-navigation-drawer>
 
-    <!-- <v-app-bar
+    <v-app-bar
       app
       light
       flat
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <img width="40" src="https://lab.ssafy.com/uploads/-/system/appearance/header_logo/1/ssafy_logo.png">
-      <v-toolbar-title>TEAM 404</v-toolbar-title>
-    </v-app-bar> -->
+      <!-- <img width="40" src="https://lab.ssafy.com/uploads/-/system/appearance/header_logo/1/ssafy_logo.png">
+      <v-toolbar-title>TEAM 404</v-toolbar-title> -->
+    </v-app-bar>
     
 
     <v-content>
       <router-view/>
-      <div>
+      <!-- <div>
       <v-btn
         fixed
         top
@@ -82,8 +82,9 @@
       >
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-      </div>
+      </div> -->
     </v-content>
+    
     <v-footer
       color="blue"
       app
@@ -156,7 +157,10 @@ export default {
 </script>
 
 <style>
-.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+/* .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+  background-color : #fff0;
+} */
+.theme--light.v-sheet{
   background-color : #fff0;
 }
 </style>
