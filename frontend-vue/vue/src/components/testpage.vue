@@ -1,63 +1,73 @@
 <template>
   <v-app>
-    <v-lazy
-    false
-    :options="{
-      threshold: .5
-    }"
-    min-height="1000"
-    transition="fade-transition">
+    <v-col cols="12" md="6" sm="12">
+      <!-- 정보를 요청할 v-btn -->
+      <v-row no-gutters>
+        <v-col v-for="(name, idx) in btnNames" :key="idx" md="6" sm="12">
+          <v-btn dark @click="ax(name)" :block="true" color="blue">{{
+            name.name
+          }}</v-btn>
+        </v-col>
+      </v-row>
+
+      <!-- 정보를 보여주는 공간 -->
       <v-container>
-        <div v-for="(item3, index) in imgs" :key="index">
-            pcode : {{index+1}}
-            <div v-for="(itemi,idx) in item3" :key="idx">  
-        <v-lazy
-        false
-        :options="{
-          threshold: .5
-        }"
-        min-height="200"
-        transition="fade-transition">
-            <img width="100%" :src="itemi">
-        </v-lazy>
-            </div>
-        </div>
-        <a @click="ax" href="#">click</a>
+        <v-card v-for="item in src" :key="item.pcode" class="mx-auto">
+          <v-img height="400px" position="center center" :src="item.purl[0]">
+            <template v-slot:placeholder>
+              <v-row class="fill-height ma-0" align="center" justify="center">
+                <v-progress-circular
+                  indeterminate
+                  color="blue-grey darken-4"
+                ></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
+          <v-card-actions>
+            <v-btn color="blue" text>Check Information</v-btn>
+          </v-card-actions>
+        </v-card>
       </v-container>
-    </v-lazy>
+    </v-col>
   </v-app>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   data: () => ({
-    src: null,
-    length: 100,
-    tmp: [],
-    imgs: [],
+    btnNames: {
+      1: {
+        name: "travelholic",
+        url: "instagram",
+        target: "tour",
+        length: 100
+      },
+      2: {
+        name: "greedeat",
+        url: "instagram",
+        target: "eat",
+        length: 100
+      }
+    },
+    src: null
   }),
-  methods:{
-    ax() {
+  methods: {
+    ax(name) {
+      const basicUrl = "http://127.0.0.1:8000/";
+      const basicLength = "/?length=" + name.length;
+      const basicTarget = "&target=" + name.target;
+      const url = basicUrl + name.url + basicLength + basicTarget;
       axios
-      .get('http://127.0.0.1:8000/instagram/?length='+this.length+'&target=tour') //여기에 url이 들어갑니다
-      .then(response => {
-        this.src = response.data;
-        for (let index = 1; index < 100; index++) {
-          this.tmp.push(response.data[index])
-        }
-        for (let index = 0; index < 99; index++) {
-          this.imgs.push(this.tmp[index]['purl'])
-        }
-      })
+        .get(url)
+        .then(r => {
+          this.src = r.data;
+        })
+        .catch();
     }
-  },
-  mounted(){
-    this.ax();
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>
