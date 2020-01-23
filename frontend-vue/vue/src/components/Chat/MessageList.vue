@@ -1,6 +1,6 @@
 <template>
   <v-list v-auto-bottom="msgs">
-    <transition-group name="list" >
+    <transition-group name="list">
       <div v-for="(msg,index) in msgs" v-bind:key="index">
         <v-list-tile>
           <v-list-tile-action>
@@ -18,8 +18,8 @@
 
 <script>
 export default {
-  name: 'MessageList',
-  props: ['msgs'],
+  name: "MessageList",
+  props: ["msgs"]
 };
 </script>
 
@@ -28,7 +28,8 @@ export default {
   display: inline-block;
   margin-right: 10px;
 }
-.list-enter-active, .list-leave-active {
+.list-enter-active,
+.list-leave-active {
   transition: all 1s;
 }
 .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
