@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ssafy.comment">
+	<insert id="insert" parameterType="CommentDTO">
+		insert into comment 
+		(ccode,cid,content,ctime)
+		values(
+			#{ccode},
+			#{cid},
+			#{content},
+			now()
+		)
+	</insert>
+	
+	<select id="selectMyList" resultType="CommentDTO">
+		select * from comment where cid = #{cid}
+	</select>
+		<select id="selectPhotoList" resultType="CommentDTO">
+		select * from comment where ccode = #{ccode}
+	</select>
+	
+	<delete id="delete" parameterType="CommentDTO">
+		delete from comment where ccode = #{ccode} and cid = #{cid}
+	</delete>
+	
+	<update id="update" parameterType="CommentDTO">
+		update comment 
+		set content = #{content}, ctime=now()
+		where ccode = #{ccode} and cid = #{cid}
+	</update>
+
+</mapper>

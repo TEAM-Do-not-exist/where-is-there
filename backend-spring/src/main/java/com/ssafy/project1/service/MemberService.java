@@ -17,4 +17,6 @@ public interface MemberService {
 	//id에 따른 검색했을때 전체정보
 	public int selectOneIdPw(MemberDTO dto);
 	//id와 pw가 맞으면 1을 출력 없으면 해당사항이 없으면 0을 출력
+	public int duplicateCheckId(MemberDTO dto);
+	//아이디 중복체크
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssafy.emailauth">
+
+	<insert id="insert" parameterType="MemberDTO">
+		insert into email_auth values(
+			#{id},
+			#{email},
+			#{auth_key},
+			date_add(now(),interval 5 minute),
+			false
+		)
+	</insert>
+	<delete id="delete" parameterType="string">
+		delete from email_auth where id = #{id}
+	</delete>
+	<delete id="delete_useless">
+<!-- 		set sql_safe_updates=0;
+ -->		
+ 		delete  from email_auth where now() >= time_expire or auth_check=true;
+	</delete>
+	<update id="update_key" parameterType="EmailAuthDTO">
+		update email_auth set 
+							auth_key=#{auth_key},
+							time_expire=date_add(now(),interval 5 minute)
+		where id=#{id}
+	</update>
+	<update id="update_check" parameterType="EmailAuthDTO">
+		update email_auth set auth_check=true
+		where id=#{id}
+	</update>
+	<!--인증 재요청  -->
+	<select id="selectList" resultType="EmailAuthDTO">
+		select * from email_auth
+	</select>
+	<select id="selectOne" parameterType="EmailAuthDTO" resultType="EmailAuthDTO">
+		select * from email_auth where id=#{id}
+	</select>
+	
+	<select id="selectOneIdTime" parameterType="EmailAuthDTO" resultType="EmailAuthDTO">
+		select * from email_auth where id=#{id} and auth_key=#{auth_key} and time_expire >= now()
+	</select>
+	
+	<select id="exists_check_member" parameterType="EmailAuthDTO" resultType="SuccessTemp">
+		select exists (select * from mem_p1 where id=#{id}) as success
+	</select>
+	<select id="exists_check_email_auth"  parameterType="EmailAuthDTO" resultType="SuccessTemp">
+		select exists (select * from email_auth where id=#{id}) as success
+	</select>
+</mapper>

@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/django,python,windows,visualstudiocode
-# Edit at https://www.gitignore.io/?templates=django,python,windows,visualstudiocode
+# Created by https://www.gitignore.io/api/venv,django,python,windows,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=venv,django,python,windows,visualstudiocode
 
 ### Django ###
 *.log
@@ -166,6 +166,19 @@ dmypy.json
 
 # Pyre type checker
 
+### venv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+pyvenv.cfg
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pip-selfcheck.json
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -203,4 +216,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/django,python,windows,visualstudiocode
+# End of https://www.gitignore.io/api/venv,django,python,windows,visualstudiocode
