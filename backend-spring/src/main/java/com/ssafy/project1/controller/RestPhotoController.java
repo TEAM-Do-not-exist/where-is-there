@@ -66,7 +66,7 @@ public class RestPhotoController {
 	}
 
 	@PutMapping("/update")
-	@ApiOperation(value="id를 받아 board 수정 서비스")
+	@ApiOperation(value="code에 맞는 사진의 정보 수정 서비스")
 	public ResponseEntity<Map<String,Object>> photoUpdate(@RequestBody PhotoDTO dto) {
 		ResponseEntity<Map<String, Object>> resEntity = null;
 

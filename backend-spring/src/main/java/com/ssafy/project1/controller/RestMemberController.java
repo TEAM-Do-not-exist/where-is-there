@@ -47,7 +47,7 @@ public class RestMemberController {
 		return resEntity;
 	}
 	@DeleteMapping("/delete/{id}")
-	@ApiOperation(value="member 삭제 서비스")
+	@ApiOperation(value="member id를 입력하여 삭제하는 서비스")
 	public ResponseEntity<Map> memDelete(@PathVariable("id")String id){
 		ResponseEntity<Map> resEntity=null;
 		try {
@@ -65,7 +65,7 @@ public class RestMemberController {
 	}
 
 	@PutMapping("/update")
-	@ApiOperation(value="id를 받아 board 수정 서비스")
+	@ApiOperation(value="id를 받아 회원정보 수정 서비스")
 	public ResponseEntity<Map<String,Object>> update(@RequestBody MemberDTO dto) {
 		ResponseEntity<Map<String, Object>> resEntity = null;
 
@@ -101,7 +101,7 @@ public class RestMemberController {
 		return resEntity;
 	}
 	@GetMapping("/selectOneId/{id}")
-	@ApiOperation(value="member 조회 서비스")
+	@ApiOperation(value="member id를 입력하여 회원정보 조회")
 	public ResponseEntity<Map> memSelectOneId(@PathVariable("id")String id){
 		ResponseEntity<Map> resEntity=null;
 		try {
@@ -109,7 +109,7 @@ public class RestMemberController {
 			dto.setId(id);
 			MemberDTO selectOneId = memSer.selectOneId(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
-			msg.put("regmsg", "조회했습니다");
+			msg.put("regmsg", "조회 성공");
 			msg.put("resvalue",selectOneId);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
@@ -120,7 +120,7 @@ public class RestMemberController {
 		return resEntity;
 	}
 	@GetMapping("/selectOneIdPw/{id}/{pw}")
-	@ApiOperation(value="member 조회 서비스")
+	@ApiOperation(value="member id와 pw를 입력하여 그에 맞는 멤버가 있으면 1 없으면 0을 반환하는 서비스")
 	public ResponseEntity<Map> memSelectOneId(@PathVariable("id")String id,@PathVariable("pw")String pw){
 		ResponseEntity<Map> resEntity=null;
 		try {
@@ -131,6 +131,25 @@ public class RestMemberController {
 			Map<String,Object> msg = new HashMap<String, Object>();
 			msg.put("regmsg", "조회했습니다");
 			msg.put("resvalue",selectOneIdPw);
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}catch(RuntimeException e) {
+			Map<String, Object> msg = new HashMap<String, Object>();
+			msg.put("resmsg","조회실패");
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}
+		return resEntity;
+	}
+	@GetMapping("/duplicateCheckId/{id}")
+	@ApiOperation(value="member id 중복 체크 아이디 생성가능하면 1을 반환 불가능하면 -1을 반환")
+	public ResponseEntity<Map> duplicateCheckId(@PathVariable("id")String id){
+		ResponseEntity<Map> resEntity=null;
+		try {
+			MemberDTO dto = new MemberDTO();
+			dto.setId(id);
+			int duplicateCheckId = memSer.duplicateCheckId(dto);
+			Map<String,Object> msg = new HashMap<String, Object>();
+			msg.put("regmsg", "조회 성공");
+			msg.put("resvalue",duplicateCheckId);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
