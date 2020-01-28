@@ -1,6 +1,7 @@
 import vue from "vue";
 import router from "vue-router";
 import index from "./components/Basic/index";
+
 import Admin from "./components/Admin/Admin";
 import Login from "./views/Login.vue";
 import ChatRoom from "./views/ChatRoom.vue";
@@ -19,6 +20,7 @@ export default new router({
       alias: "/index"
     },
     {
+
       path: "/admin",
       component: Admin
     },
