@@ -30,7 +30,7 @@ public class RestMemberController {
 	MemberService memSer;
 	
 	@PostMapping("/insert")
-	@ApiOperation(value="member 등록 서비스")
+	@ApiOperation(value="member 등록 서비스 / 입력: id,pw,name,email,phone / 결과: 성공시 1")
 	public ResponseEntity<Map> memInsert(@RequestBody MemberDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		try {
@@ -65,7 +65,7 @@ public class RestMemberController {
 	}
 
 	@PutMapping("/update")
-	@ApiOperation(value="id를 받아 회원정보 수정 서비스")
+	@ApiOperation(value="id를 받아 회원정보 수정 서비스 / 입력: id, pw, name, email, phone / 결과 : 성공시 1")
 	public ResponseEntity<Map<String,Object>> update(@RequestBody MemberDTO dto) {
 		ResponseEntity<Map<String, Object>> resEntity = null;
 

@@ -34,7 +34,7 @@ public class RestCommentController {
 	ICommentService comSer;
 	
 	@PostMapping("/insert")
-	@ApiOperation(value="comment 등록 서비스")
+	@ApiOperation(value="comment 등록 서비스 / 입력: cid, ccode, content / 결과 : 성공시 1")
 	public ResponseEntity<Map> memInsert(@RequestBody CommentDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		try {

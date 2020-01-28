@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ssafy.photo">
 	<insert id="insert" parameterType="PhotoDTO">
-		insert into photo values(
-			#{pcode},
+		insert into photo(pplace,purl,pname,psource)
+		values(
 			#{pplace},
 			#{purl},
 			#{pname},
@@ -23,7 +23,13 @@
 		where pcode=#{pcode}
 	</update>
 	<select id="selectList" resultType="PhotoDTO">
-		select * from photo order by pcode desc;
+		select pcode, pplace, purl, pname, psource, ifnull(cnt,0) favorite_cnt
+		from photo p left join (
+			select * ,count(*) cnt
+			from favorite
+			group by fcode
+		) s1 on p.pcode=s1.fcode
+		order by pcode desc;
 		
 	</select>
 	<select id="selectListFavorite" resultType="PhotoDTO">
