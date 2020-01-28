@@ -139,11 +139,12 @@
       this.$socket.on("chat", data => {
         this.pushMsgData(data);
         $ths.datas.push(data);
-      });
-    to_admin() {
-      this.$router.push("/admin");
-    },
+      });},
+      
     methods: {
+      to_admin() {
+        this.$router.push("/admin");
+      },
       to_home() {
         this.$router.push("/");
       },
