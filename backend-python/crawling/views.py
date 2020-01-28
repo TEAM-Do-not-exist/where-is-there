@@ -17,13 +17,13 @@ output = './crawling/output'
 
 # crawling feat. travelholic
 def crawling_info(info, idx, filename):
-    source = info.get('key')
-    datas = Photo.objects.filter(psource=source)
+    url = info.get('key')
+    datas = Photo.objects.filter(purl=url)
 
     # there is not duplicated tour info
     if len(datas) == 0:
         code = idx + 1
-        url = info.get('img_urls')
+        source = info.get('img_urls')
         words = info.get('caption')
 
         hashtags = []
@@ -125,8 +125,8 @@ def instagram(request):
                 json_datas = json.load(f)
 
             for key, val in json_datas.items():
-                source = val['psource']
-                datas = Photo.objects.filter(psource=source)
+                url = val['purl']
+                datas = Photo.objects.filter(purl=url)
                 if len(datas) < 1:
                     res[key] = val
             # # just unpack this line for service
