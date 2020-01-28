@@ -33,13 +33,16 @@ def crawling_info(info, idx, filename):
                 if words[i] == '#':
                     for j in range(i + 1, len(words)):
                         if words[j] in [' ', '#']:
-                            hashtags.append(words[i + 1:j])
+                            word = words[i + 1:j]
+                            if word != '':
+                                hashtags.append(word)
                             break
 
-        return code, url, source, hashtags
-    else:
-        # or return original info
-        return [False] * 4
+        if hashtags != []:
+            return code, url, source, hashtags
+
+    # or return original info
+    return [None] * 4
 
 
 def crawling(target, length, filename):
@@ -65,7 +68,7 @@ def crawling(target, length, filename):
     res = {}
     for data in datas:
         code, url, source, hashtags = crawling_info(data, len(res), filename)
-        if code != False:
+        if hashtags != None:
             res[code] = {
                 'pcode': code,
                 'purl': url,
