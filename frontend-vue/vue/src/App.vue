@@ -28,7 +28,7 @@
             <v-list-item-title>Sign in</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click="to_test">
+        <v-list-item @click="to_adminpage">
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
@@ -120,8 +120,8 @@ export default {
     to_sign_in() {
       this.$router.push("/signin");
     },
-    to_test() {
-      this.$router.push("/test");
+    to_adminpage() {
+      this.$router.push("/adminpage");
     },
     to_chat() {
       this.$router.push("/chat");

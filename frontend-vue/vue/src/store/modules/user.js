@@ -3,7 +3,7 @@ import axios from 'axios'
 const resourceHost = 'http://localhost:9090'
 const resourceUrl = 'api/login'
 
-const enhanceAccessToeken = () => {
+const enhanceAccessToken = () => {
   const {accessToken} = localStorage
   if (!accessToken) return
   axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
@@ -21,7 +21,7 @@ const actions = {
       .post(`${resourceHost}/${resourceUrl}`, {id, password})
       .then(({data}) => {
         commit('LOGIN', data)
-        enhanceAccessToeken()
+        enhanceAccessToken()
       })
   },
   LOGOUT ({commit}) {
