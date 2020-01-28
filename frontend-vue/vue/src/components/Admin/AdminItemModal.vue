@@ -1,9 +1,18 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" persistent max-width="600px">
+    <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="600px"
+      overlay-color="white"
+      overlay-opacity="1"
+    >
+      <!-- modal open button -->
       <template v-slot:activator="{ on }">
         <v-btn color="blue" text v-on="on">Check Information</v-btn>
       </template>
+
+      <!-- modal information -->
       <v-card>
         <!-- head -->
         <v-card-title>
@@ -15,11 +24,13 @@
             v-for="(url, idx) in item.purl"
             :key="idx"
             :src="url"
-            @click="setValidation(url)"
+            @click="setUrl(url)"
             reverse-transition="fade-transition"
             transition="fade-transition"
           ></v-carousel-item>
         </v-carousel>
+
+        <!-- body -->
         <v-card-text>
           <v-container>
             <v-row>
@@ -27,9 +38,9 @@
               <v-col cols="12" sm="12" md="6">
                 <v-autocomplete
                   :items="item.pplace_pname"
+                  :rules="[v => !!v || 'Place is required']"
+                  v-model="selectedPlace"
                   label="Place Name*"
-                  hint="add place name from given texts"
-                  persistent-hint
                   required
                 ></v-autocomplete>
               </v-col>
@@ -37,15 +48,16 @@
               <v-col cols="12" sm="12" md="6">
                 <v-autocomplete
                   :items="item.pplace_pname"
-                  label="Important Name*"
-                  hint="add important hashtag from given texts"
-                  persistent-hint
+                  :rules="[v => !!v || 'Hashtag is required']"
+                  v-model="selectedHashtag"
+                  label="Hashtag Name*"
                   required
                 ></v-autocomplete>
               </v-col>
               <!-- check url -->
               <v-col cols="12">
                 <v-text-field
+                  :rules="[v => !!v || 'Image url is required']"
                   v-model="selectedUrl"
                   label="Selected Image Url*"
                   required
@@ -54,7 +66,8 @@
               <!-- check source -->
               <v-col cols="12">
                 <v-text-field
-                  v-model="item.psource"
+                  :rules="[v => !!v || 'Source url is required']"
+                  v-model="selectedSource"
                   label="Source Url*"
                   required
                 ></v-text-field>
@@ -62,12 +75,12 @@
             </v-row>
           </v-container>
         </v-card-text>
+
+        <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false"
-            >Close</v-btn
-          >
-          <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+          <v-btn :disabled="!validated" color="blue darken-1" text @click="ax(item)">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -75,21 +88,54 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
-    validateUrl: "",
+    selectedPlace: null,
+    selectedHashtag: null,
     selectedUrl: "",
-    validateSource: "",
     selectedSource: "",
-    itemList: [],
     dialog: false
   }),
   props: {
     item: Object
   },
   methods: {
-    setValidation(url) {
-      return (this.selectedUrl = this.validateUrl = url);
+    setUrl(url) {
+      return (
+        (this.selectedUrl = url), (this.selectedSource = this.item.psource)
+      );
+    },
+    ax() {
+      const basicUrl = "http://127.0.0.1:8090/";
+      const addUrl = "api/photo/insert";
+      const data = {
+        pname: this.selectedHashtag,
+        pplace: this.selectedPlace,
+        psource: this.selectedSource,
+        purl: this.selectedUrl
+      };
+      axios
+        .post(basicUrl + addUrl, data)
+        .then(r => {
+          if (r.data.regmsg === "입력했습니다") {
+            this.$emit("onInsert");
+          }
+        })
+        .catch();
+      this.$emit("onInsert", this.item);
+      return (this.dialog = false);
+    }
+  },
+  computed: {
+    validated() {
+      return (
+        this.selectedPlace &&
+        this.selectedHashtag &&
+        this.selectedUrl &&
+        this.selectedSource
+      );
     }
   }
 };
