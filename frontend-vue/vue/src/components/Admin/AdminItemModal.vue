@@ -80,6 +80,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+          <v-btn :disabled="!this.selectedSource" color="red darken-1" text @click="deny(item)">Deny</v-btn>
           <v-btn :disabled="!validated" color="blue darken-1" text @click="ax(item)">Save</v-btn>
         </v-card-actions>
       </v-card>
@@ -114,17 +115,30 @@ export default {
         psource: this.selectedUrl, // 이쪽이 사진에 대한 정보
         purl: this.selectedSource // 이쪽이 출처에대한 정보
       };
-      console.log(data);
       axios
         .post(basicUrl + addUrl, data)
         .then(r => {
-          console.log(r);
           if (r.data.regmsg === "입력했습니다") {
-            this.$emit("onInsert");
+            this.$emit("onInsert", item);
           }
         })
         .catch();
-      this.$emit("onInsert", item);
+      return (this.dialog = false);
+    },
+    deny(item) {
+      const basicUrl = "http://127.0.0.1:8090/";
+      const addUrl = "api/photocheck/insert";
+      const data = {
+        purl: this.selectedSource // 이쪽이 출처에대한 정보
+      };
+      axios
+        .post(basicUrl + addUrl, data)
+        .then(r => {
+          if (r.data.regmsg === "입력했습니다") {
+            this.$emit("onInsert", item);
+          }
+        })
+        .catch();
       return (this.dialog = false);
     }
   },
