@@ -17,8 +17,6 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 	@Override
 	public int insert(PhotoDTO dto) {
 		// TODO Auto-generated method stub
-		System.out.println(dto.getPcode());
-		System.out.println(dto.getPname());
 		return session.insert("ssafy.photo.insert",dto);
 	}
 

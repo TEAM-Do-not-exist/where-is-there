@@ -12,10 +12,15 @@ create table mem_p1(
 create table photo(
 	pcode int comment '코드' auto_increment primary key,
     pplace varchar(300) comment '장소',
-    purl varchar(300) comment 'URL' unique,
+    purl varchar(500) comment 'URL' unique,
     pname varchar(200) comment '상호명',
-    psource varchar(200) comment '출처'
+    psource varchar(500) comment '출처'
 ) comment='크롤링정보';
+
+create table photo_check(
+	pcode int comment '코드' auto_increment primary key,
+    purl varchar(500) comment 'URL' unique
+) comment='크롤링정보-관리자가 검열할 전체 사진';
 
 create table comment(
 	cid varchar(30) COMMENT '아이디',

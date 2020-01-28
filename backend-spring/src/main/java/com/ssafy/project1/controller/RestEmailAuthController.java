@@ -29,7 +29,7 @@ public class RestEmailAuthController {
 	EmailAuthService emailAuthSer;
 	
 	@PostMapping("/request")
-	@ApiOperation(value="이메일 인증 요청 서비스")
+	@ApiOperation(value="이메일 인증 요청 서비스 - 입력한 이메일로 인증번호가 보내진다 / 입력: id(이 싸이트의 아이디),email(인증번호를 보낼 이메일주소)")
 	public ResponseEntity<Map> request_auth(@RequestBody EmailAuthDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		try {
@@ -53,7 +53,7 @@ public class RestEmailAuthController {
 		return resEntity;
 	}
 	@PostMapping("/request_re")
-	@ApiOperation(value="이메일 인증 재요청 서비스")
+	@ApiOperation(value="이메일 인증 재요청 서비스 - 이메일로 인증번호가 보내진다 / 입력: id(이 싸이트의 아이디),email(인증번호를 보낼 이메일주소)")
 	public ResponseEntity<Map> request_auth_re(@RequestBody EmailAuthDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		try {
@@ -78,7 +78,7 @@ public class RestEmailAuthController {
 	}
 	
 	@PutMapping("/auth_check")
-	@ApiOperation(value="인증 확인 서비스")
+	@ApiOperation(value="인증 확인 서비스 - 아이디와 인증번호가 일치하는지 확인 / 입력: id, auth_key / 결과 : 성공시 1 실패시 -1 또는 안나올수도 있음")
 	public ResponseEntity<Map> auth_check(@RequestBody EmailAuthDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		try {

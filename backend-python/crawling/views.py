@@ -17,13 +17,13 @@ output = './crawling/output'
 
 # crawling feat. travelholic
 def crawling_info(info, idx, filename):
-    source = info.get('key')
-    datas = Photo.objects.filter(psource=source)
+    url = info.get('key')
+    datas = Photo.objects.filter(purl=url)
 
     # there is not duplicated tour info
     if len(datas) == 0:
         code = idx + 1
-        url = info.get('img_urls')
+        source = info.get('img_urls')
         words = info.get('caption')
 
         hashtags = []
@@ -33,13 +33,16 @@ def crawling_info(info, idx, filename):
                 if words[i] == '#':
                     for j in range(i + 1, len(words)):
                         if words[j] in [' ', '#']:
-                            hashtags.append(words[i + 1:j])
+                            word = words[i + 1:j]
+                            if word != '':
+                                hashtags.append(word)
                             break
 
-        return code, url, source, hashtags
-    else:
-        # or return original info
-        return [False] * 4
+        if hashtags != []:
+            return code, url, source, hashtags
+
+    # or return original info
+    return [None] * 4
 
 
 def crawling(target, length, filename):
@@ -65,7 +68,7 @@ def crawling(target, length, filename):
     res = {}
     for data in datas:
         code, url, source, hashtags = crawling_info(data, len(res), filename)
-        if code != False:
+        if hashtags != None:
             res[code] = {
                 'pcode': code,
                 'purl': url,
@@ -119,7 +122,13 @@ def instagram(request):
         else:
             # just unpack this line for test
             with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
-                res = json.load(f)
+                json_datas = json.load(f)
+
+            for key, val in json_datas.items():
+                url = val['purl']
+                datas = Photo.objects.filter(purl=url)
+                if len(datas) < 1:
+                    res[key] = val
             # # just unpack this line for service
             # return Response(res, status=200)
 

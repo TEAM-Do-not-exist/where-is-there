@@ -4,6 +4,9 @@ from django.db import models
 
 
 class Photo(models.Model):
+    class Meta:
+        db_table = 'photo'
+
     pcode = models.AutoField(primary_key=True)
     pplace = models.CharField(max_length=50)
     purl = models.TextField()
