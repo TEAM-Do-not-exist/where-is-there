@@ -79,7 +79,6 @@
 
 <script>
   import * as easings from "vuetify/es5/services/goto/easing-patterns";
-  import 'expose-loader?$!expose-loader?jQuery!jquery';
   import axios from "axios";
   import {
     mapMutations,
@@ -140,7 +139,7 @@
         this.pushMsgData(data);
         $ths.datas.push(data);
       });},
-      
+
     methods: {
       to_admin() {
         this.$router.push("/admin");
