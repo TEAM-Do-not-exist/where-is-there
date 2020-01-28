@@ -1,7 +1,6 @@
 import vue from "vue";
 import router from "vue-router";
 import index from "./components/Basic/index";
-import testpage from "./components/Basic/testpage";
 import Login from "./views/Login.vue";
 import ChatRoom from "./views/ChatRoom.vue";
 import signin from "./components/Basic/SignIn";
@@ -17,10 +16,6 @@ export default new router({
       path: "/",
       component: index,
       alias: "/index"
-    },
-    {
-      path: "/test",
-      component: testpage
     },
     {
       path: "/chat",
