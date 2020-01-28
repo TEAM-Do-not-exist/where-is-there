@@ -10,7 +10,6 @@
             <v-list-tile-title>{{msg.msg}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-divider inset></v-divider>
       </div>
     </transition-group>
   </v-list>
