@@ -31,7 +31,7 @@ public class RestFavoriteController {
 	IFavoriteService favSer;
 	
 	@PostMapping("/insert")
-	@ApiOperation(value="좋아요 등록 서비스")
+	@ApiOperation(value="좋아요 등록 서비스 / 입력: fcode(사진의 코드), fid(회원의 id)")
 	public ResponseEntity<Map> memInsert(@RequestBody FavoriteDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		try {

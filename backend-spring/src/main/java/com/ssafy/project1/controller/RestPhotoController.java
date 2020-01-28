@@ -31,7 +31,7 @@ public class RestPhotoController {
 	PhotoService photoSer;
 	
 	@PostMapping("/insert")
-	@ApiOperation(value="photo 등록 서비스")
+	@ApiOperation(value="photo 등록 서비스 / 입력: pplace, purl, pname, psource / 출력 : 성공시 1")
 	public ResponseEntity<Map> photoInsert(@RequestBody PhotoDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		try {
@@ -66,7 +66,7 @@ public class RestPhotoController {
 	}
 
 	@PutMapping("/update")
-	@ApiOperation(value="code에 맞는 사진의 정보 수정 서비스")
+	@ApiOperation(value="code에 맞는 사진의 정보 수정 서비스 / 입력: pcode, pplace, purl, pname, psource / 출력: 성공시 1")
 	public ResponseEntity<Map<String,Object>> photoUpdate(@RequestBody PhotoDTO dto) {
 		ResponseEntity<Map<String, Object>> resEntity = null;
 
