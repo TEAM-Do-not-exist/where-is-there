@@ -21,7 +21,7 @@
         <!-- carousel images, when click image, image will set selected image -->
         <v-carousel hide-delimiter-background delimiter-icon="mdi-minus">
           <v-carousel-item
-            v-for="(url, idx) in item.purl"
+            v-for="(url, idx) in item.psource"
             :key="idx"
             :src="url"
             @click="setUrl(url)"
@@ -103,9 +103,7 @@ export default {
   },
   methods: {
     setUrl(url) {
-      return (
-        (this.selectedUrl = url), (this.selectedSource = this.item.psource)
-      );
+      return (this.selectedUrl = url), (this.selectedSource = this.item.purl);
     },
     ax(item) {
       const basicUrl = "http://127.0.0.1:8090/";
@@ -116,6 +114,7 @@ export default {
         psource: this.selectedUrl, // 이쪽이 사진에 대한 정보
         purl: this.selectedSource // 이쪽이 출처에대한 정보
       };
+      console.log(data);
       axios
         .post(basicUrl + addUrl, data)
         .then(r => {
