@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Photo
+from .models import Photo, PhotoCheck
 from datetime import datetime, date
 from bs4 import BeautifulSoup as bs
 from urllib.parse import quote
@@ -19,9 +19,10 @@ output = './crawling/output'
 def crawling_info(info, idx, filename):
     url = info.get('key')
     datas = Photo.objects.filter(purl=url)
+    unused = PhotoCheck.objects.filter(purl=url)
 
     # there is not duplicated tour info
-    if len(datas) == 0:
+    if len(datas) == 0 and len(unused) == 0:
         code = idx + 1
         source = info.get('img_urls')
         words = info.get('caption')
@@ -120,17 +121,15 @@ def instagram(request):
         if len(datas) != length or now != end:
             res = crawling(target=target, length=length, filename=filename)
         else:
-            # just unpack this line for test
             with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
                 json_datas = json.load(f)
 
             for key, val in json_datas.items():
                 url = val['purl']
                 datas = Photo.objects.filter(purl=url)
-                if len(datas) < 1:
+                unused = PhotoCheck.objects.filter(purl=url)
+                if len(datas) < 1 and len(unused) < 1:
                     res[key] = val
-            # # just unpack this line for service
-            # return Response(res, status=200)
 
     return Response(res, status=200)
 
