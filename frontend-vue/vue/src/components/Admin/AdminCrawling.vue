@@ -1,36 +1,35 @@
 <template>
-  <v-app>
-    <v-col cols="12" md="6" sm="12">
-      <v-alert
-        border="top"
-        colored-border
-        color="blue"
-        elevation="2"
-        class="text-center font-weight-bold"
-      >Get crawling images</v-alert>
-      <!-- 정보를 요청할 v-btn -->
-      <v-row no-gutters>
-        <v-col v-for="(name, idx) in btnNames" :key="idx" md="6" sm="12">
-          <v-btn dark @click="ax(name)" :block="true" color="blue">
-            {{
-            name.name
-            }}
-          </v-btn>
-        </v-col>
-      </v-row>
+  <v-col cols="12" md="6" sm="12">
+    <v-alert
+      border="top"
+      colored-border
+      color="blue"
+      elevation="2"
+      class="text-center font-weight-bold"
+    >Get crawling images</v-alert>
+    <!-- 정보를 요청할 v-btn -->
+    <v-row no-gutters>
+      <v-col v-for="(name, idx) in btnNames" :key="idx" md="6" sm="12">
+        <v-btn dark @click="ax(name)" :block="true" color="blue">
+          {{
+          name.name
+          }}
+        </v-btn>
+      </v-col>
+    </v-row>
 
-      <!-- 로딩 중일 때는 로당바가 표시 -->
-      <div v-if="loading" class="text-center my-12">
-        <AdminLoadingCircle />
-      </div>
+    <!-- 로딩 중일 때는 로당바가 표시 -->
+    <div v-if="loading" class="text-center my-12">
+      <AdminLoadingCircle />
+    </div>
 
-      <!-- 정보를 보여주는 공간 -->
-      <div v-else>
-        <AdminItemList :src="src" @onInsert="filterItems" />
-      </div>
+    <!-- 정보를 보여주는 공간 -->
+    <div v-else>
+      <AdminItemList :src="src" @onInsert="filterItems" />
+    </div>
 
-      <!-- pagination -->
-      <!-- <div class="text-center">
+    <!-- pagination -->
+    <!-- <div class="text-center">
         <v-container>
           <v-row justify="center">
             <v-col cols="8">
@@ -45,9 +44,8 @@
             </v-col>
           </v-row>
         </v-container>
-      </div>-->
-    </v-col>
-  </v-app>
+    </div>-->
+  </v-col>
 </template>
 
 <script>
