@@ -107,24 +107,25 @@ export default {
         (this.selectedUrl = url), (this.selectedSource = this.item.psource)
       );
     },
-    ax() {
+    ax(item) {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/photo/insert";
       const data = {
         pname: this.selectedHashtag,
         pplace: this.selectedPlace,
-        psource: this.selectedSource,
-        purl: this.selectedUrl
+        psource: this.selectedUrl, // 이쪽이 사진에 대한 정보
+        purl: this.selectedSource // 이쪽이 출처에대한 정보
       };
       axios
         .post(basicUrl + addUrl, data)
         .then(r => {
+          console.log(r);
           if (r.data.regmsg === "입력했습니다") {
             this.$emit("onInsert");
           }
         })
         .catch();
-      this.$emit("onInsert", this.item);
+      this.$emit("onInsert", item);
       return (this.dialog = false);
     }
   },
