@@ -54,7 +54,7 @@
     </v-navigation-drawer>
 
 
-    <v-app-bar app light flat>
+    <v-app-bar app light flat style="z-index:0">
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
