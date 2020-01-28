@@ -55,16 +55,8 @@ def crawling(target, length, filename):
     crawler = './crawling/instagram-crawler/crawler.py'
     address = f'{mid_output}/{filename}.json'
 
-    # check crawling is needed
-    get_data = 0
-    files = os.listdir(mid_output)
-    if f'{filename}.json' not in files:
-        get_data = 1
-
-    # if crawling is needed, do it
-    if get_data == 1:
-        os.system(
-            f'python {crawler} posts_full -u {account} -n {length} -o {address} --fetch_details')
+    os.system(
+        f'python {crawler} posts_full -u {account} -n {length} -o {address} --fetch_details')
 
     with open(address, 'r', encoding='utf-8') as f:
         datas = json.load(f)
