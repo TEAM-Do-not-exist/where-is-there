@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawerRight" app right>
+    <v-navigation-drawer v-model="drawerRight" app right class=".d-flex"  style="z-index:1">
       <v-list dense>
         <v-list-item-content>
           <div class="inner-wrap" fluid fill-height inner-wrap>
