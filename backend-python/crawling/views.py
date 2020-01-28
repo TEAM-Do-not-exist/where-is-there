@@ -119,7 +119,13 @@ def instagram(request):
         else:
             # just unpack this line for test
             with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
-                res = json.load(f)
+                json_datas = json.load(f)
+
+            for key, val in json_datas.items():
+                source = val['psource']
+                datas = Photo.objects.filter(psource=source)
+                if len(datas) < 1:
+                    res[key] = val
             # # just unpack this line for service
             # return Response(res, status=200)
 
