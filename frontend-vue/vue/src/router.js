@@ -8,6 +8,7 @@ import ChatRoom from "./views/ChatRoom.vue";
 import signin from "./components/Basic/SignIn";
 import signup from "./components/Basic/SignUp";
 import error from "./components/Error/errorpage";
+
 vue.use(router);
 
 export default new router({

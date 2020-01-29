@@ -50,11 +50,13 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-footer absolute bottom>??</v-footer>
+      <v-footer absolute bottom>
+        <span class="white--text">&copy; 2020, Team 404</span>
+      </v-footer>
     </v-navigation-drawer>
 
 
-    <v-app-bar app light flat style="z-index:0">
+    <v-app-bar app flat style="z-index:0">
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
@@ -66,10 +68,10 @@
       <router-view />
     </v-content>
 
-    <v-footer color="blue" app>
-      <span class="white--text">&copy; 2020, Team 404</span>
+    <v-footer color="#fff0" app>
+      <p>.</p>
       <v-fab-transition>
-        <v-btn color="blue" dark absolute top right fab @click="$vuetify.goTo(0)">
+        <v-btn outlined dark absolute top right fab @click="$vuetify.goTo(0)">
           <v-icon>mdi-chevron-up</v-icon>
         </v-btn>
       </v-fab-transition>
@@ -88,6 +90,7 @@
   import MessageForm from "@/components/Chat/MessageForm.vue";
   import Constant from "@/Constant";
   import '@fortawesome/fontawesome-free/css/all.css' // Ensure you are using css-loader
+  import Vuetify from 'vuetify';
 
   export default {
     icons: {
@@ -97,7 +100,9 @@
       source: String
     },
     name: "ChatRoom",
-
+    vuetify: new Vuetify({
+      theme:{ dark : true },
+    }),
     data: () => ({
       drawer: null,
       drawerRight: null,
@@ -168,7 +173,7 @@
         });
         this.$sendMessage({
           // name: this.$route.params.username,
-          name: 'mymy',
+          name: '임시닉네임',
           msg
         });
       }
@@ -177,11 +182,9 @@
 </script>
 
 <style>
-  .theme--light.v-sheet {
+  .theme--dark.v-sheet {
     background-color: #fff0;
   }
-</style>
-<style>
   .msg-form {
     bottom: -28px;
     position: absolute;
@@ -196,5 +199,8 @@
     right: 0;
     bottom: 60px;
     overflow-x: scroll;
+  }
+  .v-footer--fixed p{
+    color: #fff0;
   }
 </style>
