@@ -8,6 +8,8 @@ import ChatRoom from "./views/ChatRoom.vue";
 import signin from "./components/Basic/SignIn";
 import signup from "./components/Basic/SignUp";
 import error from "./components/Error/errorpage";
+import adminpage from "./components/Admin/AdminPage";
+
 vue.use(router);
 
 export default new router({
@@ -36,6 +38,10 @@ export default new router({
     {
       path: "/signup",
       component: signup
+    },
+    {
+      path: "/adminpage",
+      component: adminpage
     },
     {
       path: "/char-room/:username",
