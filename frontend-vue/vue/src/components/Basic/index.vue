@@ -1,11 +1,18 @@
 <template>
-  <v-container>
-    <masonry :cols="mansonryCols" :gutters="mansonryGutters">
-      <div v-for="(photo, idx) in photos" :key="idx">
-        <v-img :src="photo.psource" class="grey lighten-2"></v-img>
-      </div>
-    </masonry>
-  </v-container>
+  <masonry :cols="mansonryCols" :gutters="mansonryGutters">
+    <div v-for="(photo, idx) in photos" :key="idx">
+      <v-img :src="photo.psource" class="grey lighten-2">
+        <template v-slot:placeholder>
+          <v-row class="fill-height ma-0" align="center" justify="center">
+            <v-progress-circular
+              indeterminate
+              color="grey lighten-5"
+            ></v-progress-circular>
+          </v-row>
+        </template>
+      </v-img>
+    </div>
+  </masonry>
 </template>
 
 <script>
