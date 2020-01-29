@@ -126,9 +126,9 @@ def instagram(request):
 
             for key, val in json_datas.items():
                 url = val['purl']
-                datas = Photo.objects.filter(purl=url)
+                checked = Photo.objects.filter(purl=url)
                 unused = PhotoCheck.objects.filter(purl=url)
-                if len(datas) < 1 and len(unused) < 1:
+                if len(checked) < 1 and len(unused) < 1:
                     res[key] = val
 
     return Response(res, status=200)
