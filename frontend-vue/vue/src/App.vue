@@ -168,7 +168,7 @@
         });
         this.$sendMessage({
           // name: this.$route.params.username,
-          name: 'mymy',
+          name: '임시닉네임',
           msg
         });
       }
