@@ -12,6 +12,7 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     photos,
-    socket
+    socket,
+    user
   }
 });
