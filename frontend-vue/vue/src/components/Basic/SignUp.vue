@@ -1,29 +1,39 @@
 <template>
   <v-app id="inspire">
     <v-container>
-      <v-card>
-        <v-card-title>
-          <h1>SIGN UP</h1>
-        </v-card-title>
-        <v-card-text>
-          <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field v-model="name" :rules="nameRules" :counter="10" label="Name" required></v-text-field>
-            <v-text-field
-              v-model="password"
-              :rules="passwordRules"
-              label="Password"
-              type="password"
-              required
-            ></v-text-field>
-            <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-            <p>
-              <a @click="goback">back</a>
-            </p>
-            <v-btn :disabled="!valid" @click="submit" color="indigo">submit</v-btn>
-            <v-btn @click="clear">clear</v-btn>
-          </v-form>
-        </v-card-text>
-      </v-card>
+      <v-layout
+        align-center
+        justify-center
+      >
+        <v-card flat>
+          <v-card-title>
+            <h1>SIGN UP</h1>
+          </v-card-title>
+          <v-card-text>
+            <v-form ref="form" v-model="valid" lazy-validation>
+              <v-text-field v-model="name" :rules="nameRules" :counter="10" label="Name" required></v-text-field>
+              <v-text-field
+                v-model="password"
+                :rules="passwordRules"
+                label="Password"
+                type="password"
+                required
+              ></v-text-field>
+              <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+              <v-btn :disabled="! valid" @click="submit"  outlined width="277.33" height="60">submit</v-btn>
+              <v-container />
+              <v-layout
+                align-center
+                justify-center
+              >
+                <p style="upper-margin: 10px;">
+                  <a @click="goback">back</a>
+                </p>
+              </v-layout>
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-layout>
     </v-container>
   </v-app>
 </template>
