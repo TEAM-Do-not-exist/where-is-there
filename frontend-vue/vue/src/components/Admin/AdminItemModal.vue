@@ -4,7 +4,6 @@
       v-model="dialog"
       persistent
       max-width="600px"
-      overlay-color="white"
       overlay-opacity="1"
     >
       <!-- modal open button -->
