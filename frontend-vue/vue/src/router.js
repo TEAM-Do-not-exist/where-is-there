@@ -1,6 +1,6 @@
 import vue from "vue";
 import router from "vue-router";
-import index from "./components/Basic/index";
+import Index from "./components/Basic/Index";
 
 import Admin from "./components/Admin/Admin";
 import Login from "./views/Login.vue";
@@ -16,11 +16,10 @@ export default new router({
     {
       name: "index",
       path: "/",
-      component: index,
+      component: Index,
       alias: "/index"
     },
     {
-
       path: "/admin",
       component: Admin
     },
