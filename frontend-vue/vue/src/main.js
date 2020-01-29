@@ -1,16 +1,20 @@
 import Vue from "vue";
-import router from "./router";
 import vuex from "vuex";
-import App from "./App.vue";
+import VueMasonry from "vue-masonry-css";
+
+import Directives from "./plugins/directives";
 import vuetify from "./plugins/vuetify";
+import router from "./router";
+import store from "./store";
+
+import App from "./App.vue";
 import "roboto-fontface/css/roboto/roboto-fontface.css";
 import "@mdi/font/css/materialdesignicons.css";
 import "./plugins/socketPlugin";
-import Directives from "./plugins/directives";
-import store from "./store";
 
 Vue.config.productionTip = false;
 Vue.use(Directives);
+Vue.use(VueMasonry);
 
 new Vue({
   router,

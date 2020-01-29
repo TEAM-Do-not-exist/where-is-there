@@ -25,26 +25,13 @@
 
     <!-- 정보를 보여주는 공간 -->
     <div v-else>
-      <AdminItemList :src="src" @onInsert="filterItems" />
+      <AdminItemList :src="pagedSrc" @onInsert="filterItems" />
     </div>
 
     <!-- pagination -->
-    <!-- <div class="text-center">
-        <v-container>
-          <v-row justify="center">
-            <v-col cols="8">
-              <v-container class="max-width">
-                <v-pagination
-                  v-model="page"
-                  class="my-4"
-                  color="blue"
-                  :length="length"
-                ></v-pagination>
-              </v-container>
-            </v-col>
-          </v-row>
-        </v-container>
-    </div>-->
+    <div v-if="src">
+      <AdminPagination :page="page" :pageLength="pageLength" @onPageChange="onPageChange" />
+    </div>
   </v-col>
 </template>
 
@@ -52,11 +39,13 @@
 import axios from "axios";
 import AdminItemList from "./AdminItemList.vue";
 import AdminLoadingCircle from "./AdminLoadingCircle.vue";
+import AdminPagination from "./AdminPagination";
 
 export default {
   components: {
     AdminItemList: AdminItemList,
-    AdminLoadingCircle: AdminLoadingCircle
+    AdminLoadingCircle: AdminLoadingCircle,
+    AdminPagination: AdminPagination
   },
   data: () => ({
     btnNames: {
@@ -64,23 +53,40 @@ export default {
         name: "travelholic",
         url: "instagram",
         target: "tour",
-        length: 10
+        length: 100
       },
       2: {
         name: "greedeat",
         url: "instagram",
         target: "eat",
-        length: 10
+        length: 100
       }
     },
     src: {},
-    loading: false
-    // pagedSrc: {},
-    // page: 0,
-    // length: 0
+    pagedSrc: {},
+    loading: false,
+    page: 1,
+    pageLength: 1
   }),
   methods: {
+    pagination() {
+      this.pageLength = 1;
+      this.pagedSrc = {};
+      const entries = Object.entries(this.src);
+      let idx = 0;
+      for (const [key, val] of entries) {
+        if (this.page - 1 <= idx % 10 && idx % 10 < this.page) {
+          this.pagedSrc[key] = val;
+        }
+        idx++;
+        if (idx % 10 === 0) {
+          this.pageLength++;
+        }
+      }
+    },
     ax(name) {
+      this.page = 1;
+      this.pageLength = 1;
       this.loading = true;
 
       const basicUrl = "http://127.0.0.1:8000/";
@@ -91,16 +97,22 @@ export default {
         .get(url)
         .then(r => {
           this.src = r.data;
+          const keys = Object.keys(this.src);
+          for (const key of keys) {
+            if (key % 10 === 0) {
+              this.pageLength++;
+            }
+          }
+
+          this.pagination();
           this.loading = false;
-          // this.page = 1;
-          // this.length = Object.keys(this.src).length / 10;
         })
         .catch(() => {
           this.loading = false;
         });
     },
     filterItems(item) {
-      const filterredSrc = {};
+      let filterredSrc = {};
       const entries = Object.entries(this.src);
       for (const [key, val] of entries) {
         const intKey = parseInt(key, 10);
@@ -109,6 +121,11 @@ export default {
         }
       }
       this.src = filterredSrc;
+      this.pagination();
+    },
+    onPageChange(changedPage) {
+      this.page = changedPage;
+      this.pagination();
     }
   }
 };

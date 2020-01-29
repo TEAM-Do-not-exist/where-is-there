@@ -4,7 +4,6 @@
       v-model="dialog"
       persistent
       max-width="600px"
-      overlay-color="white"
       overlay-opacity="1"
     >
       <!-- modal open button -->
@@ -21,7 +20,7 @@
         <!-- carousel images, when click image, image will set selected image -->
         <v-carousel hide-delimiter-background delimiter-icon="mdi-minus">
           <v-carousel-item
-            v-for="(url, idx) in item.purl"
+            v-for="(url, idx) in item.psource"
             :key="idx"
             :src="url"
             @click="setUrl(url)"
@@ -80,6 +79,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+          <v-btn :disabled="!this.selectedSource" color="red darken-1" text @click="deny(item)">Deny</v-btn>
           <v-btn :disabled="!validated" color="blue darken-1" text @click="ax(item)">Save</v-btn>
         </v-card-actions>
       </v-card>
@@ -103,28 +103,41 @@ export default {
   },
   methods: {
     setUrl(url) {
-      return (
-        (this.selectedUrl = url), (this.selectedSource = this.item.psource)
-      );
+      return (this.selectedUrl = url), (this.selectedSource = this.item.purl);
     },
-    ax() {
+    ax(item) {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/photo/insert";
       const data = {
         pname: this.selectedHashtag,
         pplace: this.selectedPlace,
-        psource: this.selectedSource,
-        purl: this.selectedUrl
+        psource: this.selectedUrl, // 이쪽이 사진에 대한 정보
+        purl: this.selectedSource // 이쪽이 출처에대한 정보
       };
       axios
         .post(basicUrl + addUrl, data)
         .then(r => {
           if (r.data.regmsg === "입력했습니다") {
-            this.$emit("onInsert");
+            this.$emit("onInsert", item);
           }
         })
         .catch();
-      this.$emit("onInsert", this.item);
+      return (this.dialog = false);
+    },
+    deny(item) {
+      const basicUrl = "http://127.0.0.1:8090/";
+      const addUrl = "api/photocheck/insert";
+      const data = {
+        purl: this.selectedSource // 이쪽이 출처에대한 정보
+      };
+      axios
+        .post(basicUrl + addUrl, data)
+        .then(r => {
+          if (r.data.regmsg === "입력했습니다") {
+            this.$emit("onInsert", item);
+          }
+        })
+        .catch();
       return (this.dialog = false);
     }
   },
