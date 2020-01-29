@@ -46,7 +46,8 @@ export default {
         msg
       });
       this.$sendMessage({
-        name: this.$route.params.username,
+        // name: this.$route.params.username,
+        name:'mymy',
         msg
       });
     }

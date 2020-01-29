@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssafy.photocheck">
+	<insert id="insert" parameterType="PhotoCheckDTO">
+		insert into photo_check(purl)
+		values(
+			#{purl}
+		)
+	</insert>
+	<delete id="delete" parameterType="int">
+		delete from photo_check where pcode = #{pcode}
+	</delete>
+	<update id="update" parameterType="PhotoCheckDTO">
+		update photo_check set 
+						purl=#{purl}
+		where pcode=#{pcode}
+	</update>
+	<select id="selectList" resultType="PhotoCheckDTO">
+		select *
+		from photo_check
+	</select>
+	<select id="selectOne" parameterType="PhotoCheckDTO" resultType="PhotoCheckDTO">
+		select * from photo_check where pcode=#{pcode}
+	</select>
+</mapper>
