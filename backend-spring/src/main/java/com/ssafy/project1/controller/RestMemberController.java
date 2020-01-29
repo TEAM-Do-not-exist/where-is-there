@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.project1.authorization.JwtService;
 import com.ssafy.project1.dto.MemberDTO;
 import com.ssafy.project1.service.MemberService;
 
@@ -28,6 +29,9 @@ public class RestMemberController {
 	
 	@Autowired
 	MemberService memSer;
+	
+	@Autowired
+	JwtService jwtService;
 	
 	@PostMapping("/insert")
 	@ApiOperation(value="member 등록 서비스 / 입력: id,pw,name,email,phone / 결과: 성공시 1")
@@ -129,6 +133,10 @@ public class RestMemberController {
 			dto.setPw(pw);
 			int selectOneIdPw = memSer.selectOneIdPw(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
+			if(selectOneIdPw==1) {
+				String token = jwtService.create("member", dto, "user");
+				msg.put("token",token);
+			}
 			msg.put("regmsg", "조회했습니다");
 			msg.put("resvalue",selectOneIdPw);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
