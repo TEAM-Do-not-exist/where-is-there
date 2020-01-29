@@ -26,7 +26,7 @@ public class JwtServiceImpl implements JwtService {
 	public <T> String create(String key, T data, String subject) {
 		// TODO Auto-generated method stub
 		Date expireTime = new Date();
-        expireTime.setTime(expireTime.getTime() + 1000 * 60 * 10);
+        expireTime.setTime(expireTime.getTime() + 1000 * 60 * 100);
  
 		String jwt = Jwts.builder()
 						.setHeaderParam("typ","JWT")

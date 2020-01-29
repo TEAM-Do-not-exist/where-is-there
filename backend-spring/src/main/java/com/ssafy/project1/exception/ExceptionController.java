@@ -18,16 +18,16 @@ public class ExceptionController {
     	ResponseEntity<Map> resEntity = null;
 		Map<String,Object> msg = new HashMap<String, Object>();
         final String errorMsg = e.getMessage();
-        int errorCode = -1;
+        int state = -1;	//일반 에러
         if(errorMsg == null){
         	msg.put("regmsg", "서버에러");
         }else{
         	msg.put("regmsg", errorMsg);
         }
         if(e instanceof  UnauthorizedException) {
-        	errorCode = -2;
+        	state = -2;	//권한 오류
         }
-        msg.put("errorCode",errorCode);
+        msg.put("state",state);
         resEntity=new ResponseEntity<Map>(msg,HttpStatus.OK);
 
         return resEntity;

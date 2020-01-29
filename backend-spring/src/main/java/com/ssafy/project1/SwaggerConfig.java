@@ -32,7 +32,9 @@ public class SwaggerConfig implements WebMvcConfigurer{
 			"/swagger-resources/**",
 			"/error",
 			"/webjars/**",
-			"/api/member/**"
+			"/api/member/**",
+			"/api/jwt/jwt",
+			"/api/emailauth/**"
 	};
 	
 	@Autowired
