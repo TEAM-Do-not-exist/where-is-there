@@ -5,7 +5,7 @@
       app
       right
       class=".d-flex"
-      style="z-index:1"
+      style="z-index:2"
     >
       <v-list dense>
         <v-list-item-content>
@@ -25,7 +25,7 @@
       class=".d-flex"
       temporary
       app
-      style="z-index:1"
+      style="z-index:2"
     >
       <v-container>
         <img
@@ -74,7 +74,7 @@
       </v-footer>
     </v-navigation-drawer>
 
-    <v-app-bar id="navbar" app flat style="z-index:0">
+    <v-app-bar id="navbar" app flat style="z-index:1">
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>

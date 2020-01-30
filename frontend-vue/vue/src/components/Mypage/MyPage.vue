@@ -15,8 +15,9 @@
       >
       </v-img>
   
-     <v-card-subtitle class="pb-0">Name:  </v-card-subtitle>
+     <v-card-subtitle class="pb-0">Name:</v-card-subtitle>
      <v-card-subtitle class="pb-0">ID: </v-card-subtitle>
+      <v-card-subtitle class="pb-0">PW: </v-card-subtitle>
      <v-card-subtitle class="pb-0">e-mail: </v-card-subtitle>
      <v-card-subtitle class="pb-0">phone: </v-card-subtitle>
       <!-- <v-card-text class="text--primary">
@@ -67,6 +68,7 @@
 <script>
 import MyFavorite from "./MyFavorite";
 import MyComment from "./MyComment";
+
 
 export default {
   components:{
