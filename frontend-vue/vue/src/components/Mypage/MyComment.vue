@@ -44,7 +44,6 @@
                     class="headline"
                     v-text="item.title"
                   ></v-card-title> -->
-                  <v-card-subtitle v-text="item.title"></v-card-subtitle>
                   <v-card-subtitle v-text="item.content"></v-card-subtitle>
                 </div>
               </div>
@@ -65,7 +64,7 @@ export default {
         color: 'black',
         src: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg',
         // title: '사진 바로가기',
-        content: '내가 쓴 댓글이 들어갈거임',
+        content: '내가 쓴 댓글이 들어갈거임. 사진이나 댓글 누르면 그 사진페이지로 가도록 합시다다ㅏ아아아아',
       },
       {
         color: 'black',
