@@ -55,6 +55,7 @@ public class RestExternalLogInController {
 			states = 1;
 			msg.put("state", states);
 			msg.put("token",token);
+			msg.put("info",naverMem);
 			msg.put("regmsg", "조회했습니다");
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
