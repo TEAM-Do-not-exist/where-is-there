@@ -36,8 +36,8 @@
       </v-card-actions>
     </v-card>
     
-    <v-card>
-            <v-card-actions>
+    <v-card> 
+       <v-card-actions>
         <v-btn
           color="yellow"
           text
@@ -60,6 +60,3 @@
 </div>
 </template>
 
-<style >
-
-</style>
