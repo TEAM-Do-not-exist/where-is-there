@@ -1,6 +1,8 @@
 import vue from "vue";
 import router from "vue-router";
-import index from "./components/Basic/Index";
+
+import index from "./components/Basic/index";
+import PhotoDetail from "./components/Photo/PhotoDetail";
 
 import Admin from "./components/Admin/Admin";
 import Login from "./views/Login.vue";
@@ -22,6 +24,12 @@ export default new router({
       path: "/",
       component: index,
       alias: "/index"
+    },
+    {
+      name: "Photo",
+      path: "/photo/:pcode",
+      component: PhotoDetail,
+      props: true
     },
     {
       path: "/admin",
