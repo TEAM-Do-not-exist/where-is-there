@@ -51,7 +51,7 @@
           내 댓글
         </v-btn>
             <v-content>
-      <router-view  />
+      <router-view />
     </v-content>
 
       </v-card-actions>
