@@ -162,7 +162,7 @@ public class RestMemberController {
 		return resEntity;
 	}
 	@GetMapping("/selectOneIdPw/{id}/{pw}")
-	@ApiOperation(value="member id와 pw를 입력하여 그에 맞는 멤버가 있으면 1 없으면 0을 반환하는 서비스")
+	@ApiOperation(value="[로그인]member id와 pw를 입력하여 그에 맞는 멤버가 있으면 1 없으면 0을 반환하는 서비스 그리고 토큰도 반환함")
 	public ResponseEntity<Map> memSelectOneId(@PathVariable("id")String id,@PathVariable("pw")String pw){
 		ResponseEntity<Map> resEntity=null;
 		int state = 0;

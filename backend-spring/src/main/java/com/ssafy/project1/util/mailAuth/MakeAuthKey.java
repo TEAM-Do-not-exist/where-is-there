@@ -1,4 +1,4 @@
-package com.ssafy.project1.util;
+package com.ssafy.project1.util.mailAuth;
 
 public class MakeAuthKey {
 	String key;

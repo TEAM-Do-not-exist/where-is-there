@@ -34,7 +34,9 @@ public class SwaggerConfig implements WebMvcConfigurer{
 			"/webjars/**",
 			"/api/member/**",
 			"/api/jwt/jwt",
-			"/api/emailauth/**"
+			"/api/emailauth/**",
+			"/api/photo/**",
+			"/api/external/**"
 	};
 	
 	@Autowired
@@ -43,8 +45,8 @@ public class SwaggerConfig implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// TODO Auto-generated method stub
-		registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/"); 
-		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+//		registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/"); 
+//		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
 	
 	@Override
