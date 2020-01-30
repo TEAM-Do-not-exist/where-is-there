@@ -15,7 +15,7 @@
       >
       </v-img>
   
-    <v-card-subtitle class="pb-0">Name:  </v-card-subtitle>
+     <v-card-subtitle class="pb-0">Name:  </v-card-subtitle>
      <v-card-subtitle class="pb-0">ID: </v-card-subtitle>
      <v-card-subtitle class="pb-0">e-mail: </v-card-subtitle>
      <v-card-subtitle class="pb-0">phone: </v-card-subtitle>
@@ -36,27 +36,50 @@
       </v-card-actions>
     </v-card>
     
-    <v-card> 
-       <v-card-actions>
+    <v-card
+      class="mx-auto"
+      min-width="1000"
+      max-width="1000">
+            <v-card-actions>
         <v-btn
           color="yellow"
           text
+          @click="isLike = !isLike; isComment = false"
         >
           내 좋아요
         </v-btn>
         <v-btn
           color="yellow"
           text
+          @click="isComment = !isComment; isLike =false"
         >
           내 댓글
         </v-btn>
-            <v-content>
-      <router-view />
-    </v-content>
-
       </v-card-actions>
+      <MyFavorite v-if="isLike"></MyFavorite>
+      <MyComment v-if="isComment"></MyComment>
     </v-card>
   </v-app>
 </div>
 </template>
+
+
+<script>
+import MyFavorite from "./MyFavorite";
+import MyComment from "./MyComment";
+
+export default {
+  components:{
+    MyFavorite,
+    MyComment
+  },
+  data(){
+    return {
+      isLike : false,
+      isComment : false
+    }
+  }
+  
+}
+</script>
 

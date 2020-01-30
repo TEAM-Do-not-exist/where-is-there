@@ -59,6 +59,14 @@
             <v-list-item-title>Administator page</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item @click="to_mypage">
+          <v-list-item-action>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>MyPage</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
       </v-list>
       <v-footer absolute bottom>
@@ -157,6 +165,9 @@ export default {
     },
     to_chat() {
       this.$router.push("/chat");
+    },
+    to_mypage() {
+      this.$router.push("/mypage");
     },
     ...mapMutations({
       pushMsgData: Constant.PUSH_MSG_DATA

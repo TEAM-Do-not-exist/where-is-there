@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="my-favorite">
   <v-app id="inspire">
     <v-card
       class="mx-auto"
