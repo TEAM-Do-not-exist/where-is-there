@@ -26,6 +26,7 @@ export default {
 .list-item {
   display: inline-block;
   margin-right: 10px;
+
 }
 .list-enter-active,
 .list-leave-active {
