@@ -1,6 +1,6 @@
 import vue from "vue";
 import router from "vue-router";
-import Index from "./components/Basic/Index";
+import Index from "./components/Basic/index";
 
 import Admin from "./components/Admin/Admin";
 import Login from "./views/Login.vue";
