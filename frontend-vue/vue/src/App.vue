@@ -59,14 +59,7 @@
             <v-list-item-title>Administator page</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click="to_chat">
-          <v-list-item-action>
-            <v-icon>mdi-account</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>chat room</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+
       </v-list>
       <v-footer absolute bottom>
         <span class="white--text">&copy; 2020, Team 404</span>
