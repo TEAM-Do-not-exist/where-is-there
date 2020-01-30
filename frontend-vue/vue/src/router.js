@@ -10,6 +10,9 @@ import ChatRoom from "./views/ChatRoom.vue";
 import signin from "./components/Basic/SignIn";
 import signup from "./components/Basic/SignUp";
 import error from "./components/Error/errorpage";
+import mypage from "./components/Mypage/MyPage";
+import myfavorite from "./components/Mypage/MyFavorite";
+import mycomment from "./components/Mypage/MyComment";
 
 vue.use(router);
 
@@ -33,17 +36,28 @@ export default new router({
       component: Admin
     },
     {
-      path: "/chat",
-      name: "Login",
-      component: Login
-    },
-    {
       path: "/signin",
       component: signin
     },
     {
       path: "/signup",
       component: signup
+    },
+    {
+      path: "/chat",
+      name: "Login",
+      component: Login
+    },
+    {
+      path: "/myfavorite",
+      component: myfavorite
+    },{
+      path: "/mycomment",
+      component: mycomment
+    },
+    {
+      path: "/mypage",
+      component: mypage
     },
     {
       path: "/char-room/:username",
