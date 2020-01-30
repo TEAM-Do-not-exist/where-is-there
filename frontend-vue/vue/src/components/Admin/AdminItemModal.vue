@@ -4,7 +4,6 @@
       v-model="dialog"
       persistent
       max-width="600px"
-      overlay-opacity="1"
     >
       <!-- modal open button -->
       <template v-slot:activator="{ on }">

@@ -66,7 +66,7 @@
       </v-footer>
     </v-navigation-drawer>
 
-    <v-app-bar app flat style="z-index:0">
+    <v-app-bar id="navbar" app flat style="z-index:0">
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
@@ -81,7 +81,7 @@
       <router-view />
     </v-content>
 
-    <v-footer color="#fff0" app>
+    <v-footer color="#fff0" inset app>
       <p>.</p>
       <v-fab-transition>
         <v-btn outlined dark absolute top right fab @click="$vuetify.goTo(0)">
@@ -179,7 +179,10 @@ export default {
 </script>
 
 <style>
-.theme--dark.v-sheet {
+/* v-app-bar {
+  background-color: #fff0;
+} */
+#navbar {
   background-color: #fff0;
 }
 .msg-form {
