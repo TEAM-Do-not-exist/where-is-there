@@ -190,26 +190,8 @@ export default {
 </script>
 
 <style>
-/* v-app-bar {
-  background-color: #fff0;
-} */
 #navbar {
   background-color: #fff0;
-}
-.msg-form {
-  bottom: -28px;
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-
-.msg-list {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 60px;
-  overflow-x: scroll;
 }
 .v-footer--fixed p {
   color: #fff0;
