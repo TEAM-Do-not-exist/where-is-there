@@ -1,6 +1,6 @@
 import vue from "vue";
 import router from "vue-router";
-import Index from "./components/Basic/Index";
+import index from "./components/Basic/Index";
 
 import Admin from "./components/Admin/Admin";
 import Login from "./views/Login.vue";
@@ -8,7 +8,7 @@ import ChatRoom from "./views/ChatRoom.vue";
 import signin from "./components/Basic/SignIn";
 import signup from "./components/Basic/SignUp";
 import error from "./components/Error/errorpage";
-
+import mypage from "./components/Mypage/MyPage";
 vue.use(router);
 
 export default new router({
@@ -17,7 +17,7 @@ export default new router({
     {
       name: "index",
       path: "/",
-      component: Index,
+      component: index,
       alias: "/index"
     },
     {
@@ -45,6 +45,10 @@ export default new router({
     {
       path: "*",
       component: error
+    },
+    {
+      path: "/mypage",
+      component: mypage
     }
   ]
 });
