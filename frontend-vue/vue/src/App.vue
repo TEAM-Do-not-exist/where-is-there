@@ -73,7 +73,7 @@
       </v-footer>
     </v-navigation-drawer>
 
-    <v-app-bar app flat style="z-index:0">
+    <v-app-bar id="navbar" app flat style="z-index:0">
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
@@ -186,7 +186,10 @@ export default {
 </script>
 
 <style>
-.theme--dark.v-sheet {
+/* v-app-bar {
+  background-color: #fff0;
+} */
+#navbar {
   background-color: #fff0;
 }
 .msg-form {
