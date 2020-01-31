@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.project1.dto.EmailAuthDTO;
 import com.ssafy.project1.repository.EmailAuthRepository;
-import com.ssafy.project1.util.MailService;
-import com.ssafy.project1.util.MakeAuthKey;
+import com.ssafy.project1.util.mailAuth.MailService;
+import com.ssafy.project1.util.mailAuth.MakeAuthKey;
 
 @Service
 public class EmailAuthServiceImpl implements EmailAuthService {

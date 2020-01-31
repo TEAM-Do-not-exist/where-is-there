@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Photo
+from .models import Photo, PhotoCheck
 from datetime import datetime, date
 from bs4 import BeautifulSoup as bs
 from urllib.parse import quote
@@ -17,13 +17,14 @@ output = './crawling/output'
 
 # crawling feat. travelholic
 def crawling_info(info, idx, filename):
-    source = info.get('key')
-    datas = Photo.objects.filter(psource=source)
+    url = info.get('key')
+    datas = Photo.objects.filter(purl=url)
+    unused = PhotoCheck.objects.filter(purl=url)
 
     # there is not duplicated tour info
-    if len(datas) == 0:
+    if len(datas) == 0 and len(unused) == 0:
         code = idx + 1
-        url = info.get('img_urls')
+        source = info.get('img_urls')
         words = info.get('caption')
 
         hashtags = []
@@ -33,13 +34,16 @@ def crawling_info(info, idx, filename):
                 if words[i] == '#':
                     for j in range(i + 1, len(words)):
                         if words[j] in [' ', '#']:
-                            hashtags.append(words[i + 1:j])
+                            word = words[i + 1:j].replace('.', '')
+                            if word != '':
+                                hashtags.append(word)
                             break
 
-        return code, url, source, hashtags
-    else:
-        # or return original info
-        return [False] * 4
+        if hashtags != []:
+            return code, url, source, hashtags
+
+    # or return original info
+    return [None] * 4
 
 
 def crawling(target, length, filename):
@@ -55,16 +59,8 @@ def crawling(target, length, filename):
     crawler = './crawling/instagram-crawler/crawler.py'
     address = f'{mid_output}/{filename}.json'
 
-    # check crawling is needed
-    get_data = 0
-    files = os.listdir(mid_output)
-    if f'{filename}.json' not in files:
-        get_data = 1
-
-    # if crawling is needed, do it
-    if get_data == 1:
-        os.system(
-            f'python {crawler} posts_full -u {account} -n {length} -o {address} --fetch_details')
+    os.system(
+        f'python {crawler} posts_full -u {account} -n {length} -o {address} --fetch_details')
 
     with open(address, 'r', encoding='utf-8') as f:
         datas = json.load(f)
@@ -73,7 +69,7 @@ def crawling(target, length, filename):
     res = {}
     for data in datas:
         code, url, source, hashtags = crawling_info(data, len(res), filename)
-        if code != False:
+        if hashtags != None:
             res[code] = {
                 'pcode': code,
                 'purl': url,
@@ -125,11 +121,15 @@ def instagram(request):
         if len(datas) != length or now != end:
             res = crawling(target=target, length=length, filename=filename)
         else:
-            # just unpack this line for test
             with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
-                res = json.load(f)
-            # # just unpack this line for service
-            # return Response(res, status=200)
+                json_datas = json.load(f)
+
+            for key, val in json_datas.items():
+                url = val['purl']
+                checked = Photo.objects.filter(purl=url)
+                unused = PhotoCheck.objects.filter(purl=url)
+                if len(checked) < 1 and len(unused) < 1:
+                    res[key] = val
 
     return Response(res, status=200)
 
@@ -177,10 +177,10 @@ def mango(request):
     res = {}
     for i in range(len(titles)):
         code = i + 1
+        url = mango_url
+        source = images[i]['data-original']
         place = images[i]['alt'].split(' - ')[-1]
-        url = images[i]['data-original']
         name = titles[i].get_text().replace('\n', '')
-        source = mango_url
 
         res[code] = {
             'pcode': code,

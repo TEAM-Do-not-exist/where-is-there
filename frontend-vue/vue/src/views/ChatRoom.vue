@@ -1,8 +1,10 @@
 <template>
-  <div class="inner-wrap" fluid fill-height inner-wrap>
+  <!-- <div class="inner-wrap" fluid fill-height inner-wrap> -->
+  <div>
     <Message-List :msgs="msgDatas" class="msg-list"></Message-List>
     <Message-From v-on:submitMessage="sendMessage" class="msg-form"></Message-From>
   </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -46,7 +48,8 @@ export default {
         msg
       });
       this.$sendMessage({
-        name: this.$route.params.username,
+        // name: this.$route.params.username,
+        name: "mymy",
         msg
       });
     }
@@ -67,6 +70,6 @@ export default {
   left: 0;
   right: 0;
   bottom: 60px;
-  overflow-x: scroll;
+  word-break: break-all;
 }
 </style>
