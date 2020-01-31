@@ -194,6 +194,6 @@ export default {
   background-color: #fff0;
 }
 .v-footer--fixed p {
-  color: #fff0;
+  visibility: hidden;
 }
 </style>
