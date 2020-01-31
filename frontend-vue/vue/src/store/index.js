@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import photos from "./modules/photos";
-import photo from "./modules/photo";
 import socket from "./modules/socket";
 import user from "./modules/user";
 
@@ -13,7 +12,6 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     photos,
-    photo,
     socket,
     user
   }

@@ -1,11 +1,7 @@
 <template>
   <masonry :cols="mansonryCols" :gutters="mansonryGutters">
     <div v-for="(photo, idx) in photos" :key="idx">
-      <v-img
-        :src="photo.psource"
-        class="grey lighten-2"
-        @click="showDetail(photo)"
-      >
+      <v-img :src="photo.psource" class="grey lighten-2">
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
             <v-progress-circular
@@ -27,14 +23,9 @@ export default {
   components: {},
   data: () => ({
     mansonryCols: { default: 4, 1000: 3, 700: 2, 400: 1 },
-    mansonryGutters: { default: "30px", 700: "15px" },
-    openModal: false
+    mansonryGutters: { default: "30px", 700: "15px" }
   }),
-  methods: {
-    showDetail(photo) {
-      this.$router.push(`/photo/${photo.pcode}`);
-    }
-  },
+  methods: {},
   computed: {
     ...mapGetters(["photos"])
   },
@@ -46,6 +37,6 @@ export default {
 
 <style scoped>
 div {
-  margin: 5px 3px !important;
+  margin: 5px 2px !important;
 }
 </style>

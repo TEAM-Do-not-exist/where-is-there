@@ -5,7 +5,7 @@
       app
       right
       class=".d-flex"
-      style="z-index:2"
+      style="z-index:1"
     >
       <v-list dense>
         <v-list-item-content>
@@ -25,7 +25,7 @@
       class=".d-flex"
       temporary
       app
-      style="z-index:2"
+      style="z-index:1"
     >
       <v-container>
         <img
@@ -59,22 +59,21 @@
             <v-list-item-title>Administator page</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click="to_mypage">
+        <v-list-item @click="to_chat">
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>MyPage</v-list-item-title>
+            <v-list-item-title>chat room</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
       </v-list>
       <v-footer absolute bottom>
         <span class="white--text">&copy; 2020, Team 404</span>
       </v-footer>
     </v-navigation-drawer>
 
-    <v-app-bar id="navbar" app flat style="z-index:1">
+    <v-app-bar app flat style="z-index:0">
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
@@ -89,7 +88,7 @@
       <router-view />
     </v-content>
 
-    <v-footer color="#fff0" inset app>
+    <v-footer color="#fff0" app>
       <p>.</p>
       <v-fab-transition>
         <v-btn outlined dark absolute top right fab @click="$vuetify.goTo(0)">
@@ -166,9 +165,6 @@ export default {
     to_chat() {
       this.$router.push("/chat");
     },
-    to_mypage() {
-      this.$router.push("/mypage");
-    },
     ...mapMutations({
       pushMsgData: Constant.PUSH_MSG_DATA
     }),
@@ -190,8 +186,23 @@ export default {
 </script>
 
 <style>
-#navbar {
+.theme--dark.v-sheet {
   background-color: #fff0;
+}
+.msg-form {
+  bottom: -28px;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.msg-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 60px;
+  overflow-x: scroll;
 }
 .v-footer--fixed p {
   color: #fff0;

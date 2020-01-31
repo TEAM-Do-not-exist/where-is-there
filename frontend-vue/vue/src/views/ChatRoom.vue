@@ -73,6 +73,6 @@ export default {
   left: 0;
   right: 0;
   bottom: 60px;
-  word-break: break-all;
+  overflow-x: scroll;
 }
 </style>
