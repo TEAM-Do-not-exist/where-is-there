@@ -11,6 +11,7 @@ import ChatRoom from "./views/ChatRoom.vue";
 import signin from "./components/Basic/SignIn";
 import signup from "./components/Basic/SignUp";
 import error from "./components/Error/errorpage";
+import main from "./components/Error/main";
 import mypage from "./components/Mypage/MyPage";
 import myfavorite from "./components/Mypage/MyFavorite";
 import mycomment from "./components/Mypage/MyComment";
@@ -71,6 +72,11 @@ export default new router({
       path: "/char-room/:username",
       name: "ChatRoom",
       component: ChatRoom
+    },
+    {
+      path: "/main?:input",
+      component: main,
+      props: true
     },
     {
       path: "*",

@@ -73,30 +73,11 @@
 // import axios from 'axios';
 import KakaoLogin from "vue-kakao-login";
 import NaverLogin from "vue-naver-login";
+import nearo from '../Error/main';
 
-let callbackFunction = status => {
-  if (status) {
-    /* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
-    var email = NaverLogin.user.getEmail();
-    if (email == undefined || email == null) {
-      alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
-      /* (5-1) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
-      NaverLogin.reprompt();
-      return;
-    }
+let callbackFunction = nearo.callbackFunction;
 
-    window.location.replace(
-      "http://" +
-        window.location.hostname +
-        (location.port == "" || location.port == undefined
-          ? ""
-          : ":" + location.port) +
-        "/signin"
-    );
-  } else {
-    this.console.log("callback 처리에 실패하였습니다.");
-  }
-};
+
 let onSuccess = data => {
   this.console.log(data);
   this.console.log("success");
@@ -130,6 +111,7 @@ export default {
         //   select: this.select,
         //   checkbox: this.checkbox
         // })
+        alert(window.location.href.split("/")[2].split(':')[1])
       }
     },
     clear() {
