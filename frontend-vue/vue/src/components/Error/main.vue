@@ -18,6 +18,15 @@ let callbackFunction = status => {
       return;
     }
 
+    var item = {
+      name: NaverLogin.user.getName(),
+      email: NaverLogin.user.getEmail(),
+    }
+
+    axios
+    .post('localhost:8090/api/test/naver',item)
+    .then()
+
     window.location.replace(
       "http://" +
         window.location.hostname +
@@ -32,38 +41,38 @@ let callbackFunction = status => {
 };
 
 export default {
-    data() {
-        return{
-            carrage: {
-                token: '',
-                status: '',
-            }
-        }
-    },
-    props:{
-        input: String
-    },
-    methods:{
-        tokenizer(){
-            var src = window.location.href.split("#")[1];
-            if(src===false){
-                return
-            }
-
-        },
-        send(){
-            axios
-            .post("localhost:8090/api/test/naver", this.carrage)
-            .then(
-                this.router.push('/')
-            )
-        },
-        callbackFunction() {
-            callbackFunction();
-        }
-    },
-    mounted() {
-        this.tokenizer()
+  data() {
+    return{
+      carrage: {
+        token: '',
+        status: '',
+      }
     }
+  },
+  props:{
+      input: String
+  },
+  methods:{
+    tokenizer(){
+      var src = window.location.href.split("#")[1];
+        if(src===false){
+            return
+        }
+
+    },
+    send(){
+      axios
+      .post("localhost:8090/api/test/naver", this.carrage)
+      .then(
+          this.router.push('/')
+      )
+    },
+    callbackFunction() {
+      callbackFunction();
+    }
+  },
+  mounted() {
+    this.tokenizer(this.input)
+  }
 }
 </script>
