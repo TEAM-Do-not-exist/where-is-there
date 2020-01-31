@@ -8,6 +8,7 @@
 		<typeAlias type="com.ssafy.project1.dto.CommentDTO" alias="CommentDTO" />
 		<typeAlias type="com.ssafy.project1.dto.FavoriteDTO" alias="FavoriteDTO" />	
 		<typeAlias type="com.ssafy.project1.dto.PhotoDTO" alias="PhotoDTO" />
+		<typeAlias type="com.ssafy.project1.dto.PhotoCheckDTO" alias="PhotoCheckDTO" />
 		<typeAlias type="com.ssafy.project1.dto.EmailAuthDTO" alias="EmailAuthDTO" />
 		<typeAlias type="com.ssafy.project1.dto.SuccessTemp" alias="SuccessTemp" />
 	</typeAliases>
@@ -17,6 +18,7 @@
 		<mapper resource="mybatis/CommentSQLMapper.xml" />
 		<mapper resource="mybatis/FavoriteSQLMapper.xml" />
 		<mapper resource="mybatis/PhotoSQLMapper.xml" />
+		<mapper resource="mybatis/PhotoCheckSQLMapper.xml" />
 		<mapper resource="mybatis/EmailAuthSQLMapper.xml" />
 	</mappers>
 	

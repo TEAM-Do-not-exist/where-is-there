@@ -1,12 +1,21 @@
 import vue from "vue";
 import router from "vue-router";
+
 import index from "./components/Basic/index";
-import testpage from "./components/Basic/testpage";
+import PhotoDetail from "./components/Photo/PhotoDetail";
+import PhotoRecommands from "./components/Photo/PhotoRecommands";
+
+import Admin from "./components/Admin/Admin";
 import Login from "./views/Login.vue";
 import ChatRoom from "./views/ChatRoom.vue";
 import signin from "./components/Basic/SignIn";
 import signup from "./components/Basic/SignUp";
 import error from "./components/Error/errorpage";
+import main from "./components/Error/main";
+import mypage from "./components/Mypage/MyPage";
+import myfavorite from "./components/Mypage/MyFavorite";
+import mycomment from "./components/Mypage/MyComment";
+
 vue.use(router);
 
 export default new router({
@@ -19,13 +28,20 @@ export default new router({
       alias: "/index"
     },
     {
-      path: "/test",
-      component: testpage
+      name: "Photo",
+      path: "/photo/:pcode",
+      component: PhotoDetail,
+      props: true
     },
     {
-      path: "/chat",
-      name: "Login",
-      component: Login
+      name: "PhotoRecommands",
+      path: "/photo/:pcode/recommands",
+      component: PhotoRecommands,
+      props: true
+    },
+    {
+      path: "/admin",
+      component: Admin
     },
     {
       path: "/signin",
@@ -36,9 +52,31 @@ export default new router({
       component: signup
     },
     {
+      path: "/chat",
+      name: "Login",
+      component: Login
+    },
+    {
+      path: "/myfavorite",
+      component: myfavorite
+    },
+    {
+      path: "/mycomment",
+      component: mycomment
+    },
+    {
+      path: "/mypage",
+      component: mypage
+    },
+    {
       path: "/char-room/:username",
       name: "ChatRoom",
       component: ChatRoom
+    },
+    {
+      path: "/main?:input",
+      component: main,
+      props: true
     },
     {
       path: "*",

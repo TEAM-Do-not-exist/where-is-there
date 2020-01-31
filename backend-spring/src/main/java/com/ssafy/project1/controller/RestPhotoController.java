@@ -31,17 +31,22 @@ public class RestPhotoController {
 	PhotoService photoSer;
 	
 	@PostMapping("/insert")
-	@ApiOperation(value="photo 등록 서비스")
+	@ApiOperation(value="photo 등록 서비스 / 입력: pplace, purl, pname, psource / 출력 : 성공시 1")
 	public ResponseEntity<Map> photoInsert(@RequestBody PhotoDTO dto){
 		ResponseEntity<Map> resEntity=null;
+		int state=0;
 		try {
 			int insert = photoSer.insert(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
+			state = 1;
+			msg.put("state", state);
 			msg.put("regmsg", "입력했습니다");
 			msg.put("resvalue",insert);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
+			state = -1;
+			msg.put("state", state);
 			msg.put("resmsg","입력실패");
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}
@@ -51,14 +56,26 @@ public class RestPhotoController {
 	@ApiOperation(value="photo 삭제 서비스")
 	public ResponseEntity<Map> photoDelete(@PathVariable("pcode")int pcode){
 		ResponseEntity<Map> resEntity=null;
+		int state=0;
 		try {
 			int delete = photoSer.delete(pcode);
 			Map<String,Object> msg = new HashMap<String, Object>();
-			msg.put("regmsg", "삭제했습니다");
-			msg.put("resvalue",delete);
+			if(delete>0) {
+				state = 1;
+				msg.put("state", state);
+				msg.put("regmsg", "삭제했습니다");
+				msg.put("resvalue",delete);
+			}else {
+				state = -1;
+				msg.put("state", state);
+				msg.put("regmsg", "삭제실패했습니다");
+				msg.put("resvalue",delete);
+			}
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
+			state = -1;
+			msg.put("state", state);
 			msg.put("resmsg","삭제실패");
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}
@@ -66,18 +83,29 @@ public class RestPhotoController {
 	}
 
 	@PutMapping("/update")
-	@ApiOperation(value="code에 맞는 사진의 정보 수정 서비스")
+	@ApiOperation(value="code에 맞는 사진의 정보 수정 서비스 / 입력: pcode, pplace, purl, pname, psource / 출력: 성공시 1")
 	public ResponseEntity<Map<String,Object>> photoUpdate(@RequestBody PhotoDTO dto) {
 		ResponseEntity<Map<String, Object>> resEntity = null;
-
+		int state=0;
 		try {
 			int update = photoSer.update(dto);
 			Map<String, Object> map = new HashMap();
-			map.put("resmsg","수정성공");
-			map.put("resvalue",update);
+			if(update>0) {
+				state = 1;
+				map.put("state", state);
+				map.put("resmsg","수정성공");
+				map.put("resvalue",update);
+			}else {
+				state = -1;
+				map.put("state", state);
+				map.put("resmsg","수정실패");
+				map.put("resvalue",update);
+			}
 			resEntity = new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}catch(RuntimeException e){
 			Map<String, Object> map = new HashMap();
+			state = -1;
+			map.put("state", state);
 			map.put("resmsg", "수정실패");
 			resEntity = new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
@@ -88,14 +116,19 @@ public class RestPhotoController {
 	@ApiOperation(value="photo 전체 조회 서비스")
 	public ResponseEntity<Map> photoSelect(){
 		ResponseEntity<Map> resEntity=null;
+		int state=0;
 		try {
 			List<PhotoDTO> selectList = photoSer.selectList();
 			Map<String,Object> msg = new HashMap<String, Object>();
+			state = 1;
+			msg.put("state", state);
 			msg.put("regmsg", "조회했습니다");
 			msg.put("resvalue",selectList);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
+			state = -1;
+			msg.put("state", state);
 			msg.put("resmsg","조회실패");
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}
@@ -105,14 +138,19 @@ public class RestPhotoController {
 	@ApiOperation(value="photo 전체 조회 서비스 좋아요 많은 순서로")
 	public ResponseEntity<Map> photoSelectFavorite(){
 		ResponseEntity<Map> resEntity=null;
+		int state=0;
 		try {
 			List<PhotoDTO> selectList_favorite = photoSer.selectList_favorite();
 			Map<String,Object> msg = new HashMap<String, Object>();
+			state = 1;
+			msg.put("state", state);
 			msg.put("regmsg", "조회했습니다");
 			msg.put("resvalue",selectList_favorite);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
+			state = -1;
+			msg.put("state", state);
 			msg.put("resmsg","조회실패");
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}
@@ -122,16 +160,21 @@ public class RestPhotoController {
 	@ApiOperation(value="photo 조회 서비스")
 	public ResponseEntity<Map> photoSelectOneId(@PathVariable("pcode")int pcode){
 		ResponseEntity<Map> resEntity=null;
+		int state=0;
 		try {
 			PhotoDTO dto = new PhotoDTO();
 			dto.setPcode(pcode);
 			PhotoDTO selectOneId = photoSer.selectOne(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
+			state = 1;
+			msg.put("state", state);
 			msg.put("regmsg", "조회했습니다");
 			msg.put("resvalue",selectOneId);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
+			state = -1;
+			msg.put("state", state);
 			msg.put("resmsg","조회실패");
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}
