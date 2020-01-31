@@ -7,7 +7,9 @@ import java.net.URL;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin(origins= {"*"},maxAge=6000)
 public class HttpConnectionNaver {
 	
 	private static final String mydomain = "http%3A%2F%2F192.168.100.52%3A8090%2Fapi%2Fexternal%2Fcallback_naver";
@@ -62,8 +64,49 @@ public class HttpConnectionNaver {
 		}
 		return naverMember;
 	}
+	public static NaverMember getNaverMember(String access_token) {
+		String header = "Bearer " + access_token; // Bearer 다음에 공백 추가
+        System.out.println("header= "+header);
+        try {
+            String apiURL = "https://openapi.naver.com/v1/nid/me";
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", header);
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if(responseCode==200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 에러 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+            String inputLine;
+            StringBuffer res = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                res.append(inputLine);
+            }
+            br.close();
+            
+            String info = res.toString();
+			
+			JSONParser parser2 = new JSONParser();
+			JSONObject jsonObj2 = (JSONObject)parser2.parse(info);
+			JSONObject jsonObj3 = (JSONObject)jsonObj2.get("response");
+			String nickName = (String)jsonObj3.get("nickname");
+			String email = (String)jsonObj3.get("email");
+			String name = (String)jsonObj3.get("name");
+			NaverMember naverMember = new NaverMember(name, nickName, email);
+            
+            return naverMember;
+        } catch (Exception e) {
+            System.err.println(e);
+            return null;
+        }
+    }
+	
 	 static private String getUserInfo(String access_token) {
 	        String header = "Bearer " + access_token; // Bearer 다음에 공백 추가
+	        System.out.println("header= "+header);
 	        try {
 	            String apiURL = "https://openapi.naver.com/v1/nid/me";
 	            URL url = new URL(apiURL);
