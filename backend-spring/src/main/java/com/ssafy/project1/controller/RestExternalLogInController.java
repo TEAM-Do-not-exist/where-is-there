@@ -32,17 +32,17 @@ public class RestExternalLogInController {
 	JwtService jwtService;
 	
 	@GetMapping("/request_naver")
-	@ApiOperation(value="네이버 로그인 서비스 로그인 후에 토큰을 반환한다.")
+	@ApiOperation(value="네이버 로그인 서비스 로그인 후에 토큰을 반환한다. 반환값: state, token, info(name, nickName, email) (redirect를 써서 swagger에선 안보임) //나중에 콜백주소 바꿔야할 수도 있음")
 	public RedirectView naverRequest() {
 		String clientId = "nsrxqIjEGhhBf9jdPBFD";
 		String mydomain = "http%3A%2F%2F192.168.100.52%3A8090%2Fapi%2Fexternal%2Fcallback_naver";
-		String requestUrlNaver = "https://nid.naver.com/oauth2.0/authorize?client_id=" + clientId + "&response_type=code&redirect_uri="+ mydomain + "&state="; 		AccessToken at = new AccessToken();
+		String requestUrlNaver = "https://nid.naver.com/oauth2.0/authorize?client_id=" + clientId + "&response_type=code&redirect_uri="+ mydomain + "&state="; 
 		String generateState = AccessToken.generateState();
 		return new RedirectView(requestUrlNaver+generateState);
 	}
 	
 	@GetMapping("/callback_naver")
-	@ApiOperation(value="콜백")
+	@ApiOperation(value="콜백 - 직접 사용하지는 않음")
 	public ResponseEntity<Map> callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request) throws UnsupportedEncodingException {
 
 		String accessUrl = HttpConnectionNaver.makeApiUrl(state, code);

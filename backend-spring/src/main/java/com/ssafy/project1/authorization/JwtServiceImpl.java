@@ -65,11 +65,7 @@ public class JwtServiceImpl implements JwtService {
 		return values;
 	}
 
-	@Override
-	public int geteMemberId() {
-		// TODO Auto-generated method stub
-		return (int)this.get("member").get("memberId");
-	}
+
 
 	@Override
 	public boolean isUsable(String jwt) {

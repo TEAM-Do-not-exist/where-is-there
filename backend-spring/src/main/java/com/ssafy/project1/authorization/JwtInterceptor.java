@@ -22,7 +22,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 			throws Exception {
 		// TODO Auto-generated method stub
 		final String token = request.getHeader(HEADER_AUTH);
-		System.out.println(token);
+//		System.out.println(token);
 		if(token !=null && jwtService.isUsable(token)) {
 			return true;
 		}
