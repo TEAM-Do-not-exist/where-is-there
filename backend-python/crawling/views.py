@@ -34,7 +34,7 @@ def crawling_info(info, idx, filename):
                 if words[i] == '#':
                     for j in range(i + 1, len(words)):
                         if words[j] in [' ', '#']:
-                            word = words[i + 1:j]
+                            word = words[i + 1:j].replace('.', '')
                             if word != '':
                                 hashtags.append(word)
                             break
