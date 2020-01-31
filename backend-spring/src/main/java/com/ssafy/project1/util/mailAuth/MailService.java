@@ -1,4 +1,4 @@
-package com.ssafy.project1.util;
+package com.ssafy.project1.util.mailAuth;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

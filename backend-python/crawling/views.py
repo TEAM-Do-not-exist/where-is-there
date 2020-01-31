@@ -177,10 +177,10 @@ def mango(request):
     res = {}
     for i in range(len(titles)):
         code = i + 1
+        url = mango_url
+        source = images[i]['data-original']
         place = images[i]['alt'].split(' - ')[-1]
-        url = images[i]['data-original']
         name = titles[i].get_text().replace('\n', '')
-        source = mango_url
 
         res[code] = {
             'pcode': code,
