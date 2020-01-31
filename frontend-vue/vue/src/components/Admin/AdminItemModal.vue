@@ -1,10 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog
-      v-model="dialog"
-      persistent
-      max-width="600px"
-    >
+    <v-dialog v-model="dialog" persistent max-width="600px">
       <!-- modal open button -->
       <template v-slot:activator="{ on }">
         <v-btn color="blue" text v-on="on">Check Information</v-btn>

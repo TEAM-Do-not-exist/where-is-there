@@ -1,12 +1,8 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" md="6" sm="12">
-        여기는 추천 정보를 보여줄 페이지
-      </v-col>
-      <v-col cols="12" md="6" sm="12">
-        여기는 지도를 보여줄 페이지
-      </v-col>
+      <v-col cols="12" md="6" sm="12">여기는 추천 정보를 보여줄 페이지</v-col>
+      <v-col cols="12" md="6" sm="12">여기는 지도를 보여줄 페이지</v-col>
     </v-row>
   </v-container>
 </template>

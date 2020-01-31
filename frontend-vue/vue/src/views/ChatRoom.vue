@@ -2,10 +2,7 @@
   <!-- <div class="inner-wrap" fluid fill-height inner-wrap> -->
   <div>
     <Message-List :msgs="msgDatas" class="msg-list"></Message-List>
-    <Message-From
-      v-on:submitMessage="sendMessage"
-      class="msg-form"
-    ></Message-From>
+    <Message-From v-on:submitMessage="sendMessage" class="msg-form"></Message-From>
   </div>
   <!-- </div> -->
 </template>

@@ -1,11 +1,9 @@
 <template>
-    <v-app>
-        Loading...
-    </v-app>
+  <v-app>Loading...</v-app>
 </template>
 <script>
-import axios from 'axios'
-import NaverLogin from 'vue-naver-login'
+import axios from "axios";
+import NaverLogin from "vue-naver-login";
 
 let callbackFunction = status => {
   if (status) {
@@ -20,12 +18,10 @@ let callbackFunction = status => {
 
     var item = {
       name: NaverLogin.user.getName(),
-      email: NaverLogin.user.getEmail(),
-    }
+      email: NaverLogin.user.getEmail()
+    };
 
-    axios
-    .post('localhost:8090/api/test/naver',item)
-    .then()
+    axios.post("localhost:8090/api/test/naver", item).then();
 
     window.location.replace(
       "http://" +
@@ -42,37 +38,34 @@ let callbackFunction = status => {
 
 export default {
   data() {
-    return{
+    return {
       carrage: {
-        token: '',
-        status: '',
+        token: "",
+        status: ""
       }
-    }
+    };
   },
-  props:{
-      input: String
+  props: {
+    input: String
   },
-  methods:{
-    tokenizer(){
+  methods: {
+    tokenizer() {
       var src = window.location.href.split("#")[1];
-        if(src===false){
-            return
-        }
-
+      if (src === false) {
+        return;
+      }
     },
-    send(){
+    send() {
       axios
-      .post("localhost:8090/api/test/naver", this.carrage)
-      .then(
-          this.router.push('/')
-      )
+        .post("localhost:8090/api/test/naver", this.carrage)
+        .then(this.router.push("/"));
     },
     callbackFunction() {
       callbackFunction();
     }
   },
   mounted() {
-    this.tokenizer(this.input)
+    this.tokenizer(this.input);
   }
-}
+};
 </script>

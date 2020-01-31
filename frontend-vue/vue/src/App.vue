@@ -1,32 +1,17 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawerRight"
-      app
-      right
-      class=".d-flex"
-      style="z-index:2"
-    >
+    <v-navigation-drawer v-model="drawerRight" app right class=".d-flex" style="z-index:2">
       <v-list dense>
         <v-list-item-content>
           <div class="inner-wrap" fluid fill-height inner-wrap>
             <Message-List :msgs="msgDatas" class="msg-list"></Message-List>
-            <Message-From
-              v-on:submitMessage="sendMessage"
-              class="msg-form"
-            ></Message-From>
+            <Message-From v-on:submitMessage="sendMessage" class="msg-form"></Message-From>
           </div>
         </v-list-item-content>
       </v-list>
     </v-navigation-drawer>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      class=".d-flex"
-      temporary
-      app
-      style="z-index:2"
-    >
+    <v-navigation-drawer v-model="drawer" class=".d-flex" temporary app style="z-index:2">
       <v-container>
         <img
           width="80"
@@ -67,7 +52,6 @@
             <v-list-item-title>MyPage</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
       </v-list>
       <v-footer absolute bottom>
         <span class="white--text">&copy; 2020, Team 404</span>
@@ -78,10 +62,7 @@
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-      <i
-        class="far fa-comments fa-2x"
-        @click.stop="drawerRight = !drawerRight"
-      ></i>
+      <i class="far fa-comments fa-2x" @click.stop="drawerRight = !drawerRight"></i>
       <!-- <v-app-bar-nav-icon @click.stop="drawerRight = !drawerRight"></v-app-bar-nav-icon> -->
     </v-app-bar>
 

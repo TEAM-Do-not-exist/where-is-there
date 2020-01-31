@@ -1,10 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-container>
-      <v-layout
-        align-center
-        justify-center
-      >
+      <v-layout align-center justify-center>
         <v-card flat>
           <v-card-title>
             <h1>SIGN UP</h1>
@@ -20,12 +17,9 @@
                 required
               ></v-text-field>
               <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-              <v-btn :disabled="! valid" @click="submit"  outlined width="277.33" height="60">submit</v-btn>
+              <v-btn :disabled="! valid" @click="submit" outlined width="277.33" height="60">submit</v-btn>
               <v-container />
-              <v-layout
-                align-center
-                justify-center
-              >
+              <v-layout align-center justify-center>
                 <p style="upper-margin: 10px;">
                   <a @click="goback">back</a>
                 </p>
