@@ -89,7 +89,7 @@
       <router-view />
     </v-content>
 
-    <v-footer color="#fff0" inset app>
+    <v-footer color="#fff0" style="z-index:1" inset app>
       <p>.</p>
       <v-fab-transition>
         <v-btn outlined dark absolute top right fab @click="$vuetify.goTo(0)">
