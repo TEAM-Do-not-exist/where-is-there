@@ -3,6 +3,7 @@ import router from "vue-router";
 
 import index from "./components/Basic/index";
 import PhotoDetail from "./components/Photo/PhotoDetail";
+import PhotoRecommands from "./components/Photo/PhotoRecommands";
 
 import Admin from "./components/Admin/Admin";
 import Login from "./views/Login.vue";
@@ -32,6 +33,12 @@ export default new router({
       props: true
     },
     {
+      name: "PhotoRecommands",
+      path: "/photo/:pcode/recommands",
+      component: PhotoRecommands,
+      props: true
+    },
+    {
       path: "/admin",
       component: Admin
     },
@@ -51,7 +58,8 @@ export default new router({
     {
       path: "/myfavorite",
       component: myfavorite
-    },{
+    },
+    {
       path: "/mycomment",
       component: mycomment
     },
