@@ -162,7 +162,7 @@ export default {
       });
       this.$sendMessage({
         // name: this.$route.params.username,
-        name: "임시닉네임",
+        name: "tmp:",
         msg
       });
     }

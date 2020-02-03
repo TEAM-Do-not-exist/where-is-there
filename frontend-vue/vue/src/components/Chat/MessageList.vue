@@ -4,14 +4,25 @@
       <div v-for="(msg,index) in msgs" v-bind:key="index">
         <v-list-tile>
           <v-list-tile-action>
-            <span>
-              <i class="far fa-user"></i>
-              {{msg.from.name }}
+            <span v-if="msg.from.name=='나:'" style="display:block; text-align:right">
+              <!-- <i class="far fa-user"></i>
+              <i class="far fa-user"></i> -->
+              <v-spacer/>
+                   <v-list-tile-content>
+            <v-list-tile-title>{{ msg.msg}}  </v-list-tile-title>
+          </v-list-tile-content>
             </span>
-          </v-list-tile-action>
-          <v-list-tile-content>
+            <span v-else>
+              <!-- <i class="far fa-user"></i> -->
+              {{msg.from.name }}
+             <v-list-tile-content>
             <v-list-tile-title>{{ msg.msg}}</v-list-tile-title>
           </v-list-tile-content>
+            </span>
+          <!-- <v-list-tile-content>
+            <v-list-tile-title>{{ msg.msg}}</v-list-tile-title>
+          </v-list-tile-content> -->
+          </v-list-tile-action>
         </v-list-tile>
       </div>
     </transition-group>
@@ -21,7 +32,12 @@
 <script>
 export default {
   name: "MessageList",
-  props: ["msgs"]
+  props: ["msgs"],
+  data(){
+    return{
+      name: this.msg.from.name
+    }
+  }
 };
 </script>
 
