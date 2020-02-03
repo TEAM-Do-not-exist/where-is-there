@@ -4,37 +4,40 @@
       <!-- <v-card-title  >
               <h1>My Page</h1>
       </v-card-title>-->
-      <v-card class="mx-auto" max-width="1000">
-        <v-img
-          class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        ></v-img>
+      <v-container>
+        <v-card app>
+          <v-img
+            class="white--text align-end"
+            width="100%"
+            aspect-ratio=5
+            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          ></v-img>
 
-        <v-card-subtitle class="pb-0">Name:</v-card-subtitle>
-        <v-card-subtitle class="pb-0">ID:</v-card-subtitle>
-        <v-card-subtitle class="pb-0">PW:</v-card-subtitle>
-        <v-card-subtitle class="pb-0">e-mail:</v-card-subtitle>
-        <v-card-subtitle class="pb-0">phone:</v-card-subtitle>
-        <!-- <v-card-text class="text--primary">
-        <div>Whitehaven Beach</div>
+          <v-card-subtitle class="pb-0">Name:</v-card-subtitle>
+          <v-card-subtitle class="pb-0">ID:</v-card-subtitle>
+          <v-card-subtitle class="pb-0">PW:</v-card-subtitle>
+          <v-card-subtitle class="pb-0">e-mail:</v-card-subtitle>
+          <v-card-subtitle class="pb-0">phone:</v-card-subtitle>
+          <!-- <v-card-text class="text--primary">
+          <div>Whitehaven Beach</div>
 
-        <div>Whitsunday Island, Whitsunday Islands</div>
-      </v-card-text>
-        -->
-        <v-card-actions>
-          <v-btn color="orange" text>수정하기</v-btn>
-        </v-card-actions>
-      </v-card>
+          <div>Whitsunday Island, Whitsunday Islands</div>
+        </v-card-text>
+          -->
+          <v-card-actions>
+            <v-btn color="orange" text>수정하기</v-btn>
+          </v-card-actions>
+        </v-card>
 
-      <v-card class="mx-auto" min-width="1000" max-width="1000">
-        <v-card-actions>
-          <v-btn color="yellow" text @click="isLike = !isLike; isComment = false">내 좋아요</v-btn>
-          <v-btn color="yellow" text @click="isComment = !isComment; isLike =false">내 댓글</v-btn>
-        </v-card-actions>
-        <MyFavorite v-if="isLike"></MyFavorite>
-        <MyComment v-if="isComment"></MyComment>
-      </v-card>
+        <v-card app>
+          <v-card-actions>
+            <v-btn color="yellow" text @click="isLike = !isLike; isComment = false">내 좋아요</v-btn>
+            <v-btn color="yellow" text @click="isComment = !isComment; isLike =false">내 댓글</v-btn>
+          </v-card-actions>
+          <MyFavorite v-if="isLike" app  style="overflow-x:auto"></MyFavorite>
+          <MyComment v-if="isComment" app  style="overflow-x:auto"></MyComment>
+        </v-card>
+      </v-container>
     </v-app>
   </div>
 </template>
