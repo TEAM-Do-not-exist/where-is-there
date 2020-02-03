@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-card max-width="1000" class="mx-auto">
+      <v-card app>
         <v-container>
           <v-row dense>
             <!-- <v-col cols="12">
