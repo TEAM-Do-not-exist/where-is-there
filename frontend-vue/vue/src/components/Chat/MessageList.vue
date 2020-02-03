@@ -4,7 +4,7 @@
       <div v-for="(msg,index) in msgs" v-bind:key="index">
         <v-list-tile>
           <v-list-tile-action>
-            <span>
+            <span v--if msg.from.name="나:">
               <i class="far fa-user"></i>
               {{msg.from.name }}
             </span>
@@ -24,7 +24,6 @@ export default {
   props: ["msgs"]
 };
 </script>
-
 <style>
 .list-item {
   display: inline-block;
