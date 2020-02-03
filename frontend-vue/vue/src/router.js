@@ -15,12 +15,20 @@ import main from "./components/Error/main";
 import mypage from "./components/Mypage/MyPage";
 import myfavorite from "./components/Mypage/MyFavorite";
 import mycomment from "./components/Mypage/MyComment";
+import intro from "./components/Basic/Intro";
+
 
 vue.use(router);
 
 export default new router({
   mode: "history",
   routes: [
+    {
+      name: "index",
+      path: "/",
+      component: index,
+      alias: "/index"
+    },
     {
       name: "index",
       path: "/",
@@ -81,6 +89,10 @@ export default new router({
     {
       path: "*",
       component: error
+    },
+    {
+      path: "/intro",
+      component: intro
     }
   ]
 });

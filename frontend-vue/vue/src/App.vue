@@ -102,7 +102,7 @@ export default {
     theme: { dark: true }
   }),
   data: () => ({
-    drawer: false,
+    drawer: null,
     drawerRight: false,
     right: false,
     left: false,
@@ -171,6 +171,7 @@ export default {
 </script>
 
 <style>
+
 #navbar {
   background-color: #fff0;
 }
