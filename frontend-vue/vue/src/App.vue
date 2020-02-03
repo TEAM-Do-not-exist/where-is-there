@@ -103,7 +103,7 @@ export default {
   }),
   data: () => ({
     drawer: null,
-    drawerRight: null,
+    drawerRight: false,
     right: false,
     left: false,
     easing: "easeInOutCubic",
@@ -171,6 +171,7 @@ export default {
 </script>
 
 <style>
+
 #navbar {
   background-color: #fff0;
 }

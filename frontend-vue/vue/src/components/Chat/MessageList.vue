@@ -4,7 +4,7 @@
       <div v-for="(msg,index) in msgs" v-bind:key="index">
         <v-list-tile>
           <v-list-tile-action>
-            <span v-if="msg.from.name=='나:'" style="display:block; text-align:right">
+            <span v-if="msg.from.name=='나:'" style="display:block; text-align:right; ">
               <!-- <i class="far fa-user"></i>
               <i class="far fa-user"></i> -->
               <v-spacer/>
