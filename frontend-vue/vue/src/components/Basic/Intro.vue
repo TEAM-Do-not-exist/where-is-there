@@ -1,8 +1,8 @@
 <template>
-<div id=app>
-    <div class="wrapper">
-        <img src="/question-mark.png" style="position:absolute; left:0%; top:-70%; opacity:0.2; z-index:-10;" />
-  <h1 align="center"><a href="#" style="color:rgba(255, 255, 255, 0.65);" class="effect-underline effect-shine">거기어디니</a></h1>
+<div id=app >
+    <div class="wrapper" >
+        <!-- <img src="/question-mark.png" style="position:absolute; left:0%; top:-70%; opacity:0.2; z-index:-10;" /> -->
+  <h1 align="center" ><a href="#" style="color:rgba(255, 255, 255, 0.65);" class="effect-underline effect-shine ">거기어디니</a></h1>
   <!-- <h1 align="center"><a href="#" class="effect-box">거기 어디니</a></h1> -->
   <!-- <h1 align="center"><a href="#" class="effect-shine">거기 어디니</a></h1> -->
 </div>
@@ -38,7 +38,7 @@ a.effect-underline:after {
   position: absolute;
   left: 0;
   display: inline-block;
-  height: 1em;
+  height: 180px;
   width: 100%;
   border-bottom: 3px solid;
   border-top: 3px solid;
@@ -60,7 +60,7 @@ a.effect-underline:hover:after {
 
 /* effect-shine */
 a.effect-shine:hover {
-  -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  -webkit-mask-image: linear-gradient(-105deg, rgba(123, 123, 123, 0.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
   -webkit-mask-size: 200%;
   animation: shine 2s infinite;
 }

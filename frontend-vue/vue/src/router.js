@@ -30,6 +30,12 @@ export default new router({
       alias: "/index"
     },
     {
+      name: "index",
+      path: "/",
+      component: index,
+      alias: "/index"
+    },
+    {
       name: "Photo",
       path: "/photo/:pcode",
       component: PhotoDetail,
