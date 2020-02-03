@@ -11,7 +11,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-navigation-drawer v-model="drawer" class=".d-flex" temporary app style="z-index:2">
+    <v-navigation-drawer v-model="drawer" class=".d-flex" temporary app style="z-index:3">
       <v-container>
         <img
           width="80"
@@ -58,11 +58,11 @@
       </v-footer>
     </v-navigation-drawer>
 
-    <v-app-bar id="navbar" app flat style="z-index:1">
+    <v-app-bar id="navbar" app flat style="pointer-events: none; z-index:1">
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-spacer></v-spacer>
-      <i class="far fa-comments fa-2x" @click.stop="drawerRight = !drawerRight"></i>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" style="pointer-events: auto;"></v-app-bar-nav-icon>
+      <v-spacer style="pointer-events: none;"></v-spacer>
+      <i class="far fa-comments fa-2x" @click.stop="drawerRight = !drawerRight" style="pointer-events: auto;"></i>
       <!-- <v-app-bar-nav-icon @click.stop="drawerRight = !drawerRight"></v-app-bar-nav-icon> -->
     </v-app-bar>
 
@@ -102,8 +102,8 @@ export default {
     theme: { dark: true }
   }),
   data: () => ({
-    drawer: null,
-    drawerRight: null,
+    drawer: false,
+    drawerRight: false,
     right: false,
     left: false,
     easing: "easeInOutCubic",
