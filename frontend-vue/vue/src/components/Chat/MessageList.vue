@@ -1,5 +1,5 @@
 <template>
-  <v-list v-auto-bottom="msgs">
+  <v-list v-auto-bottom="msgs" style="overflow-y: auto; overflow-x: hidden;">
     <transition-group name="list">
       <div v-for="(msg,index) in msgs" v-bind:key="index">
         <v-list-tile>
