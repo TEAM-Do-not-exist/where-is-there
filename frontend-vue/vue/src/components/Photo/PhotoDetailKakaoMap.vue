@@ -58,7 +58,7 @@ export default {
     ...mapGetters(["photo"])
   },
   mounted() {
-    setTimeout(this.onMarker, 1000);
+    setTimeout(this.onMarker, 300);
   }
 };
 </script>

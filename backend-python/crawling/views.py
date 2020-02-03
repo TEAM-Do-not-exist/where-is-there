@@ -139,7 +139,9 @@ def tour_api(request):
     keyword = quote(request.GET.get('keyword', '광주'))
     tour_url = f'http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/gallerySearchList?MobileOS=ETC&MobileApp=AppTest&ServiceKey={config("TOUR_API_KEY")}&keyword={keyword}&_type=json'
     api_res = requests.get(tour_url).json()
-    items = api_res.get('response').get('body').get('items').get('item')
+    items = api_res.get('response').get('body').get('items')
+    if items != '':
+        items = items.get('item')
 
     res = {}
     if items != None:
