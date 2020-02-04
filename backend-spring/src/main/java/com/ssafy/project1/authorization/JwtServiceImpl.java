@@ -65,6 +65,16 @@ public class JwtServiceImpl implements JwtService {
 		return values;
 	}
 
+	@Override
+	public String getEmail(String jwt, String key) {
+//		try {
+//			Jws claims = Jwts.parser().setSigningKey(key).parseClaimsJws(jwt);
+//			return claims.getBody().get();
+//		}catch(Exception e) {
+//			return null;
+//		}
+		return null;
+	}
 
 
 	@Override
