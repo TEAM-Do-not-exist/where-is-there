@@ -4,32 +4,20 @@
       <v-card app>
         <v-container>
           <v-row dense>
-<!-- 
-            <v-col v-for="(item, i) in items" :key="i" cols="12">
-              <v-card :color="item.color" dark>
+            <v-col v-for="(item, i) in list" :key="i" cols="12">
+                <v-card dark>
                 <div class="d-flex flex-no-wrap">
-                  <v-avatar class="ma-3" size="50" tile>
-                    <v-img :src="item.src"></v-img>
+                  <v-avatar class="ma-3" size="100" tile>
+                    <v-img :src= item.purl></v-img>
                   </v-avatar>
                   <div>
+                    <v-card-text>{{item.ctime}}</v-card-text>
                     <v-card-subtitle v-text="item.content"></v-card-subtitle>
                   </div>
                 </div>
               </v-card>
-            </v-col> -->
-    
-            <!-- <div>{{list}}</div> -->
+            </v-col>
 
-           <table class="table text-center table-bordered table-hover">
-                            <tr v-for="comment in list" :key="comment.ccode">
-                                <!-- <td v-html="board.cid"></td> -->
-                                <td v-html="comment.ccode"></td>
-                                <td v-html="comment.content"></td>
-                                 <td v-html="comment.ctime"></td>
-
-                            </tr>
-
-                        </table>
           </v-row>
         </v-container>
       </v-card>
@@ -50,7 +38,7 @@ export default {
     // // ccontent: this.list.ccontent,
     // // ctime: this.list.ctime,
     // items:[
-    //   {
+    //   {0..0
     //   color : "black",
     //   src : "",
     //   title : this.list.ccode,
@@ -58,45 +46,45 @@ export default {
     //   }
 
     // ]
-    // items: [
-    //   {
-    //     color: "black",
-    //     src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-    //     // title: '사진 바로가기',
-    //     content:
-    //       "내가 쓴 댓글이 들어갈거임. 사진이나 댓글 누르면 그 사진페이지로 가도록 합시다다ㅏ아아아아"
-    //   },
-    //   {
-    //     color: "black",
-    //     src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
-    //     // title: '사진 바로가기',
-    //     content: "내가 쓴 댓글이 들어갈거임"
-    //   },
-    //   {
-    //     color: "black",
-    //     src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-    //     // title: '사진 바로가기',
-    //     content: "내가 쓴 댓글이 들어갈거임"
-    //   },
-    //   {
-    //     color: "black",
-    //     src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
-    //     // title: '사진 바로가기',
-    //     content: "Ellie Goulding"
-    //   },
-    //   {
-    //     color: "black",
-    //     src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-    //     // title: '사진 바로가기',
-    //     content: "Foster the People"
-    //   },
-    //   {
-    //     color: "black",
-    //     src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
-    //     // title: '사진 바로가기',
-    //     content: "Ellie Goulding"
-    //   }
-    // ]
+    items: [
+      {
+        color: "black",
+        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
+        // title: '사진 바로가기',
+        content:
+          "내가 쓴 댓글이 들어갈거임. 사진이나 댓글 누르면 그 사진페이지로 가도록 합시다다ㅏ아아아아"
+      },
+      {
+        color: "black",
+        src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
+        // title: '사진 바로가기',
+        content: "내가 쓴 댓글이 들어갈거임"
+      },
+      {
+        color: "black",
+        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
+        // title: '사진 바로가기',
+        content: "내가 쓴 댓글이 들어갈거임"
+      },
+      {
+        color: "black",
+        src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
+        // title: '사진 바로가기',
+        content: "Ellie Goulding"
+      },
+      {
+        color: "black",
+        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
+        // title: '사진 바로가기',
+        content: "Foster the People"
+      },
+      {
+        color: "black",
+        src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
+        // title: '사진 바로가기',
+        content: "Ellie Goulding"
+      }
+    ]
 
   }),
 
