@@ -95,7 +95,7 @@ public class RestCommentController {
 			CommentDTO dto = new CommentDTO();
 			dto.setCid(cid);
 			List<CommentDTO> selectMyList = comSer.selectMyList(dto);
-			System.out.println(selectMyList.toString());
+//			System.out.println(selectMyList.toString());
 			Map<String,Object> msg = new HashMap<String, Object>();
 			if(selectMyList.size()>0) {
 				state = 1;
@@ -103,6 +103,7 @@ public class RestCommentController {
 				msg.put("regmsg", "조회했습니다");
 				msg.put("resvalue",selectMyList);
 			}
+			System.out.println(msg.toString());
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
