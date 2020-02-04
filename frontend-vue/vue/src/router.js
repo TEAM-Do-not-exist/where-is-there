@@ -16,6 +16,7 @@ import mypage from "./components/Mypage/MyPage";
 import myfavorite from "./components/Mypage/MyFavorite";
 import mycomment from "./components/Mypage/MyComment";
 
+
 vue.use(router);
 
 export default new router({
