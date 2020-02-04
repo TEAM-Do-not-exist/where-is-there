@@ -32,60 +32,7 @@ export default {
   name: "comment-list",
 
   data: () => ({
-    list:[],
-    // // ccid : this.list.ccid,
-    // // ccode : this.list.ccode,
-    // // ccontent: this.list.ccontent,
-    // // ctime: this.list.ctime,
-    // items:[
-    //   {0..0
-    //   color : "black",
-    //   src : "",
-    //   title : this.list.ccode,
-    //   content : this.list.ccontent
-    //   }
-
-    // ]
-    items: [
-      {
-        color: "black",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        // title: '사진 바로가기',
-        content:
-          "내가 쓴 댓글이 들어갈거임. 사진이나 댓글 누르면 그 사진페이지로 가도록 합시다다ㅏ아아아아"
-      },
-      {
-        color: "black",
-        src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
-        // title: '사진 바로가기',
-        content: "내가 쓴 댓글이 들어갈거임"
-      },
-      {
-        color: "black",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        // title: '사진 바로가기',
-        content: "내가 쓴 댓글이 들어갈거임"
-      },
-      {
-        color: "black",
-        src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
-        // title: '사진 바로가기',
-        content: "Ellie Goulding"
-      },
-      {
-        color: "black",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        // title: '사진 바로가기',
-        content: "Foster the People"
-      },
-      {
-        color: "black",
-        src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
-        // title: '사진 바로가기',
-        content: "Ellie Goulding"
-      }
-    ]
-
+    list:[]
   }),
 
   methods:{

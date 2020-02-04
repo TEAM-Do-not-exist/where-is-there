@@ -3,15 +3,14 @@
       <v-card app background-color="#0000">
         <v-container fluid>
           <v-row dense>
-            <v-col v-for="item in list" :key="item.fcode" :cols="card.flex">
+            <v-col v-for="(item, i) in list" :key="i" cols="6">
               <v-card>
                 <v-img
-                  :src="item.prul"
+                  :src = item.purl
                   class="white--text align-end"
                   gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                   height="200px"
                 >
-                  <v-card-title v-text="card.fcode"></v-card-title>
                 </v-img>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -36,7 +35,7 @@ export default {
   }),
 
   methods:{
-     showcomment() {
+     showfavorite() {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/favorite/selectMyList/";
       // const cid = this.cid;
@@ -51,7 +50,7 @@ export default {
     }
   },
   mounted(){
-    this.showcomment();
+    this.showfavorite();
   }
 
 };
