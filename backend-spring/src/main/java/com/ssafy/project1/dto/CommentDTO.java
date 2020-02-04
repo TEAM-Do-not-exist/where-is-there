@@ -17,12 +17,22 @@ public class CommentDTO {
 	private int ccode;
 	private String content;
 	private String ctime;
+	private String purl;
+	
 	public CommentDTO(int ccode, String cid, String content, String ctime) {
 		super();
 		this.cid = cid;
 		this.ccode = ccode;
 		this.content = content;
 		this.ctime = ctime;
+	}
+	public CommentDTO(int ccode, String cid, String content, String ctime, String purl) {
+		this.cid = cid;
+		this.ccode = ccode;
+		this.content = content;
+		this.ctime = ctime;
+		this.purl = purl;
+		
 	}
 	public CommentDTO() {
 		super();
@@ -51,9 +61,16 @@ public class CommentDTO {
 	public void setCtime(String ctime) {
 		this.ctime = ctime;
 	}
+	
+	public String getPurl() {
+		return purl;
+	}
+	public void setPurl(String purl) {
+		this.purl = purl;
+	}
 	@Override
 	public String toString() {
-		return "CommentDTO [cid=" + cid + ", ccode=" + ccode + ", content=" + content + ", ctime=" + ctime + "]";
+		return "CommentDTO [cid=" + cid + ", ccode=" + ccode + ", content=" + content + ", ctime=" + ctime + ", purl="+purl+"]";
 	}
 	
 	

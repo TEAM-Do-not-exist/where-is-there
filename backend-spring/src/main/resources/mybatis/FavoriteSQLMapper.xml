@@ -18,7 +18,6 @@
 				fcode=#{fcode}
 	</delete>
 	
-	
 	<select id="selectMyList" resultType="FavoriteDTO">
 		select * from favorite
 				 where fid = #{fid} 
