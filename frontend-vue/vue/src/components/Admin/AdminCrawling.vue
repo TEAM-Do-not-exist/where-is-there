@@ -6,14 +6,11 @@
       color="blue"
       elevation="2"
       class="text-center font-weight-bold"
-      >Get crawling images</v-alert
-    >
+    >Get crawling images</v-alert>
     <!-- 정보를 요청할 v-btn -->
     <v-row no-gutters>
       <v-col v-for="(name, idx) in btnNames" :key="idx" md="6" sm="12">
-        <v-btn dark @click="ax(name)" :block="true" color="blue">
-          {{ name.name }}
-        </v-btn>
+        <v-btn dark @click="ax(name)" :block="true" :disabled="loading" color="blue">{{ name.name }}</v-btn>
       </v-col>
     </v-row>
 
@@ -29,11 +26,7 @@
 
     <!-- pagination -->
     <div v-if="src">
-      <AdminPagination
-        :page="page"
-        :pageLength="pageLength"
-        @onPageChange="onPageChange"
-      />
+      <AdminPagination :page="page" :pageLength="pageLength" @onPageChange="onPageChange" />
     </div>
   </v-col>
 </template>

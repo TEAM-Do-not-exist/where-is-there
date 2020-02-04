@@ -20,6 +20,7 @@
     </div>
 
     <div v-else>
+      <p class="subtitle-1 font-weight-thin my-4">더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!</p>
       <!-- TourAPI -->
       <div v-for="(tour, idx) in tours" :key="idx" :id="`tour-${idx}`">
         <PhotoRecommandsLine :photo="tour" :place="photo[0].pplace" />
@@ -50,7 +51,7 @@ export default {
       tours: new Map(),
       mangos: new Map(),
       appKey: process.env.VUE_APP_KAKAO_API_KEY,
-      level: 6,
+      level: 5,
       mapTypeId: VueDaumMap.MapTypeId.NORMAL,
       center: {},
       map: null,

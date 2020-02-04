@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" md="6" sm="12">
-      <v-img :src="photo[1].purl" class="grey lighten-2" max-height="300">
+      <v-img :src="checkUrl(photo[1].purl)" class="grey lighten-2" max-height="300">
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
             <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
@@ -34,6 +34,18 @@ export default {
     onOpen(query) {
       const url = "https://map.naver.com/v5/search/";
       window.open(url + query, "_blank");
+    },
+    checkUrl(url) {
+      const error =
+        "https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80";
+      if (
+        url.startsWith("https://") === true ||
+        url.startsWith("http://") === true
+      ) {
+        return url;
+      } else {
+        return error;
+      }
     }
   }
 };
