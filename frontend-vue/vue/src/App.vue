@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire" v-if='enter'>
-    <div class="wrapper" fluid fill-height app>
-      <h1 align="center"  class="effect-underline effect-shine " app>
+    <v-layout  align-center justify-center class="wrapper" fluid fill-height>
+      <h1 align="center"  class="effect-underline effect-shine ">
         <a @click="enterf" style="color:rgba(255, 255, 255, 0.65);">
           거기
         </a>
@@ -9,7 +9,8 @@
           어디니
         </a>
       </h1>
-    </div>
+      <p  class="effect-underline effect-shine "/>
+    </v-layout>
   </v-app>
   <v-app id="inspire" v-else>
     <v-navigation-drawer v-model="drawerRight" app right class=".d-flex" style="z-index:2">
@@ -200,11 +201,6 @@ export default {
 
 .wrapper {
   font-family: '국립박물관문화재단클래식B';
-  display: block;
-  position: absolute;
-  top: 50%;
-  left:50%;
-  -webkit-transform: translate(-50%,-50%);
 }
 
 h1 a {
@@ -215,12 +211,17 @@ h1 a {
   position: relative;
 }
 
+@media screen and (max-width: 800px) {
+  h1 a {
+    font-size: 2em;
+  }
+}
+
 /*effect-underline*/
 .effect-underline:after {
   content: '';
-  position: absolute;
-  left: 0;
   display: inline-block;
+  /* height: -180px; */
   height: 180px;
   width: 100%;
   border-bottom: 3px solid;
@@ -263,7 +264,6 @@ h1 a {
 .effect-box:before {
 	content: '';
   position: absolute;
-  left: 0;
   display: inline-block;
   height: 1em;
   width: 100%;
@@ -293,12 +293,6 @@ h1 a {
   opacity: 1;
 	-webkit-transform: scale(1);
 	transform: scale(1);
-}
-
-@media screen and (max-width: 800px) {
-  h1 a {
-    font-size: 2em;
-  }
 }
 
 </style>
