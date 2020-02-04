@@ -6,7 +6,7 @@
 
     <v-bottom-navigation v-model="activeBtn" :input-value="showNav" color="indigo">
       <v-btn @click="onPageChange(-1)">
-        <span>Previous</span>
+        <span>Prev</span>
         <v-icon>mdi-minus</v-icon>
       </v-btn>
 

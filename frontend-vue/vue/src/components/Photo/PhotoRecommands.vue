@@ -1,82 +1,36 @@
 <template>
   <v-container>
     <!-- 지도 데이터 -->
-    <v-col cols="12" sm="0">
-      <v-card height="600">
-        <vue-daum-map
-          :appKey="appKey"
-          :center.sync="center"
-          :level.sync="level"
-          :mapTypeId="mapTypeId"
-          @load="onLoad"
-          style="width: 100%; height: 100%;"
-        ></vue-daum-map>
-      </v-card>
-    </v-col>
+    <v-card height="600">
+      <vue-daum-map
+        :appKey="appKey"
+        :center.sync="center"
+        :level.sync="level"
+        :mapTypeId="mapTypeId"
+        @load="onLoad"
+        style="width: 100%; height: 100%;"
+      ></vue-daum-map>
+    </v-card>
 
     <!-- 추천 데이터 -->
-    <v-col cols="12">
-      <!-- TourAPI -->
-      <div v-if="tours.length !== 0">
-        <v-row v-for="(tour, idx) in tours" :key="idx" :id="`tour-${idx}`">
-          <!-- 사진 뷰 -->
-          <v-col cols="12" md="6" sm="12">
-            <v-img :src="tour[1].purl" class="grey lighten-2" max-height="300">
-              <template v-slot:placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
-          </v-col>
+    <!-- 결과가 없다면 -->
+    <div v-if="tours.size + mangos.size === 0" @click="toBack">
+      <p class="title font-weight-bold my-2">관련 데이터가 없습니다.</p>
+      <p class="subtitle-1 my-2">클릭하시면 이전 페이지로 돌아갑니다.</p>
+    </div>
 
-          <!-- 설명 뷰 -->
-          <v-col cols="12" md="6" sm="12">
-            <p class="title font-weight-bold my-2">#거기어디니:</p>
-            <p
-              class="display-1 font-weight-bold"
-              @click="onOpen(tour[1].pplace_pname[1])"
-            >{{ tour[1].pplace_pname[1] }}</p>
-            <p class="subtitle-1 my-2">#어디에있니:</p>
-            <p class="title">{{ photo[0].pplace }}</p>
-            <v-divider />
-          </v-col>
-        </v-row>
+    <div v-else>
+      <p class="subtitle-1 font-weight-thin my-4">더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!</p>
+      <!-- TourAPI -->
+      <div v-for="(tour, idx) in tours" :key="idx" :id="`tour-${idx}`">
+        <PhotoRecommandsLine :photo="tour" :place="photo[0].pplace" />
       </div>
 
       <!-- mango -->
-      <div v-if="mangos.length !== 0">
-        <v-row v-for="(mango, idx) in mangos" :key="idx" :id="`mango-${idx}`">
-          <!-- 사진 뷰 -->
-          <v-col cols="12" md="6" sm="12">
-            <v-img :src="mango[1].psource" class="grey lighten-2" max-height="300">
-              <template v-slot:placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
-          </v-col>
-
-          <!-- 설명 뷰 -->
-          <v-col cols="12" md="6" sm="12">
-            <p class="title font-weight-bold my-2">#거기어디니:</p>
-            <p
-              class="display-1 font-weight-bold"
-              @click="onOpen(mango[1].pplace_pname[1])"
-            >{{ mango[1].pplace_pname[1] }}</p>
-            <p class="subtitle-1 my-2">#어디에있니:</p>
-            <p class="title">{{ photo[0].pplace }}</p>
-            <v-divider />
-          </v-col>
-        </v-row>
+      <div v-for="(mango, idx) in mangos" :key="idx" :id="`mango-${idx}`">
+        <PhotoRecommandsLine :photo="mango" :place="photo[0].pplace" />
       </div>
-
-      <!-- 결과가 없다면 -->
-      <div v-else>
-        <p class="title font-weight-bold my-2">관련 데이터가 없습니다.</p>
-      </div>
-    </v-col>
+    </div>
   </v-container>
 </template>
 
@@ -84,21 +38,24 @@
 import axios from "axios";
 import VueDaumMap from "vue-daum-map";
 import { mapGetters } from "vuex";
+import PhotoRecommandsLine from "./PhotoRecommandsLine";
 
 export default {
   name: "PhotoRecommands",
   components: {
-    VueDaumMap: VueDaumMap
+    VueDaumMap: VueDaumMap,
+    PhotoRecommandsLine: PhotoRecommandsLine
   },
   data: () => {
     return {
       tours: new Map(),
       mangos: new Map(),
       appKey: process.env.VUE_APP_KAKAO_API_KEY,
-      level: 6,
+      level: 5,
       mapTypeId: VueDaumMap.MapTypeId.NORMAL,
       center: {},
-      map: null
+      map: null,
+      noData: false
     };
   },
   props: {
@@ -132,41 +89,19 @@ export default {
       this.map = map;
     },
     onMarkers(target) {
+      this.noData = false;
       const kakaoUrl = "https://dapi.kakao.com/v2/local/search/keyword.json";
+      const headers = {
+        Authorization: `KakaoAK ${process.env.VUE_APP_KAKAO_API_KEY}`
+      };
       let encoded = "";
       if (target === "tour" && this.tours.length !== 0) {
         for (const tour of this.tours) {
           encoded = encodeURI(tour[1].pplace_pname[1]);
           axios
-            .get(kakaoUrl + `?query=${encoded}`, {
-              headers: {
-                Authorization: `KakaoAK ${process.env.VUE_APP_KAKAO_API_KEY}`
-              }
-            })
+            .get(kakaoUrl + `?query=${encoded}`, { headers: headers })
             .then(r => {
-              const kakao = window.kakao;
-              const { data } = r;
-              const documents = data.documents;
-              if (documents.length !== 0) {
-                const position = new kakao.maps.LatLng(
-                  documents[0].y,
-                  documents[0].x
-                );
-                const marker = new kakao.maps.Marker({
-                  map: this.map,
-                  position: position
-                });
-                marker.setMap(this.map);
-                kakao.maps.event.addListener(marker, "click", function() {
-                  const lat = marker.getPosition().Ha;
-                  const lng = marker.getPosition().Ga;
-                  marker.getMap().setCenter(new kakao.maps.LatLng(lat, lng));
-                  // 위치 이동하기 달기
-                  // document.location.href = `tour-${tour[0]}`;
-                });
-              } else {
-                this.tours.delete(tour[0]);
-              }
+              this.onMarkerDetail(r, tour, "tour");
             })
             .catch();
         }
@@ -174,43 +109,41 @@ export default {
         for (const mango of this.mangos) {
           encoded = encodeURI(mango[1].pplace_pname[1]);
           axios
-            .get(kakaoUrl + `?query=${encoded}`, {
-              headers: {
-                Authorization: `KakaoAK ${process.env.VUE_APP_KAKAO_API_KEY}`
-              }
-            })
+            .get(kakaoUrl + `?query=${encoded}`, { headers: headers })
             .then(r => {
-              const kakao = window.kakao;
-              const { data } = r;
-              const documents = data.documents;
-              if (documents.length !== 0) {
-                const position = new kakao.maps.LatLng(
-                  documents[0].y,
-                  documents[0].x
-                );
-                const marker = new kakao.maps.Marker({
-                  map: this.map,
-                  position: position
-                });
-                marker.setMap(this.map);
-                kakao.maps.event.addListener(marker, "click", function() {
-                  const lat = marker.getPosition().Ha;
-                  const lng = marker.getPosition().Ga;
-                  marker.getMap().setCenter(new kakao.maps.LatLng(lat, lng));
-                });
-              } else {
-                this.tours.delete(mango[0]);
-              }
+              this.onMarkerDetail(r, mango, "mango");
             })
             .catch();
         }
       } else {
-        return;
+        this.noData = true;
       }
     },
-    onOpen(query) {
-      const url = "https://map.naver.com/v5/search/";
-      window.open(url + query, "_blank");
+    onMarkerDetail(r, part, target) {
+      const kakao = window.kakao;
+      const { data } = r;
+      const documents = data.documents;
+      if (documents.length !== 0) {
+        const position = new kakao.maps.LatLng(documents[0].y, documents[0].x);
+        const marker = new kakao.maps.Marker({
+          map: this.map,
+          position: position
+        });
+        marker.setMap(this.map);
+        kakao.maps.event.addListener(marker, "click", function() {
+          const lat = marker.getPosition().Ha;
+          const lng = marker.getPosition().Ga;
+          marker.getMap().setCenter(new kakao.maps.LatLng(lat, lng));
+          if (target === "tour") {
+            document.location.href = `#tour-${part[0]}`;
+          } else {
+            document.location.href = `#mango-${part[0]}`;
+          }
+        });
+      }
+    },
+    toBack() {
+      this.$router.push({ name: "Photo", params: { pcode: this.pcode } });
     }
   },
   computed: {
@@ -218,7 +151,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getPhotoAction", this.pcode);
-    setTimeout(this.loadPlaces, 300);
+    setTimeout(this.loadPlaces, 500);
     this.center = this.photo[1];
   }
 };
