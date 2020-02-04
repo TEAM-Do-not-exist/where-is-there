@@ -15,6 +15,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn icon>
+                    ❤️
                     <v-icon @click="delfavorite()">mdi-heart</v-icon>
                   </v-btn>
                 </v-card-actions>
