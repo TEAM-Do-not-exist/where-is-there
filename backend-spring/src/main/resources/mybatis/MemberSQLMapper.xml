@@ -3,32 +3,52 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ssafy.member">
-	<insert id="insert" parameterType="MemberDTO">
-		insert into mem_p1 values(
-			#{id},
-			#{pw},
-			#{name},
+	<insert id="insert0" parameterType="MemberDTO">
+		insert into mem_p1 
+		values(
 			#{email},
-			#{phone}
+			#{pw},
+			#{nickname},
+			#{name},
+			#{phone},
+			0
+		)
+	</insert>
+	<insert id="insert1" parameterType="MemberDTO">
+		insert into mem_p1(email,nickname,name,external) 
+		values(
+			#{email},
+			#{nickname},
+			#{name},
+			1
+		)
+	</insert>
+	<insert id="insert2" parameterType="MemberDTO">
+		insert into mem_p1(email,nickname,external) 
+		values(
+			#{email},
+			#{nickname},
+			2
 		)
 	</insert>
 	<delete id="delete" parameterType="string">
-		delete from mem_p1 where id = #{id}
+		delete from mem_p1 where email = #{email}
 	</delete>
 	<update id="update" parameterType="MemberDTO">
 		update mem_p1 set pw=#{pw},
+						name=#{nickname},
 						name=#{name},
-						email=#{email},
-						phone=#{phone}
-		where id=#{id}
+						phone=#{phone},
+						external=#{external}
+		where email=#{email}
 	</update>
 	<select id="selectList" resultType="MemberDTO">
 		select * from mem_p1
 	</select>
 	<select id="selectOne_id" parameterType="MemberDTO" resultType="MemberDTO">
-		select * from mem_p1 where id=#{id}
+		select * from mem_p1 where email=#{email}
 	</select>
 	<select id="selectOne_id_pw" parameterType="MemberDTO" resultType="int">
-		select count(*) from mem_p1 where id=#{id} and pw=#{pw}
+		select count(*) from mem_p1 where email=#{email} and pw=#{pw}
 	</select>
 </mapper>

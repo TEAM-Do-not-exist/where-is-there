@@ -34,7 +34,7 @@ public class RestMemberController {
 	JwtService jwtService;
 	
 	@PostMapping("/insert")
-	@ApiOperation(value="member 등록 서비스 / 입력: id,pw,name,email,phone / 결과: 성공시 1")
+	@ApiOperation(value="member 그냥 회원가입 서비스 / 입력: email,pw,nickname,name,phone / 결과: 성공시 1")
 	public ResponseEntity<Map> memInsert(@RequestBody MemberDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		int state = 0;
@@ -55,13 +55,13 @@ public class RestMemberController {
 		}
 		return resEntity;
 	}
-	@DeleteMapping("/delete/{id}")
-	@ApiOperation(value="member id를 입력하여 삭제하는 서비스")
-	public ResponseEntity<Map> memDelete(@PathVariable("id")String id){
+	@DeleteMapping("/delete/{email}")
+	@ApiOperation(value="member email를 입력하여 삭제하는 서비스")
+	public ResponseEntity<Map> memDelete(@PathVariable("email")String email){
 		ResponseEntity<Map> resEntity=null;
 		int state = 0;
 		try {
-			int delete = memSer.delete(id);
+			int delete = memSer.delete(email);
 			Map<String,Object> msg = new HashMap<String, Object>();
 			if(delete>0) {
 				state = 1;
@@ -86,7 +86,7 @@ public class RestMemberController {
 	}
 
 	@PutMapping("/update")
-	@ApiOperation(value="id를 받아 회원정보 수정 서비스 / 입력: id, pw, name, email, phone / 결과 : 성공시 1")
+	@ApiOperation(value="email를 받아 회원정보 수정 서비스 / 입력: email, pw, nickname, name, phone / 결과 : 성공시 1")
 	public ResponseEntity<Map<String,Object>> update(@RequestBody MemberDTO dto) {
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		int state=0;
@@ -137,14 +137,14 @@ public class RestMemberController {
 		}
 		return resEntity;
 	}
-	@GetMapping("/selectOneId/{id}")
-	@ApiOperation(value="member id를 입력하여 회원정보 조회")
-	public ResponseEntity<Map> memSelectOneId(@PathVariable("id")String id){
+	@GetMapping("/selectOneEmail/{email}")
+	@ApiOperation(value="member email를 입력하여 회원정보 조회")
+	public ResponseEntity<Map> memSelectOneId(@PathVariable("email")String email){
 		ResponseEntity<Map> resEntity=null;
 		int state=0;
 		try {
 			MemberDTO dto = new MemberDTO();
-			dto.setId(id);
+			dto.setEmail(email);
 			MemberDTO selectOneId = memSer.selectOneId(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
 			state = 1;
@@ -161,19 +161,20 @@ public class RestMemberController {
 		}
 		return resEntity;
 	}
-	@GetMapping("/selectOneIdPw/{id}/{pw}")
-	@ApiOperation(value="[로그인]member id와 pw를 입력하여 그에 맞는 멤버가 있으면 1 없으면 0을 반환하는 서비스 그리고 토큰도 반환함")
-	public ResponseEntity<Map> memSelectOneId(@PathVariable("id")String id,@PathVariable("pw")String pw){
+	@GetMapping("/login/{email}/{pw}")
+	@ApiOperation(value="[로그인]member email과 pw를 입력하여 그에 맞는 멤버가 있으면 1 없으면 0을 반환하는 서비스 그리고 토큰도 반환함")
+	public ResponseEntity<Map> memSelectOneId(@PathVariable("email")String email,@PathVariable("pw")String pw){
 		ResponseEntity<Map> resEntity=null;
 		int state = 0;
 		try {
 			MemberDTO dto = new MemberDTO();
-			dto.setId(id);
+			dto.setEmail(email);
 			dto.setPw(pw);
-			int selectOneIdPw = memSer.selectOneIdPw(dto);
+			int selectOneIdPw = memSer.login(dto);
+			MemberDTO mem = memSer.selectOneId(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
 			if(selectOneIdPw==1) {
-				String token = jwtService.create("member", dto, "user");
+				String token = jwtService.create("member", mem, "user");
 				msg.put("token",token);
 			}
 			state = 1;
@@ -190,14 +191,14 @@ public class RestMemberController {
 		}
 		return resEntity;
 	}
-	@GetMapping("/duplicateCheckId/{id}")
-	@ApiOperation(value="member id 중복 체크 아이디 생성가능하면 1을 반환 불가능하면 -1을 반환")
-	public ResponseEntity<Map> duplicateCheckId(@PathVariable("id")String id){
+	@GetMapping("/duplicateCheckEmail/{email}")
+	@ApiOperation(value="member email 중복 체크 아이디 생성가능하면 1을 반환 불가능하면 -1을 반환")
+	public ResponseEntity<Map> duplicateCheckId(@PathVariable("email")String email){
 		ResponseEntity<Map> resEntity=null;
 		int state=0;
 		try {
 			MemberDTO dto = new MemberDTO();
-			dto.setId(id);
+			dto.setEmail(email);
 			int duplicateCheckId = memSer.duplicateCheckId(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
 			state = 1;
