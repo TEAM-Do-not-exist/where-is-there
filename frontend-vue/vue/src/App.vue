@@ -1,15 +1,14 @@
 <template>
   <v-app id="inspire" v-if='enter'>
-    <v-layout  align-center justify-center class="wrapper" fluid fill-height>
-      <h1 align="center"  class="effect-underline effect-shine ">
-        <a @click="enterf" style="color:rgba(255, 255, 255, 0.65);">
-          거기
-        </a>
-        <a @click="enterf" style="color:rgba(255, 255, 255, 0.65);">
-          어디니
-        </a>
-      </h1>
-      <p  class="effect-underline effect-shine "/>
+    <v-layout  align-center justify-center class="wrapper " fluid fill-height>
+        <h1 align="center"  class="effect-underline effect-shine .d-inline-flex">
+          <a @click="enterf" style="color:rgba(255, 255, 255, 0.65);">
+            거기
+          </a>
+          <a @click="enterf" style="color:rgba(255, 255, 255, 0.65);">
+            어디니
+          </a>
+        </h1>
     </v-layout>
   </v-app>
   <v-app id="inspire" v-else>
@@ -218,23 +217,21 @@ h1 a {
 }
 
 /*effect-underline*/
+.effect-underline:before,
 .effect-underline:after {
   content: '';
   display: inline-block;
-  /* height: -180px; */
-  height: 180px;
   width: 100%;
-  border-bottom: 3px solid;
-  border-top: 3px solid;
-  margin-top: 7px;
+  border-top: 3px solid;  
   opacity: 0;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: scale(0,1);
   transform: scale(0,1);
-  padding:20px;
+  padding:5px;
 }
 
+.effect-underline:hover:before,
 .effect-underline:hover:after {
   opacity: 1;
 	-webkit-transform: scale(1);
@@ -267,7 +264,6 @@ h1 a {
   display: inline-block;
   height: 1em;
   width: 100%;
-  margin-top: 10px;
   opacity: 0;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
