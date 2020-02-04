@@ -10,7 +10,7 @@
             class="white--text align-end"
             width="100%"
             aspect-ratio=5
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            src="../../../public/logo.png"
           ></v-img>
 
           <v-card-subtitle class="pb-0">Name:</v-card-subtitle>
@@ -46,6 +46,7 @@
 <script>
 import MyFavorite from "./MyFavorite";
 import MyComment from "./MyComment";
+// import axios from "axios";
 
 export default {
   components: {

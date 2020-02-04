@@ -15,7 +15,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn icon>
-                    <v-icon>mdi-heart</v-icon>
+                    <v-icon @click="delfavorite()">mdi-heart</v-icon>
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -23,6 +23,7 @@
           </v-row>
         </v-container>
       </v-card>
+
   </div>
 </template>
 
@@ -31,7 +32,8 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    list:[]
+    list:[],
+    is_show : false
   }),
 
   methods:{
@@ -47,7 +49,11 @@ export default {
                this.errored = true;
          })
         . finally(() => (this.loading = false));
+    },
+    delfavorite(){
+      this.is_show = !this.is_show; // #2, #3
     }
+  
   },
   mounted(){
     this.showfavorite();
