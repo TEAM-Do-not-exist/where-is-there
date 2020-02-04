@@ -179,8 +179,8 @@ def mango(request):
     res = {}
     for i in range(len(titles)):
         code = i + 1
-        url = mango_url
-        source = images[i]['data-original']
+        url = images[i]['data-original']
+        source = mango_url
         place = images[i]['alt'].split(' - ')[-1]
         name = titles[i].get_text().replace('\n', '')
 
