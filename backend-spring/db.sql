@@ -29,16 +29,16 @@ create table comment(
 	ccode int comment '코드' ,
 	content varchar(1000) not null,
     ctime datetime,
-	constraint `fk_comment` foreign key(cid) references mem_p1(email) ,
-	constraint `fk_comment2` foreign key(ccode) references photo(pcode),
+	constraint `fk_comment` foreign key(cid) references mem_p1(email) on delete cascade ,
+	constraint `fk_comment2` foreign key(ccode) references photo(pcode) on delete cascade,
     primary key(cid,ccode)
 ) comment='댓글';
 
 create table favorite(
 	fid varchar(30) COMMENT '아이디',
 	fcode int comment '코드' ,
-	constraint `fk_favorite1` foreign key(fid) references mem_p1(email),
-    constraint `fk_favorite2` foreign key(fcode) references photo(pcode),
+	constraint `fk_favorite1` foreign key(fid) references mem_p1(email) on delete cascade,
+    constraint `fk_favorite2` foreign key(fcode) references photo(pcode) on delete cascade,
     primary key(fid,fcode)
 ) comment='좋아요';
 
