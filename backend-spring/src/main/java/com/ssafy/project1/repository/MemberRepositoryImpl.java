@@ -13,12 +13,24 @@ public class MemberRepositoryImpl implements MemberRepository {
 
 	@Autowired
 	SqlSession session;
-	
+
 	@Override
-	public int insert(MemberDTO dto) {
+	public int insert0(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return session.insert("ssafy.member.insert",dto);
+		return session.insert("ssafy.member.insert0",dto);
 	}
+
+	@Override
+	public int insert1(MemberDTO dto) {
+		// TODO Auto-generated method stub
+		return session.insert("ssafy.member.insert1",dto);
+	}
+
+	@Override
+	public int insert2(MemberDTO dto) {
+		// TODO Auto-generated method stub
+		return session.insert("ssafy.member.insert2",dto);
+	}	
 
 	@Override
 	public int delete(String str) {
@@ -49,5 +61,6 @@ public class MemberRepositoryImpl implements MemberRepository {
 		// TODO Auto-generated method stub
 		return session.selectOne("ssafy.member.selectOne_id_pw",dto);
 	}
+
 
 }
