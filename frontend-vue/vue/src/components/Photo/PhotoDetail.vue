@@ -19,18 +19,26 @@
             target="_blank"
           >{{ photo[0].purl }}</a>
         </v-chip>
-        <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
-          <v-icon>mdi-heart-outline</v-icon>
-        </v-btn>
-        <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
       </v-col>
       <PhotoDetailKakaoMap />
+      <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
+        <v-icon>mdi-heart-outline</v-icon>
+      </v-btn>
+      <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <v-btn class="ma-2" outlined fab color="yellow darken-1" @click="alert">
+        <v-icon>mdi-alert-octagon</v-icon>
+      </v-btn>
 
-      <v-divider :dark="true" class="my-3"></v-divider>
       <!-- comment vue -->
     </v-row>
+    <div style="height: 100px"></div>
+    <v-divider :dark="true" class="my-3"></v-divider>
+    <PhotoDetailInput :photo="photo[0]" @onInput="onInput" />
+    <div v-for="(comment, idx) in comments" :key="idx">
+      <PhotoDetailComment :comment="comment" />
+    </div>
   </v-container>
 </template>
 
@@ -38,11 +46,18 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import PhotoDetailKakaoMap from "./PhotoDetailKakaoMap";
+import PhotoDetailInput from "./PhotoDetailInput";
+import PhotoDetailComment from "./PhotoDetailComment";
 
 export default {
   name: "PhotoDetail",
-  components: { PhotoDetailKakaoMap: PhotoDetailKakaoMap },
+  components: {
+    PhotoDetailKakaoMap: PhotoDetailKakaoMap,
+    PhotoDetailComment: PhotoDetailComment,
+    PhotoDetailInput: PhotoDetailInput
+  },
   data: () => ({
+    comments: [],
     clicked: false
   }),
   props: {
@@ -69,6 +84,16 @@ export default {
           })
           .catch();
       }
+    },
+    onInput() {
+      const commnetUrl = `http://localhost:8090/api/comment/selectPhotoList/${this.pcode}`;
+      axios
+        .get(commnetUrl)
+        .then(r => {
+          const { data } = r;
+          this.comments = data.resvalue;
+        })
+        .catch();
     }
   },
   computed: {
@@ -87,6 +112,14 @@ export default {
         if (check.length === 1) {
           this.clicked = true;
         }
+      })
+      .catch();
+    const commnetUrl = `http://localhost:8090/api/comment/selectPhotoList/${this.pcode}`;
+    axios
+      .get(commnetUrl)
+      .then(r => {
+        const { data } = r;
+        this.comments = data.resvalue;
       })
       .catch();
   }
