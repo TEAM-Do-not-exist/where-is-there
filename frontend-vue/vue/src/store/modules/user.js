@@ -1,16 +1,10 @@
 import axios from "axios";
-
+// import consts from '../consts';
 
 const resourceHost = 'http://192.168.100.52:8090/'
 const resourceUrl_nomal = 'api/member/login/'
 // const resourceUrl_naver = 'api/member/login/'
 // const resourceUrl_kakao = 'api/member/login/'
-
-const enhanceToken = () => { 
-  const {token} = localStorage
-  if (!token) return 
-  axios.defaults.headers.common['Authorization'] = `${token}`;
-};
 
 const state = {
   nickname: null,
@@ -24,14 +18,12 @@ const actions = {
   LOGIN_NOMAL ({commit}, {id, password}) {
     return axios
       .post(`${resourceHost}/${resourceUrl_nomal}`, {id, password})
-      .then(({data}) => {
-        commit('LOGIN', data)
-        enhanceToken()
+      .then((r) => {
+        commit('LOGIN', r.data.token)
       })
   },
   LOGOUT({ commit }) {
     // HTTP 요청 헤더값 제거
-    axios.defaults.headers.common["Authorization"] = undefined;
     commit("LOGOUT");
   }
 };
@@ -52,7 +44,6 @@ const mutations = {
 };
 
 export default {
-  namespaced: true,
   state,
   getters,
   actions,
