@@ -33,7 +33,7 @@
                   justify-center
                 >
                   <KakaoLogin
-                    api-key="6276da62b0eea6dd696fe9b1e192dfdb"
+                    api-key="1ccf33bc552996470ef083f21eff16c2"
                     image="kakao_account_login_btn_medium_narrow"
                     :on-success="onSuccess"
                     :on-failure="onFailure"
@@ -45,8 +45,8 @@
                 >
                   <NaverLogin
                     client-id="nsrxqIjEGhhBf9jdPBFD"
-                    callback-url="/main"
-                    v-bind:is-popup="true"
+                    callback-url="http://192.168.100.52:8080/naversignin"
+                    v-bind:is-popup="false"
                     v-bind:button-type="3"
                     v-bind:button-height="60"
                     button-color="green"
@@ -74,13 +74,22 @@
 import KakaoLogin from "vue-kakao-login";
 import NaverLogin from "vue-naver-login";
 import nearo from '../Error/main';
+import Axios from 'axios';
+import router from '../../router'
 
 let callbackFunction = nearo.callbackFunction;
 
 
 let onSuccess = data => {
-  this.console.log(data);
-  this.console.log("success");
+  // this.console.log(data);
+  // this.console.log("qwer");
+  // this.console.log("success");
+  Axios
+    .get('http://192.168.100.52:8090/api/external/login_kakao/'+data.access_token)
+    .then(r=>{
+      alert(r.data.token) //카카오 토큰
+      router.push('/'); 
+    })
 };
 let onFailure = data => {
   this.console.log(data);
@@ -94,7 +103,7 @@ export default {
   },
   data: () => ({
     valid: true,
-    name: "",
+    id: "",
     nameRules: [v => !!v || "ID is required"],
     password: "",
     passwordRules: [v => !!v || "Password is required"],
@@ -102,6 +111,10 @@ export default {
   }),
 
   methods: {
+    // tokenizer(){
+    //   window.location.href.split("/")[2].split(':')[1]
+    // },
+
     submit() {
       if (this.$refs.form.validate()) {
         // Native form submission is not yet supported
@@ -111,7 +124,17 @@ export default {
         //   select: this.select,
         //   checkbox: this.checkbox
         // })
-        alert(window.location.href.split("/")[2].split(':')[1])
+        // Axios.get('client_id=nsrxqIjEGhhBf9jdPBFD&response_type=code&redirect_uri=http://192.168.100.52:8080&state=1111111111')
+        // alert(window.location.href.split("/")[2].split(':')[1])
+
+
+        // Axios
+        //   .get('http://localhost:8090/api/member/login/'+this.id+'/'+this.password)
+        //   .then(r=>{
+        //     alert(r.data.token) //그냥 로그인 토큰
+        //     router.push('/'); 
+        // })  
+        
       }
     },
     clear() {

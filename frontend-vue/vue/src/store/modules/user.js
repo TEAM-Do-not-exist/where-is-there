@@ -1,27 +1,30 @@
 import axios from 'axios'
 
-const resourceHost = 'http://localhost:9090'
-const resourceUrl = 'api/login'
+const resourceHost = 'http://192.168.100.52:8090/'
+const resourceUrl_nomal = 'api/member/login/'
+// const resourceUrl_naver = 'api/member/login/'
+// const resourceUrl_kakao = 'api/member/login/'
 
-const enhanceAccessToken = () => {
-  const {accessToken} = localStorage
-  if (!accessToken) return
-  axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+const enhanceToken = () => {
+  const {token} = localStorage
+  if (!token) return
+  axios.defaults.headers.common['Authorization'] = `${token}`;
 };
 
 const state = {
-  accessToken: null
+  nickname: null,
+  token: null
 };
 
 const getters = {};
 
 const actions = {
-  LOGIN ({commit}, {id, password}) {
+  LOGIN_NOMAL ({commit}, {id, password}) {
     return axios
-      .post(`${resourceHost}/${resourceUrl}`, {id, password})
+      .post(`${resourceHost}/${resourceUrl_nomal}`, {id, password})
       .then(({data}) => {
         commit('LOGIN', data)
-        enhanceAccessToken()
+        enhanceToken()
       })
   },
   LOGOUT ({commit}) {
@@ -32,15 +35,15 @@ const actions = {
 };
 
 const mutations = {
-  LOGIN (state, {accessToken}) {
+  LOGIN (state, {token}) {
     // 스토어에 액세스 토큰 저장
-    state.accessToken = accessToken
-    localStorage.accessToken = accessToken
+    state.token = token
+    localStorage.token = token
   },
   LOGOUT (state) {
     // 토큰 정보 삭제
-    state.accessToken = null
-    delete localStorage.accessToken
+    state.token = null
+    delete localStorage.token
   },
 };
 
