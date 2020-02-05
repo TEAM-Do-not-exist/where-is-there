@@ -1,0 +1,34 @@
+<template>
+  <div class="text-center">
+    <v-bottom-sheet v-model="sheet" persistent>
+      <template v-slot:activator="{ on }">
+        <v-btn icon v-on="on">
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </template>
+      <v-sheet class="text-center" height="200px">
+        <div class="py-12">정말로 삭제하시겠습니까?</div>
+        <v-btn class="mt-6" small text color="red" @click="deleteComment">delete</v-btn>
+        <v-btn class="mt-6" small text color="blue" @click="sheet = !sheet">close</v-btn>
+      </v-sheet>
+    </v-bottom-sheet>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "CommentDeleteButton",
+  data: () => ({
+    sheet: false
+  }),
+  methods: {
+    deleteComment() {
+      this.sheet = !this.sheet;
+      this.$emit("deleteComment");
+    }
+  }
+};
+</script>
+
+<style>
+</style>

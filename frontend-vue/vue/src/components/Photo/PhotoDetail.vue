@@ -19,18 +19,31 @@
             target="_blank"
           >{{ photo[0].purl }}</a>
         </v-chip>
-        <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
-          <v-icon>mdi-heart-outline</v-icon>
-        </v-btn>
-        <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
       </v-col>
       <PhotoDetailKakaoMap />
-
-      <v-divider :dark="true" class="my-3"></v-divider>
-      <!-- comment vue -->
+      <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
+        <v-icon>mdi-heart-outline</v-icon>
+      </v-btn>
+      <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <!-- <v-btn class="ma-2" outlined fab color="yellow darken-1" @click="reportPhoto">
+        <v-icon>mdi-alert-octagon</v-icon>
+      </v-btn>-->
     </v-row>
+    <!-- comment vue -->
+    <div style="height: 100px"></div>
+    <v-divider :dark="true" class="my-3"></v-divider>
+    <PhotoDetailInput :photo="photo[0]" :comments="comments" @onInput="onInput" />
+
+    <v-divider :dark="true" class="my-3"></v-divider>
+    <div v-for="(comment, idx) in comments" :key="idx">
+      <PhotoDetailComment
+        :comment="comment"
+        @onModifyComment="onModifyComment"
+        @deleteComment="deleteComment"
+      />
+    </div>
   </v-container>
 </template>
 
@@ -38,11 +51,18 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import PhotoDetailKakaoMap from "./PhotoDetailKakaoMap";
+import PhotoDetailInput from "./PhotoDetailInput";
+import PhotoDetailComment from "./PhotoDetailComment";
 
 export default {
   name: "PhotoDetail",
-  components: { PhotoDetailKakaoMap: PhotoDetailKakaoMap },
+  components: {
+    PhotoDetailKakaoMap: PhotoDetailKakaoMap,
+    PhotoDetailComment: PhotoDetailComment,
+    PhotoDetailInput: PhotoDetailInput
+  },
   data: () => ({
+    comments: [],
     clicked: false
   }),
   props: {
@@ -69,6 +89,37 @@ export default {
           })
           .catch();
       }
+    },
+    onInput() {
+      const commnetUrl = `http://localhost:8090/api/comment/selectPhotoList/${this.pcode}`;
+      axios
+        .get(commnetUrl)
+        .then(r => {
+          const { data } = r;
+          this.comments = data.resvalue;
+        })
+        .catch();
+    },
+    onModifyComment(code, id, content) {
+      const url = "http://localhost:8090/api/comment/update";
+      const data = {
+        ccode: code,
+        cid: id,
+        content: content
+      };
+      axios
+        .put(url, data)
+        .then()
+        .catch();
+    },
+    deleteComment(code, id) {
+      const url = `http://localhost:8090/api/comment/delete/${code}/${id}`;
+      axios
+        .delete(url)
+        .then(() => {
+          this.onInput();
+        })
+        .catch();
     }
   },
   computed: {
@@ -86,6 +137,16 @@ export default {
         );
         if (check.length === 1) {
           this.clicked = true;
+        }
+      })
+      .catch();
+    const commnetUrl = `http://localhost:8090/api/comment/selectPhotoList/${this.pcode}`;
+    axios
+      .get(commnetUrl)
+      .then(r => {
+        const { data } = r;
+        if (data.resvalue !== undefined) {
+          this.comments = data.resvalue;
         }
       })
       .catch();
