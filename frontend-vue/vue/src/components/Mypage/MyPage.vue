@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <!-- <v-card-title  >
-              <h1>My Page</h1>
-      </v-card-title>-->
+
       <v-container>
+        <!-- logo  -->
         <v-card app>
           <v-img
             class="white--text align-end"
@@ -13,18 +12,20 @@
             src="../../../public/logo.png"
           ></v-img>
 
+        <!-- My Information -->
+          <v-card-text class="pb-0">ID: {{item.email}}</v-card-text>
           <v-card-text class="pb-0">Name: {{item.name}} </v-card-text>
-          <v-card-text class="pb-0">ID: {{item.id}}</v-card-text>
-          <v-card-text class="pb-0">PW: </v-card-text>
-          <v-card-text class="pb-0">e-mail:{{item.email}}</v-card-text>
+          <v-card-text class="pb-0">Nickname: {{item.nickname}} </v-card-text>
           <v-card-text class="pb-0">phone: {{item.phone}}</v-card-text>
 
+        <!-- Update My Information -->
           <v-card-actions>
-            <v-btn color="orange" text>수정하기</v-btn>
-            <MyInfoUpdateModal :item="item" @onInsert="onInsert" />
+            <v-btn text>           
+               <MyInfoUpdateModal :item="item" @onInsert="onInsert" />
+            </v-btn>
           </v-card-actions>
         </v-card>
-
+        <!-- My Favorite Page || My Comment Page-->
         <v-card app>
           <v-card-actions>
             <v-btn color="yellow" text @click="isLike = !isLike; isComment = false">내 좋아요</v-btn>
@@ -61,9 +62,9 @@ export default {
   methods:{
     showmyinfo(){
       const basicUrl = "http://127.0.0.1:8090/";
-      const addUrl = "api/member/selectOneId/";
+      const addUrl = "api/member/selectOneEmail/";
       // const cid = this.cid;
-      const id = 123123; // 현재 아이디 박아놓은 상태.
+      const id = "123@123"; // 현재 아이디 박아놓은 상태.
       axios
         .get(basicUrl+addUrl+id)
         .then(response => (this.item = response.data['resvalue']))

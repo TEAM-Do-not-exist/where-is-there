@@ -3,54 +3,56 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <!-- modal open button -->
       <template v-slot:activator="{ on }">
-        <v-btn color="blue" text v-on="on">수정하기</v-btn>
+        <v-btn color="orange" text v-on="on">수정하기</v-btn>
       </template>
 
       <!-- modal information -->
       <v-card>
         <!-- head -->
         <v-card-title>
-          <span class="headline"> 정보 수정</span>
+          <span class="headline"> 정보 수정 </span>
         </v-card-title>
 
         <!-- body -->
         <v-card-text>
           <v-container>
             <v-row>
-              <!-- select place name -->
-              <v-col cols="12" sm="12" md="12">
-                <v-text-field
-                  v-model="inputId"
-                  label="ID"
-                  required
-                ></v-text-field>
-              </v-col>
-      
-              <!-- check url -->
+              <!-- name 입력란 -->
               <v-col cols="12">
                 <v-text-field
-                  :rules="[v => !!v || 'Image url is required']"
-                  v-model="inputPw"
-                  label="pw*"
+                  v-model="name"
+                  label="name"
+                  required > 
+                {{item.name}}
+                </v-text-field>
+
+                <!-- nickname 입력란 -->
+              </v-col>
+                 <v-col cols="12">
+                <v-text-field
+                  v-model="nickname"
+                  label="nickname"
+                  required > 
+                {{item.nickname}}
+                </v-text-field>
+              </v-col>
+
+              <!-- phone 입력란 -->
+              <v-col cols="12">
+                <v-text-field
+                  v-model="phone"
+                  label="phone"
                   required
                 ></v-text-field>
               </v-col>
 
-              <!-- check source -->
-              <v-col cols="12">
-                <v-text-field
-                  :rules="[v => !!v || 'Source url is required']"
-                  v-model="inputName"
-                  label="name*"
-                  required
-                ></v-text-field>
-              </v-col>
+              <!-- pw 입력란 -->
                  <v-col cols="12">
                 <v-text-field
-                  :rules="[v => !!v || 'Source url is required']"
-                  v-model="inputPhone"
-                  label="phone*"
+                  v-model="pw"
+                  label="pw*"
                   required
+                  :rules="[v => !!v || '비밀번호를 입력해주세요']"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -60,9 +62,8 @@
         <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
+          <v-btn :disabled="!validated" color="blue darken-1" text @click="updateMember()">Save</v-btn>
           <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn :disabled="!this.selectedSource" color="red darken-1" text @click="deny(item)">Deny</v-btn>
-          <v-btn :disabled="!validated" color="blue darken-1" text @click="save(item)">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -74,30 +75,51 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    selectedPlace: null,
-    selectedHashtag: null,
-    selectedUrl: "",
-    selectedSource: "",
+    email: null,
+    phone: null,
+    name: "",
+    pw:"",
+    nickname:"",
     dialog: false
   }),
   props: {
     item: Object
   },
   methods: {
-    save(item) {
+     showmyinfo(){
+      const basicUrl = "http://127.0.0.1:8090/";
+      const addUrl = "api/member/selectOneEmail/";
+      // const cid = this.cid;
+      const id = "123@123"; // 현재 아이디 박아놓은 상태.
+      axios
+        .get(basicUrl+addUrl+id)
+        .then(response => {
+          this.item = response.data['resvalue'];
+          this.email = this.item.email;
+          this.phone = this.item.phone; 
+          this.name = this.item.name;
+          this.nickname = this.item.nickname;
+        })
+        .catch(() => {
+               this.errored = true;
+         })
+        . finally(() => (this.loading = false));
+    },
+    updateMember() {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/member/update";
       const data = {
-        pw: this.inputPw,
-        name: this.inputName,
-        phone: this.inputPhone, 
-        purl: this.selectedSource // 이쪽이 출처에대한 정보
-      };
+        email: "123@123", //임시로 넣어놓은 아이디 입니다. 
+        pw: this.pw, 
+        name: this.name,
+        phone: this.phone,
+        nickname: this.nickname
+        };
       axios
-        .post(basicUrl + addUrl, data)
+        .put(basicUrl + addUrl, data)
         .then(r => {
           if (r.data.regmsg === "입력했습니다") {
-            this.$emit("onInsert", item);
+            this.$emit("onInsert");
           }
         })
         .catch();
@@ -107,12 +129,15 @@ export default {
   computed: {
     validated() {
       return (
-        this.selectedPlace &&
-        this.selectedHashtag &&
-        this.selectedUrl &&
-        this.selectedSource
+        this.pw &&
+        this.name &&
+        this.phone &&
+        this.nickname
       );
     }
+  },
+  mounted(){
+    this.showmyinfo(); 
   }
 };
 </script>
