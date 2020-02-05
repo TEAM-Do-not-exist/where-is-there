@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.ssafy.project1.dto.MemberDTO;
 import com.ssafy.project1.exception.UnauthorizedException;
 
 import io.jsonwebtoken.Claims;
@@ -66,14 +67,14 @@ public class JwtServiceImpl implements JwtService {
 	}
 
 	@Override
-	public String getEmail(String jwt, String key) {
-//		try {
-//			Jws claims = Jwts.parser().setSigningKey(key).parseClaimsJws(jwt);
-//			return claims.getBody().get();
-//		}catch(Exception e) {
-//			return null;
-//		}
-		return null;
+	public String getEmail(String jwt) {
+		try {
+			Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(jwt);
+			Map<String, Object> value = (LinkedHashMap<String, Object>)(claims.getBody().get("member"));
+			return (String) value.get("email");
+		}catch(Exception e) {
+			return null;
+		}
 	}
 
 

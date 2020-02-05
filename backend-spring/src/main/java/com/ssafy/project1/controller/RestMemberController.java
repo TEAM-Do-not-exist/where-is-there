@@ -138,7 +138,7 @@ public class RestMemberController {
 		return resEntity;
 	}
 	@GetMapping("/selectOneEmail/{email}")
-	@ApiOperation(value="member email를 입력하여 회원정보 조회")
+	@ApiOperation(value="member email를 입력하여 회원정보 조회 - 보안때문에 사용하지말고 토큰을 입력받는것을 사용하세요")
 	public ResponseEntity<Map> memSelectOneId(@PathVariable("email")String email){
 		ResponseEntity<Map> resEntity=null;
 		int state=0;
@@ -161,15 +161,40 @@ public class RestMemberController {
 		}
 		return resEntity;
 	}
-	@GetMapping("/login/{email}/{pw}")
+	@GetMapping("/selectOneToken/{token}")
+	@ApiOperation(value="member jwt token를 입력하여 회원정보 조회")
+	public ResponseEntity<Map> memSelectOneToken(@PathVariable("token")String token){
+		ResponseEntity<Map> resEntity=null;
+		int state=0;
+		try {
+			MemberDTO dto = new MemberDTO();
+			String email = "";
+			email = jwtService.getEmail(token);
+			
+			System.out.println("jwt : "+email);
+			dto.setEmail(email);
+			MemberDTO selectOneId = memSer.selectOneId(dto);
+			Map<String,Object> msg = new HashMap<String, Object>();
+			state = 1;
+			msg.put("state", state);
+			msg.put("regmsg", "조회 성공");
+			msg.put("resvalue",selectOneId);
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}catch(RuntimeException e) {
+			Map<String, Object> msg = new HashMap<String, Object>();
+			state = -1;
+			msg.put("state", state);
+			msg.put("resmsg","조회실패");
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}
+		return resEntity;
+	}
+	@PostMapping("/login")
 	@ApiOperation(value="[로그인]member email과 pw를 입력하여 그에 맞는 멤버가 있으면 1 없으면 0을 반환하는 서비스 그리고 토큰도 반환함")
-	public ResponseEntity<Map> memSelectOneId(@PathVariable("email")String email,@PathVariable("pw")String pw){
+	public ResponseEntity<Map> memSelectOneId(@RequestBody MemberDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		int state = 0;
 		try {
-			MemberDTO dto = new MemberDTO();
-			dto.setEmail(email);
-			dto.setPw(pw);
 			int selectOneIdPw = memSer.login(dto);
 			MemberDTO mem = memSer.selectOneId(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();

@@ -41,6 +41,15 @@ public class MemberDTO {
 		this.name = name;
 		this.phone = phone;
 	}
+	public MemberDTO(String email, String pw, String nickname, String name, String phone,int external) {
+		super();
+		this.email = email;
+		this.pw = pw;
+		this.nickname = nickname;
+		this.name = name;
+		this.phone = phone;
+		this.external = external;
+	}
 	public String getEmail() {
 		return email;
 	}
