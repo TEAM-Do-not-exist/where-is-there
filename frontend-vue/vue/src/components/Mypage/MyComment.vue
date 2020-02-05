@@ -8,7 +8,7 @@
                 <v-card dark>
                 <div class="d-flex flex-no-wrap">
                   <v-avatar class="ma-3" size="100" tile>
-                    <v-img :src= item.purl></v-img>
+                    <v-img :src= item.psource></v-img>
                   </v-avatar>
                   <div>
                     <v-card-text>{{item.ctime}}</v-card-text>
