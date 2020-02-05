@@ -17,26 +17,42 @@
         <v-card-text>
           <v-container>
             <v-row>
+              <!-- name 입력란 -->
               <v-col cols="12">
                 <v-text-field
                   v-model="name"
-                  label="nickname*"
+                  label="name"
                   required > 
                 {{item.name}}
                 </v-text-field>
+
+                <!-- nickname 입력란 -->
               </v-col>
+                 <v-col cols="12">
+                <v-text-field
+                  v-model="nickname"
+                  label="nickname"
+                  required > 
+                {{item.nickname}}
+                </v-text-field>
+              </v-col>
+
+              <!-- phone 입력란 -->
               <v-col cols="12">
                 <v-text-field
                   v-model="phone"
-                  label="phone*"
+                  label="phone"
                   required
                 ></v-text-field>
               </v-col>
+
+              <!-- pw 입력란 -->
                  <v-col cols="12">
                 <v-text-field
                   v-model="pw"
                   label="pw*"
                   required
+                  :rules="[v => !!v || '비밀번호를 입력해주세요']"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -46,8 +62,8 @@
         <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
           <v-btn :disabled="!validated" color="blue darken-1" text @click="updateMember()">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -63,6 +79,7 @@ export default {
     phone: null,
     name: "",
     pw:"",
+    nickname:"",
     dialog: false
   }),
   props: {
@@ -81,6 +98,7 @@ export default {
           this.email = this.item.email;
           this.phone = this.item.phone; 
           this.name = this.item.name;
+          this.nickname = this.item.nickname;
         })
         .catch(() => {
                this.errored = true;
@@ -94,7 +112,8 @@ export default {
         email: "123@123", //임시로 넣어놓은 아이디 입니다. 
         pw: this.pw, 
         name: this.name,
-        phone: this.phone
+        phone: this.phone,
+        nickname: this.nickname
         };
       axios
         .put(basicUrl + addUrl, data)
@@ -112,7 +131,8 @@ export default {
       return (
         this.pw &&
         this.name &&
-        this.phone 
+        this.phone &&
+        this.nickname
       );
     }
   },
