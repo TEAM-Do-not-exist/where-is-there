@@ -236,7 +236,10 @@ a.effect-underline:hover:after {
 
 /* effect-shine */
 a.effect-shine:hover {
-  -webkit-mask-image: linear-gradient(-105deg, rgba(123, 123, 123, 0.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  /* -webkit-mask-image: linear-gradient(-105deg, rgba(123, 123, 123, 0.6) 30%, #000 50%, rgba(0,0,0,.6) 70%); */
+  -webkit-mask-image: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+            linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+            linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
   -webkit-mask-size: 200%;
   animation: shine 2s infinite;
 }
