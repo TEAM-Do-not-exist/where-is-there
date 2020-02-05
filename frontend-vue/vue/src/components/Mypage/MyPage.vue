@@ -13,15 +13,15 @@
             src="../../../public/logo.png"
           ></v-img>
 
+          <v-card-text class="pb-0">ID: {{item.email}}</v-card-text>
           <v-card-text class="pb-0">Name: {{item.name}} </v-card-text>
-          <v-card-text class="pb-0">ID: {{item.id}}</v-card-text>
-          <v-card-text class="pb-0">PW: </v-card-text>
-          <v-card-text class="pb-0">e-mail:{{item.email}}</v-card-text>
           <v-card-text class="pb-0">phone: {{item.phone}}</v-card-text>
 
           <v-card-actions>
-            <v-btn color="orange" text>수정하기</v-btn>
-            <MyInfoUpdateModal :item="item" @onInsert="onInsert" />
+            <v-btn text>           
+               <MyInfoUpdateModal :item="item" @onInsert="onInsert" />
+            </v-btn>
+            <!-- <MyInfoUpdateModal :item="item" @onInsert="onInsert" /> -->
           </v-card-actions>
         </v-card>
 
@@ -61,9 +61,9 @@ export default {
   methods:{
     showmyinfo(){
       const basicUrl = "http://127.0.0.1:8090/";
-      const addUrl = "api/member/selectOneId/";
+      const addUrl = "api/member/selectOneEmail/";
       // const cid = this.cid;
-      const id = 123123; // 현재 아이디 박아놓은 상태.
+      const id = "123@123"; // 현재 아이디 박아놓은 상태.
       axios
         .get(basicUrl+addUrl+id)
         .then(response => (this.item = response.data['resvalue']))

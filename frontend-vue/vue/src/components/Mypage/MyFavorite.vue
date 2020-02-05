@@ -3,7 +3,7 @@
       <v-card app background-color="#0000">
         <v-container fluid>
           <v-row dense>
-            <v-col v-for="(item, i) in list" :key="i" cols="6">
+            <v-col v-for="(item, i) in list" :key="i" cols="4">
               <v-card>
                 <v-img
                   :src = item.psource
