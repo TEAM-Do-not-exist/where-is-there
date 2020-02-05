@@ -19,29 +19,76 @@
             target="_blank"
           >{{ photo[0].purl }}</a>
         </v-chip>
+        <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
+          <v-icon>mdi-heart-outline</v-icon>
+        </v-btn>
+        <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
       </v-col>
       <PhotoDetailKakaoMap />
+
+      <v-divider :dark="true" class="my-3"></v-divider>
+      <!-- comment vue -->
     </v-row>
   </v-container>
 </template>
 
 <script>
+import axios from "axios";
 import { mapGetters } from "vuex";
 import PhotoDetailKakaoMap from "./PhotoDetailKakaoMap";
 
 export default {
   name: "PhotoDetail",
   components: { PhotoDetailKakaoMap: PhotoDetailKakaoMap },
-  data: () => ({}),
+  data: () => ({
+    clicked: false
+  }),
   props: {
     pcode: String
   },
-  methods: {},
+  methods: {
+    favorite() {
+      const data = { fcode: this.pcode, fid: "admin@admin.com" };
+      let url = "http://localhost:8090/api/favorite/";
+      if (this.clicked === false) {
+        url += "insert";
+        axios
+          .post(url, data)
+          .then(() => {
+            this.clicked = !this.clicked;
+          })
+          .catch();
+      } else {
+        url += `delete/${this.pcode}/admin@admin.com`;
+        axios
+          .delete(url)
+          .then(() => {
+            this.clicked = !this.clicked;
+          })
+          .catch();
+      }
+    }
+  },
   computed: {
     ...mapGetters(["photo"])
   },
   mounted() {
     this.$store.dispatch("getPhotoAction", this.pcode);
+    const checkUrl = `http://localhost:8090/api/favorite/selectMyList/admin@admin.com`;
+    axios
+      .get(checkUrl)
+      .then(r => {
+        const { data } = r;
+        const check = data.resvalue.filter(
+          val => val.fcode === parseInt(this.pcode)
+        );
+        if (check.length === 1) {
+          this.clicked = true;
+        }
+      })
+      .catch();
   }
 };
 </script>
