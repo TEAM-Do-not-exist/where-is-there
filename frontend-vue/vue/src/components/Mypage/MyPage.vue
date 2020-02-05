@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <!-- <v-card-title  >
-              <h1>My Page</h1>
-      </v-card-title>-->
+
       <v-container>
+        <!-- logo  -->
         <v-card app>
           <v-img
             class="white--text align-end"
@@ -13,19 +12,20 @@
             src="../../../public/logo.png"
           ></v-img>
 
+        <!-- My Information -->
           <v-card-text class="pb-0">ID: {{item.email}}</v-card-text>
           <v-card-text class="pb-0">Name: {{item.name}} </v-card-text>
           <v-card-text class="pb-0">Nickname: {{item.nickname}} </v-card-text>
           <v-card-text class="pb-0">phone: {{item.phone}}</v-card-text>
 
+        <!-- Update My Information -->
           <v-card-actions>
             <v-btn text>           
                <MyInfoUpdateModal :item="item" @onInsert="onInsert" />
             </v-btn>
-            <!-- <MyInfoUpdateModal :item="item" @onInsert="onInsert" /> -->
           </v-card-actions>
         </v-card>
-
+        <!-- My Favorite Page || My Comment Page-->
         <v-card app>
           <v-card-actions>
             <v-btn color="yellow" text @click="isLike = !isLike; isComment = false">내 좋아요</v-btn>

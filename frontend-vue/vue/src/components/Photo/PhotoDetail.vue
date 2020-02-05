@@ -27,17 +27,22 @@
       <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
         <v-icon>mdi-heart</v-icon>
       </v-btn>
-      <v-btn class="ma-2" outlined fab color="yellow darken-1" @click="alert">
+      <!-- <v-btn class="ma-2" outlined fab color="yellow darken-1" @click="reportPhoto">
         <v-icon>mdi-alert-octagon</v-icon>
-      </v-btn>
-
-      <!-- comment vue -->
+      </v-btn>-->
     </v-row>
+    <!-- comment vue -->
     <div style="height: 100px"></div>
     <v-divider :dark="true" class="my-3"></v-divider>
-    <PhotoDetailInput :photo="photo[0]" @onInput="onInput" />
+    <PhotoDetailInput :photo="photo[0]" :comments="comments" @onInput="onInput" />
+
+    <v-divider :dark="true" class="my-3"></v-divider>
     <div v-for="(comment, idx) in comments" :key="idx">
-      <PhotoDetailComment :comment="comment" />
+      <PhotoDetailComment
+        :comment="comment"
+        @onModifyComment="onModifyComment"
+        @deleteComment="deleteComment"
+      />
     </div>
   </v-container>
 </template>
@@ -94,6 +99,27 @@ export default {
           this.comments = data.resvalue;
         })
         .catch();
+    },
+    onModifyComment(code, id, content) {
+      const url = "http://localhost:8090/api/comment/update";
+      const data = {
+        ccode: code,
+        cid: id,
+        content: content
+      };
+      axios
+        .put(url, data)
+        .then()
+        .catch();
+    },
+    deleteComment(code, id) {
+      const url = `http://localhost:8090/api/comment/delete/${code}/${id}`;
+      axios
+        .delete(url)
+        .then(() => {
+          this.onInput();
+        })
+        .catch();
     }
   },
   computed: {
@@ -119,7 +145,9 @@ export default {
       .get(commnetUrl)
       .then(r => {
         const { data } = r;
-        this.comments = data.resvalue;
+        if (data.resvalue !== undefined) {
+          this.comments = data.resvalue;
+        }
       })
       .catch();
   }
