@@ -13,19 +13,15 @@
             src="../../../public/logo.png"
           ></v-img>
 
-          <v-card-subtitle class="pb-0">Name: {{item.name}} </v-card-subtitle>
-          <v-card-subtitle class="pb-0">ID: {{item.id}}</v-card-subtitle>
-          <v-card-subtitle class="pb-0">PW: </v-card-subtitle>
-          <v-card-subtitle class="pb-0">e-mail:{{item.email}}</v-card-subtitle>
-          <v-card-subtitle class="pb-0">phone: {{item.phone}}</v-card-subtitle>
-          <!-- <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
+          <v-card-text class="pb-0">Name: {{item.name}} </v-card-text>
+          <v-card-text class="pb-0">ID: {{item.id}}</v-card-text>
+          <v-card-text class="pb-0">PW: </v-card-text>
+          <v-card-text class="pb-0">e-mail:{{item.email}}</v-card-text>
+          <v-card-text class="pb-0">phone: {{item.phone}}</v-card-text>
 
-          <div>Whitsunday Island, Whitsunday Islands</div>
-        </v-card-text>
-          -->
           <v-card-actions>
             <v-btn color="orange" text>수정하기</v-btn>
+            <MyInfoUpdateModal :item="item" @onInsert="onInsert" />
           </v-card-actions>
         </v-card>
 
@@ -44,14 +40,16 @@
 
 
 <script>
-import MyFavorite from "./MyFavorite";
-import MyComment from "./MyComment";
-import axios from "axios";
+  import MyFavorite from "./MyFavorite";
+  import MyComment from "./MyComment";
+  import axios from "axios";
+  import MyInfoUpdateModal from "./MyInfoUpdateModal"; 
 
 export default {
   components: {
     MyFavorite,
-    MyComment
+    MyComment,
+    MyInfoUpdateModal
   },
   data() {
     return {
@@ -62,7 +60,7 @@ export default {
   },
   methods:{
     showmyinfo(){
-       const basicUrl = "http://127.0.0.1:8090/";
+      const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/member/selectOneId/";
       // const cid = this.cid;
       const id = 123123; // 현재 아이디 박아놓은 상태.
@@ -73,6 +71,9 @@ export default {
                this.errored = true;
          })
         . finally(() => (this.loading = false));
+    },
+    updateinfo(){
+      this.$emit("updateInfo");
     }
   },
   mounted(){
