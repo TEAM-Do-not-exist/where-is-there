@@ -1,6 +1,7 @@
 <template>
+<v-container>
   <masonry :cols="mansonryCols" :gutters="mansonryGutters">
-    <div v-for="(photo, idx) in photos" :key="idx">
+    <div v-for="(photo, idx) in photos" :key="idx" class="contentsitems">
       <v-img :src="photo.psource" class="grey lighten-2" @click="showDetail(photo)">
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
@@ -10,6 +11,7 @@
       </v-img>
     </div>
   </masonry>
+</v-container>
 </template>
 
 <script>
@@ -38,7 +40,7 @@ export default {
 </script>
 
 <style scoped>
-div {
+.contentsitems {
   margin: 5px 3px !important;
 }
 </style>
