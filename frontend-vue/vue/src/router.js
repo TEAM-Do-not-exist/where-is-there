@@ -10,6 +10,7 @@ import Login from "./views/Login.vue";
 import ChatRoom from "./views/ChatRoom.vue";
 import signin from "./components/Basic/SignIn";
 import signup from "./components/Basic/SignUp";
+import naversignin from "./components/Basic/NaverSignIn";
 import error from "./components/Error/errorpage";
 import main from "./components/Error/main";
 import mypage from "./components/Mypage/MyPage";
@@ -51,6 +52,10 @@ export default new router({
     {
       path: "/signup",
       component: signup
+    },
+    {
+      path: "/naversignin",
+      component: naversignin
     },
     {
       path: "/chat",
