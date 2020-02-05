@@ -43,7 +43,7 @@ export default {
     sendMessage(msg) {
       this.pushMsgData({
         from: {
-          name: "나:"
+          name: "나"
         },
         msg
       });

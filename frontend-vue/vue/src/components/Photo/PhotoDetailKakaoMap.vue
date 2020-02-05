@@ -46,6 +46,11 @@ export default {
           position: position
         });
         marker.setMap(this.map);
+        kakao.maps.event.addListener(marker, "click", function() {
+          const lat = marker.getPosition().Ha;
+          const lng = marker.getPosition().Ga;
+          marker.getMap().setCenter(new kakao.maps.LatLng(lat, lng));
+        });
         this.marker = true;
       }
     },
@@ -58,7 +63,7 @@ export default {
     ...mapGetters(["photo"])
   },
   mounted() {
-    setTimeout(this.onMarker, 1000);
+    setTimeout(this.onMarker, 500);
   }
 };
 </script>

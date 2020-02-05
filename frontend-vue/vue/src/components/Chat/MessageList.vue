@@ -40,7 +40,6 @@ export default {
   }
 };
 </script>
-
 <style>
 .list-item {
   display: inline-block;

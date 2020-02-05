@@ -16,7 +16,9 @@
       <v-list dense>
         <v-list-item-content>
           <div class="inner-wrap" fluid fill-height inner-wrap>
-            <Message-List :msgs="msgDatas" class="msg-list"></Message-List>
+            <Message-List :msgs="msgDatas" class="msg-list">
+
+            </Message-List>
             <Message-From v-on:submitMessage="sendMessage" class="msg-form"></Message-From>
           </div>
         </v-list-item-content>

@@ -22,7 +22,7 @@ const mutations = {
           suffled[idx] = suffled[len];
           suffled[len] = change;
         }
-        state.photos = suffled.slice(0, 12);
+        state.photos = suffled.slice(0, 48);
       })
       .catch();
   }
