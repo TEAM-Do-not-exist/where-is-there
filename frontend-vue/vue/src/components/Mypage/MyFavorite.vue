@@ -15,7 +15,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn icon>
-                    ❤️
+                    <!-- ❤️ -->
                     <v-icon @click="delfavorite()">mdi-heart</v-icon>
                   </v-btn>
                 </v-card-actions>
@@ -34,7 +34,6 @@ import axios from "axios";
 export default {
   data: () => ({
     list:[],
-    is_show : false
   }),
 
   methods:{

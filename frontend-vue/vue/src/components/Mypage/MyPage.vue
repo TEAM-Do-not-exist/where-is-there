@@ -13,11 +13,11 @@
             src="../../../public/logo.png"
           ></v-img>
 
-          <v-card-subtitle class="pb-0">Name:</v-card-subtitle>
-          <v-card-subtitle class="pb-0">ID:</v-card-subtitle>
-          <v-card-subtitle class="pb-0">PW:</v-card-subtitle>
-          <v-card-subtitle class="pb-0">e-mail:</v-card-subtitle>
-          <v-card-subtitle class="pb-0">phone:</v-card-subtitle>
+          <v-card-subtitle class="pb-0">Name: {{item.name}} </v-card-subtitle>
+          <v-card-subtitle class="pb-0">ID: {{item.id}}</v-card-subtitle>
+          <v-card-subtitle class="pb-0">PW: </v-card-subtitle>
+          <v-card-subtitle class="pb-0">e-mail:{{item.email}}</v-card-subtitle>
+          <v-card-subtitle class="pb-0">phone: {{item.phone}}</v-card-subtitle>
           <!-- <v-card-text class="text--primary">
           <div>Whitehaven Beach</div>
 
@@ -46,7 +46,7 @@
 <script>
 import MyFavorite from "./MyFavorite";
 import MyComment from "./MyComment";
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   components: {
@@ -56,8 +56,27 @@ export default {
   data() {
     return {
       isLike: false,
-      isComment: false
+      isComment: false,
+      item:{}
     };
+  },
+  methods:{
+    showmyinfo(){
+       const basicUrl = "http://127.0.0.1:8090/";
+      const addUrl = "api/member/selectOneId/";
+      // const cid = this.cid;
+      const id = 123123; // 현재 아이디 박아놓은 상태.
+      axios
+        .get(basicUrl+addUrl+id)
+        .then(response => (this.item = response.data['resvalue']))
+        .catch(() => {
+               this.errored = true;
+         })
+        . finally(() => (this.loading = false));
+    }
+  },
+  mounted(){
+    this.showmyinfo(); 
   }
 };
 </script>
