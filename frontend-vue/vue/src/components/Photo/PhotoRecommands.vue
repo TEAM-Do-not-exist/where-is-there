@@ -20,7 +20,10 @@
     </div>
 
     <div v-else>
-      <p class="subtitle-1 font-weight-thin my-4">더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!</p>
+      <div class="justify-space-between my-1">
+        <p class="subtitle-1 font-weight-thin my-4">더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!</p>
+        <p class="subtitle-1 fonr-weight-thin my-4" @click="toBack">돌아가려면 클릭해주세요!</p>
+      </div>
       <!-- TourAPI -->
       <div v-for="(tour, idx) in tours" :key="idx" :id="`tour-${idx}`">
         <PhotoRecommandsLine :photo="tour" :place="photo[0].pplace" />
