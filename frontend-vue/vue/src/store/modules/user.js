@@ -21,7 +21,7 @@ const mutations = {
   LOGIN_NOMAL_mutation (state, {id,password}) {
     // 스토어에 액세스 토큰 저장
     axios
-      .post(`http://192.168.100.52:8090/api/member/login`, {
+      .post(`http://localhost:8090/api/member/login`, {
         email : id,
         pw : password
       })
@@ -49,7 +49,7 @@ const mutations = {
   LOGIN_NAVER_mutation (state, access_token) {
     // 스토어에 액세스 토큰 저장
     axios
-      .get('http://192.168.100.52:8090/api/external/login_naver/'+access_token)
+      .get('http://localhost:8090/api/external/login_naver/'+access_token)
       .then(r=>{
         state.token = r.data.token
         sessionStorage.setItem('token',r.data.token)
@@ -66,7 +66,7 @@ const mutations = {
   LOGIN_KAKAO_mutation (state, access_token) {
     // 스토어에 액세스 토큰 저장
     axios
-      .get('http://192.168.100.52:8090/api/external/login_kakao/'+access_token)
+      .get('http://localhost:8090/api/external/login_kakao/'+access_token)
       .then(r=>{
         state.token = r.data.token
         sessionStorage.setItem('token',r.data.token)
