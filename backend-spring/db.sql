@@ -4,7 +4,7 @@ use ssafy_project1;
 create table mem_p1(
   email varchar(30) COMMENT '이메일',
   pw varchar(30) COMMENT '비밀번호',
-  nickname varchar(30) not null COMMENT '닉네임',
+  nickname varchar(30) COMMENT '닉네임',
   name varchar(30) COMMENT '이름',
   phone varchar(16) COMMENT '폰번호',
   external int comment '외부 로그인',
