@@ -17,26 +17,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.project1.dto.CommentDTO;
-import com.ssafy.project1.dto.FavoriteDTO;
-import com.ssafy.project1.service.IFavoriteService;
+import com.ssafy.project1.dto.MemberDTO;
+import com.ssafy.project1.dto.ReportDTO;
+import com.ssafy.project1.service.IReportService;
 
 import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins= {"*"},maxAge=6000)
-@RequestMapping("/api/favorite")
+@RequestMapping("/api/report")
 @RestController
 
-public class RestFavoriteController {
+public class RestReportController {
 	@Autowired
-	IFavoriteService favSer;
+	IReportService reSer;
 	
 	@PostMapping("/insert")
-	@ApiOperation(value="좋아요 등록 서비스 / 입력: fcode(사진의 코드), fid(회원의 id)")
-	public ResponseEntity<Map> memInsert(@RequestBody FavoriteDTO dto){
+	@ApiOperation(value="report 등록 서비스 / 입력: rid, rcode, rreason/ 결과 : 성공시 1")
+	public ResponseEntity<Map> reInsert(@RequestBody ReportDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		int state=0;
 		try {
-			int insert = favSer.insert(dto);
+			int insert = reSer.insert(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
 			state = 1;
 			msg.put("state", state);
@@ -52,53 +53,77 @@ public class RestFavoriteController {
 		}
 		return resEntity;
 	}
-	@DeleteMapping("/delete/{fcode}/{fid}")
-	@ApiOperation(value="좋아요 취소 서비스 / 입력: fcode, fid")
-	public ResponseEntity<Map> comDelete(@PathVariable("fcode")int fcode,@PathVariable("fid")String fid){
+	
+	@DeleteMapping("/delete/{rnum}")
+	@ApiOperation(value="report 삭제 서비스 / 입력 : rnum")
+	public ResponseEntity<Map> comDelete(@PathVariable("rnum")int rnum){
 		ResponseEntity<Map> resEntity=null;
-		int state = 1;
+		int state=0;
 		try {
-			FavoriteDTO dto = new FavoriteDTO();
-			dto.setFcode(fcode);
-			dto.setFid(fid);
-			int delete = favSer.delete(dto);
+			ReportDTO dto = new ReportDTO();
+			dto.setRnum(rnum);
+			int delete = reSer.delete(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
 			if(delete>0) {
 				state = 1;
 				msg.put("state", state);
-				msg.put("regmsg", "삭제했습니다");
+				msg.put("regmsg", "삭제했습니다-해당하는 comment가 없습니다.");
 				msg.put("resvalue",delete);
 			}else {
 				state = -1;
 				msg.put("state", state);
 				msg.put("regmsg", "삭제실패했습니다");
-				msg.put("resvalue",delete);
 			}
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
-			state = -1;
-			msg.put("state", state);
 			msg.put("resmsg","삭제실패");
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}
 		return resEntity;
 	}
 	
-	@GetMapping("/selectMyList/{fid}")
-	@ApiOperation(value="나의 좋아요 조회 서비스 / 입력:fid" )
-	public ResponseEntity<Map> comSelect(@PathVariable("fid")String fid){
+	@GetMapping("/selectReportList")
+	@ApiOperation(value="report 전체 조회 서비스 ")
+	public ResponseEntity<Map> reSelect(){
+		ResponseEntity<Map> resEntity=null;
+		int state=0;
+		ReportDTO dto = new ReportDTO();
+		try {
+			List<ReportDTO> selectReportList = reSer.selectReportList(dto);
+			System.out.println(selectReportList.toString());
+			Map<String,Object> msg = new HashMap<String, Object>();
+				state = 1;
+				msg.put("state", state);
+				msg.put("regmsg", "조회했습니다");
+				msg.put("resvalue",selectReportList);
+				resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}catch(RuntimeException e) {
+			state = -1;
+			Map<String, Object> msg = new HashMap<String, Object>();
+			msg.put("resmsg","조회실패");
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}
+		return resEntity;
+	}
+	
+	@GetMapping("/selectReportOne/{rnum}")
+	@ApiOperation(value="rnum을 이용하여 report 상세 조회")
+	public ResponseEntity<Map> selectReportOne(@PathVariable("rnum")int rnum){
 		ResponseEntity<Map> resEntity=null;
 		int state=0;
 		try {
-			FavoriteDTO dto = new FavoriteDTO();
-			dto.setFid(fid);
-			List<FavoriteDTO> selectMyList = favSer.selectMyList(dto);
+			ReportDTO dto = new ReportDTO();
+			dto.setRnum(rnum);
+			System.out.println("1111111");
+			ReportDTO selectReportOne = reSer.selectReportOne(dto);
+			System.out.println("2222222");
 			Map<String,Object> msg = new HashMap<String, Object>();
 			state = 1;
 			msg.put("state", state);
-			msg.put("regmsg", "조회했습니다");
-			msg.put("resvalue",selectMyList);
+			msg.put("regmsg", "조회 성공");
+			msg.put("resvalue",selectReportOne);
+			System.out.println(msg.toString());
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
@@ -110,31 +135,5 @@ public class RestFavoriteController {
 		return resEntity;
 	}
 	
-	@GetMapping("/selectPhotoList/{fcode}")
-	@ApiOperation(value=" 사진별 좋아요 개수 조회 서비스/ 입력: fcode")
-	public ResponseEntity<Map> comSelect(@PathVariable("fcode")int fcode){
-		ResponseEntity<Map> resEntity=null;
-		int state=0;
-		int cnt=0;
-		try {
-			FavoriteDTO dto = new FavoriteDTO();
-			dto.setFcode(fcode);
-			List<FavoriteDTO> selectMyList = favSer.selectPhotoList(dto);
-			cnt = selectMyList.size();
-			Map<String,Object> msg = new HashMap<String, Object>();
-			state = 1;
-			msg.put("state", state);
-			msg.put("regmsg", "조회했습니다");
-			msg.put("resvalue",cnt);
-			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
-		}catch(RuntimeException e) {
-			Map<String, Object> msg = new HashMap<String, Object>();
-			state = -1;
-			msg.put("state", state);
-			msg.put("resmsg","조회실패");
-			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
-		}
-		return resEntity;
-	}
 
 }

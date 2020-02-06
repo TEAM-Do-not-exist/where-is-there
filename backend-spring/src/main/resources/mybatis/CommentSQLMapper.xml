@@ -16,7 +16,7 @@
 	</insert>
 	
 	<select id="selectMyList" resultType="CommentDTO">
-		select comment.cid,comment.ccode,comment.content,comment.ctime,photo.purl
+		select comment.cid,comment.ccode,comment.content,comment.ctime,photo.psource
 		from photo
 		left join comment on comment.ccode = photo.pcode
 		where cid = #{cid};
