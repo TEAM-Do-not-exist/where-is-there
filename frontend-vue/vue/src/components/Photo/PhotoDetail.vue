@@ -19,18 +19,19 @@
             target="_blank"
           >{{ photo[0].purl }}</a>
         </v-chip>
+        <div class="d-inline-flex">
+          <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
+            <v-icon>mdi-heart-outline</v-icon>
+          </v-btn>
+          <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+          <PhotoReportModel :pcode="pcode" />
+        </div>
       </v-col>
       <PhotoDetailKakaoMap />
-      <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
-        <v-icon>mdi-heart-outline</v-icon>
-      </v-btn>
-      <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <!-- <v-btn class="ma-2" outlined fab color="yellow darken-1" @click="reportPhoto">
-        <v-icon>mdi-alert-octagon</v-icon>
-      </v-btn>-->
     </v-row>
+
     <!-- comment vue -->
     <div style="height: 100px"></div>
     <v-divider :dark="true" class="my-3"></v-divider>
@@ -53,13 +54,15 @@ import { mapGetters } from "vuex";
 import PhotoDetailKakaoMap from "./PhotoDetailKakaoMap";
 import PhotoDetailInput from "./PhotoDetailInput";
 import PhotoDetailComment from "./PhotoDetailComment";
+import PhotoReportModel from "./PhotoReportModal";
 
 export default {
   name: "PhotoDetail",
   components: {
     PhotoDetailKakaoMap: PhotoDetailKakaoMap,
     PhotoDetailComment: PhotoDetailComment,
-    PhotoDetailInput: PhotoDetailInput
+    PhotoDetailInput: PhotoDetailInput,
+    PhotoReportModel: PhotoReportModel
   },
   data: () => ({
     comments: [],

@@ -1,81 +1,42 @@
 <template>
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
-      <!-- modal open button -->
       <template v-slot:activator="{ on }">
-        <v-btn color="blue" text v-on="on">Check Information</v-btn>
+        <v-btn class="ma-2" outlined fab color="yellow darken-1" v-on="on">
+          <v-icon>mdi-alert-octagon</v-icon>
+        </v-btn>
       </template>
 
-      <!-- modal information -->
       <v-card>
-        <!-- head -->
-        <v-card-title>
-          <span class="headline">Image Information</span>
-        </v-card-title>
-        <!-- carousel images, when click image, image will set selected image -->
-        <v-carousel hide-delimiter-background delimiter-icon="mdi-minus">
-          <v-carousel-item
-            v-for="(url, idx) in item.psource"
-            :key="idx"
-            :src="url"
-            @click="setUrl(url)"
-            reverse-transition="fade-transition"
-            transition="fade-transition"
-          ></v-carousel-item>
-        </v-carousel>
+        <v-card-title class="headline" primary-title>Report</v-card-title>
 
-        <!-- body -->
         <v-card-text>
-          <v-container>
-            <v-row>
-              <!-- select place name -->
-              <v-col cols="12" sm="12" md="6">
-                <v-autocomplete
-                  :items="item.pplace_pname"
-                  :rules="[v => !!v || 'Place is required']"
-                  v-model="selectedPlace"
-                  label="Place Name*"
-                  required
-                ></v-autocomplete>
-              </v-col>
-              <!-- select store or important tag name -->
-              <v-col cols="12" sm="12" md="6">
-                <v-autocomplete
-                  :items="item.pplace_pname"
-                  :rules="[v => !!v || 'Hashtag is required']"
-                  v-model="selectedHashtag"
-                  label="Hashtag Name*"
-                  required
-                ></v-autocomplete>
-              </v-col>
-              <!-- check url -->
-              <v-col cols="12">
-                <v-text-field
-                  :rules="[v => !!v || 'Image url is required']"
-                  v-model="selectedUrl"
-                  label="Selected Image Url*"
-                  required
-                ></v-text-field>
-              </v-col>
-              <!-- check source -->
-              <v-col cols="12">
-                <v-text-field
-                  :rules="[v => !!v || 'Source url is required']"
-                  v-model="selectedSource"
-                  label="Source Url*"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
+          <!-- autofield -->
+          <v-row>
+            <v-col cols="12" sm="6" md="6">
+              <v-text-field label="신고할 사진 번호*" :value="pcode" required disabled></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="6">
+              <v-text-field
+                label="신고자 이름*"
+                hint="신고자의 아이디가 전송됩니다."
+                :value="id"
+                persistent-hint
+                disabled
+              ></v-text-field>
+            </v-col>
+          </v-row>
+
+          <!-- input form -->
+          <v-textarea counter label="Text" :rules="rules" :value="value"></v-textarea>
         </v-card-text>
 
-        <!-- footer -->
+        <v-divider></v-divider>
+
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn :disabled="!this.selectedSource" color="red darken-1" text @click="deny(item)">Deny</v-btn>
-          <v-btn :disabled="!validated" color="blue darken-1" text @click="ax(item)">Save</v-btn>
+          <v-btn color="warning" text @click="reportPhoto">Report</v-btn>
+          <v-btn color="primary" text @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -83,7 +44,24 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "PhotoReportModal",
+  data: () => ({
+    dialog: false,
+    id: "admin@admin.com",
+    rules: [v => v.length <= 300 || "Max 300 characters"],
+    value: ""
+  }),
+  props: {
+    pcode: String
+  },
+  methods: {
+    reportPhoto() {
+      // 신고에 대한 C로직 추가하기
+      console.log("???");
+    }
+  }
+};
 </script>
 
 <style>
