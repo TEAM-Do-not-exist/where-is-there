@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(origins= {"*"},maxAge=6000)
 public class HttpConnectionNaver {
 	
-	private static final String mydomain = "http%3A%2F%2F192.168.100.52%3A8090%2Fapi%2Fexternal%2Fcallback_naver";
+	private static final String mydomain = "http%3A%2F%2F127.0.0.1%3A8090%2Fapi%2Fexternal%2Fcallback_naver";
 	private static final String clientId = "nsrxqIjEGhhBf9jdPBFD";
 	private static final String clientSecret = "lQoLe3M29W";
 	private static final String requestUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=" + clientId + "&response_type=code&redirect_uri="+ mydomain + "&state="; 
