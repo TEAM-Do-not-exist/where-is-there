@@ -19,8 +19,10 @@
 	</delete>
 	
 	<select id="selectMyList" resultType="FavoriteDTO">
-		select * from favorite
-				 where fid = #{fid} 
+		select favorite.fid, favorite.fcode, photo.psource
+		from photo
+		left join favorite on favorite.fcode = photo.pcode
+		where favorite.fid=#{fid};
 	</select>
 	
 		<select id="selectPhotoList" resultType="FavoriteDTO">
