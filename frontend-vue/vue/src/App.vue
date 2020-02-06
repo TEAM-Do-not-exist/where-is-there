@@ -69,7 +69,10 @@
       </v-list>
       <v-footer absolute bottom>
         <span class="white--text">&copy; 2020, Team 404</span>
-      </v-footer>
+        <v-spacer/>
+        <v-img @click.stop="drawer = !drawer" src="/img/out.png" max-height="35"
+         max-width="35" class="pnt" />
+        </v-footer>
     </v-navigation-drawer>
 
     <v-app-bar id="navbar" app flat style="pointer-events: none; z-index:1">
@@ -199,6 +202,8 @@ export default {
 <style scoped>
 
 @font-face { font-family: '국립박물관문화재단클래식B'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/국립박물관문화재단클래식B.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+.pnt {cursor:pointer;}
 
 .wrapper {
   font-family: '국립박물관문화재단클래식B';

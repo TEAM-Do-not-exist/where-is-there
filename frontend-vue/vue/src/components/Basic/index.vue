@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{Logo} Where is there, Editor`s Pick</p>
+    <p>Where is there, Editor`s Pick</p>
     <v-divider></v-divider>
     <masonry :cols="mansonryCols" :gutters="mansonryGutters">
       <div v-for="(photo, idx) in photos" :key="idx" id="photos">

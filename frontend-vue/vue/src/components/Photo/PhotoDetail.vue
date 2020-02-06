@@ -19,18 +19,23 @@
             target="_blank"
           >{{ photo[0].purl }}</a>
         </v-chip>
+        <div class="d-inline-flex">
+          <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
+            <v-icon>mdi-heart-outline</v-icon>
+          </v-btn>
+          <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+          <PhotoReportModel :pcode="pcode" />
+        </div>
+        <div class="my-12 d-flex justify-end" v-if="id === 'admin@admin.com'">
+          <PhotoDeleteSheet :pcode="pcode" :purl="photo[0].purl" />
+          <PhotoUpdateDialog :photo="photo[0]" @updatePhoto="updatePhoto" />
+        </div>
       </v-col>
       <PhotoDetailKakaoMap />
-      <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
-        <v-icon>mdi-heart-outline</v-icon>
-      </v-btn>
-      <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <!-- <v-btn class="ma-2" outlined fab color="yellow darken-1" @click="reportPhoto">
-        <v-icon>mdi-alert-octagon</v-icon>
-      </v-btn>-->
     </v-row>
+
     <!-- comment vue -->
     <div style="height: 100px"></div>
     <v-divider :dark="true" class="my-3"></v-divider>
@@ -53,17 +58,24 @@ import { mapGetters } from "vuex";
 import PhotoDetailKakaoMap from "./PhotoDetailKakaoMap";
 import PhotoDetailInput from "./PhotoDetailInput";
 import PhotoDetailComment from "./PhotoDetailComment";
+import PhotoReportModel from "./PhotoReportModal";
+import PhotoDeleteSheet from "./PhotoDeleteSheet";
+import PhotoUpdateDialog from "./PhotoUpdateDialog";
 
 export default {
   name: "PhotoDetail",
   components: {
     PhotoDetailKakaoMap: PhotoDetailKakaoMap,
     PhotoDetailComment: PhotoDetailComment,
-    PhotoDetailInput: PhotoDetailInput
+    PhotoDetailInput: PhotoDetailInput,
+    PhotoReportModel: PhotoReportModel,
+    PhotoDeleteSheet: PhotoDeleteSheet,
+    PhotoUpdateDialog: PhotoUpdateDialog
   },
   data: () => ({
     comments: [],
-    clicked: false
+    clicked: false,
+    id: "admin@admin.com"
   }),
   props: {
     pcode: String
@@ -118,6 +130,16 @@ export default {
         .delete(url)
         .then(() => {
           this.onInput();
+        })
+        .catch();
+    },
+    updatePhoto(e) {
+      const url = "http://localhost:8090/api/photo/update";
+      axios
+        .put(url, e)
+        .then(() => {
+          this.photo[0].pplace = e.pplace;
+          this.photo[0].pname = e.pname;
         })
         .catch();
     }
