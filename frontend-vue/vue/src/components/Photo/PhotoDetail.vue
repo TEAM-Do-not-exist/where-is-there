@@ -30,7 +30,7 @@
         </div>
         <div class="my-12 d-flex justify-end" v-if="id === 'admin@admin.com'">
           <PhotoDeleteSheet :pcode="pcode" :purl="photo[0].purl" />
-          <v-btn class="ma-2" outlined dark color="yellow darken-1" @click="updatePhoto">update</v-btn>
+          <PhotoUpdateDialog :photo="photo[0]" @updatePhoto="updatePhoto" />
         </div>
       </v-col>
       <PhotoDetailKakaoMap />
@@ -60,6 +60,7 @@ import PhotoDetailInput from "./PhotoDetailInput";
 import PhotoDetailComment from "./PhotoDetailComment";
 import PhotoReportModel from "./PhotoReportModal";
 import PhotoDeleteSheet from "./PhotoDeleteSheet";
+import PhotoUpdateDialog from "./PhotoUpdateDialog";
 
 export default {
   name: "PhotoDetail",
@@ -68,7 +69,8 @@ export default {
     PhotoDetailComment: PhotoDetailComment,
     PhotoDetailInput: PhotoDetailInput,
     PhotoReportModel: PhotoReportModel,
-    PhotoDeleteSheet: PhotoDeleteSheet
+    PhotoDeleteSheet: PhotoDeleteSheet,
+    PhotoUpdateDialog: PhotoUpdateDialog
   },
   data: () => ({
     comments: [],
@@ -128,6 +130,16 @@ export default {
         .delete(url)
         .then(() => {
           this.onInput();
+        })
+        .catch();
+    },
+    updatePhoto(e) {
+      const url = "http://localhost:8090/api/photo/update";
+      axios
+        .put(url, e)
+        .then(() => {
+          this.photo[0].pplace = e.pplace;
+          this.photo[0].pname = e.pname;
         })
         .catch();
     }
