@@ -17,7 +17,7 @@ public class HttpConnectionKakao {
 		
 		String grant_type = "authorization_code";
 //		String redirect_uri= "http://192.168.0.3:8090/api/external/callback_kakao";
-		String redirect_uri= "http://192.168.100.52:8080";	
+		String redirect_uri= "http://127.0.0.1:8080/";	
 		String client_id = "68d5df6c12f276676619cce888d07cda";
 		String param = "grant_type="+grant_type+"&redirect_uri="+redirect_uri+"&client_id="+client_id+"&code="+code;
 		String token="";
