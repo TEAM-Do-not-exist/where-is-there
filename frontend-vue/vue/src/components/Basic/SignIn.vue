@@ -117,7 +117,7 @@ export default {
       this.$refs.form.reset();
     },
     onSuccess(data) {
-      this.$store.dispatch('LOGIN_KAKAO',data.access_token).then();
+      this.$store.dispatch('LOGIN_KAKAO',data.access_token).then(this.$router.push("/"));
     },
     onFailure,
     callbackFunction,

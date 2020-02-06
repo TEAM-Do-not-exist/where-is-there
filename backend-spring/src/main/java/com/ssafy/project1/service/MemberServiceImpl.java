@@ -55,8 +55,8 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		EmailAuthDTO emailDto = new EmailAuthDTO();
 		emailDto.setEmail(dto.getEmail());
-		SuccessTemp authIdCheck = emailAuthRepo.exists_check_email_auth(emailDto);
 		emailAuthRepo.delete_useless();	//쓸데 업는 것들을 삭제
+		SuccessTemp authIdCheck = emailAuthRepo.exists_check_email_auth(emailDto);
 		if(authIdCheck.success==0 && memRepo.selectOneId(dto)==null) {	//인증받는리스트에 없고 회원리스트에서 찾았을때 null이면 중복되는 것이 없으므로 만들어도 된다
 			return 1;
 		}else
@@ -91,7 +91,7 @@ public class MemberServiceImpl implements MemberService {
 		MemberDTO mem = memRepo.selectOneId(dto);
 		if(mem==null) {	//처음 로그인 시
 			memRepo.insert2(dto);
-			return 2;
+			return 1;
 		}else {
 			if(mem.getExternal()==2) {
 				return 1;

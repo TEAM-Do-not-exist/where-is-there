@@ -8,7 +8,7 @@
           </v-card-title>
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+              <v-text-field v-model="auth_key" :rules="nameRules" :counter="10" label="인증 번호" required></v-text-field>
               <v-btn :disabled="! valid" @click="submit" outlined width="277.33" height="60">submit</v-btn>
               <v-container />
               <v-layout align-center justify-center>
@@ -30,6 +30,7 @@ import axios from 'axios';
 export default {
   data: () => ({
     valid: true,
+    auth_key:'',
     name: "",
     nameRules: [
       v => !!v || "Name is required",
@@ -54,20 +55,17 @@ export default {
     submit() {
       if (this.$refs.form.validate()) {
         // Native form submission is not yet supported
-        const uri_duplicate = 'http://localhost:8090/api/member/duplicateCheckEmail/'
-        axios.get(uri_duplicate+this.email).then(r=>{
-          if(r.data.resvalue==1){
-            //성공 
-            alert("okok")
-            // const uri_email_auth = "http://localhost:8090/api/emailauth/request"
-            // axios.post(uri_email_auth,{
-            //   email : this.email
-            // }).then(this.$router.push("/signup1"))
-            this.$router.push("/signup1")
-          }else{
-            //실패
-            alert("nono"+r.data.resvalue)
-          }
+        const uri_email_check = 'http://localhost:8090/api/emailauth/auth_check'
+        axios.post(uri_email_check, {
+          email: this.email,
+          auth_key: this.auth_key
+        }).then(r=>{
+            if(r.data.resvalue==1){
+                alert('okok')
+                this.$router.push('/')
+            }else{
+                alert("nono")
+            }
         })
       }
     },
