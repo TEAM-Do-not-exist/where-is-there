@@ -19,18 +19,36 @@
             target="_blank"
           >{{ photo[0].purl }}</a>
         </v-chip>
-        <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
-          <v-icon>mdi-heart-outline</v-icon>
-        </v-btn>
-        <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
+        <div class="d-inline-flex">
+          <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="!clicked">
+            <v-icon>mdi-heart-outline</v-icon>
+          </v-btn>
+          <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+          <PhotoReportModel :pcode="pcode" />
+        </div>
+        <div class="my-12 d-flex justify-end" v-if="id === 'admin@admin.com'">
+          <PhotoDeleteSheet :pcode="pcode" :purl="photo[0].purl" />
+          <v-btn class="ma-2" outlined dark color="yellow darken-1" @click="updatePhoto">update</v-btn>
+        </div>
       </v-col>
       <PhotoDetailKakaoMap />
-
-      <v-divider :dark="true" class="my-3"></v-divider>
-      <!-- comment vue -->
     </v-row>
+
+    <!-- comment vue -->
+    <div style="height: 100px"></div>
+    <v-divider :dark="true" class="my-3"></v-divider>
+    <PhotoDetailInput :photo="photo[0]" :comments="comments" @onInput="onInput" />
+
+    <v-divider :dark="true" class="my-3"></v-divider>
+    <div v-for="(comment, idx) in comments" :key="idx">
+      <PhotoDetailComment
+        :comment="comment"
+        @onModifyComment="onModifyComment"
+        @deleteComment="deleteComment"
+      />
+    </div>
   </v-container>
 </template>
 
@@ -38,12 +56,24 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import PhotoDetailKakaoMap from "./PhotoDetailKakaoMap";
+import PhotoDetailInput from "./PhotoDetailInput";
+import PhotoDetailComment from "./PhotoDetailComment";
+import PhotoReportModel from "./PhotoReportModal";
+import PhotoDeleteSheet from "./PhotoDeleteSheet";
 
 export default {
   name: "PhotoDetail",
-  components: { PhotoDetailKakaoMap: PhotoDetailKakaoMap },
+  components: {
+    PhotoDetailKakaoMap: PhotoDetailKakaoMap,
+    PhotoDetailComment: PhotoDetailComment,
+    PhotoDetailInput: PhotoDetailInput,
+    PhotoReportModel: PhotoReportModel,
+    PhotoDeleteSheet: PhotoDeleteSheet
+  },
   data: () => ({
-    clicked: false
+    comments: [],
+    clicked: false,
+    id: "admin@admin.com"
   }),
   props: {
     pcode: String
@@ -69,6 +99,37 @@ export default {
           })
           .catch();
       }
+    },
+    onInput() {
+      const commnetUrl = `http://localhost:8090/api/comment/selectPhotoList/${this.pcode}`;
+      axios
+        .get(commnetUrl)
+        .then(r => {
+          const { data } = r;
+          this.comments = data.resvalue;
+        })
+        .catch();
+    },
+    onModifyComment(code, id, content) {
+      const url = "http://localhost:8090/api/comment/update";
+      const data = {
+        ccode: code,
+        cid: id,
+        content: content
+      };
+      axios
+        .put(url, data)
+        .then()
+        .catch();
+    },
+    deleteComment(code, id) {
+      const url = `http://localhost:8090/api/comment/delete/${code}/${id}`;
+      axios
+        .delete(url)
+        .then(() => {
+          this.onInput();
+        })
+        .catch();
     }
   },
   computed: {
@@ -86,6 +147,16 @@ export default {
         );
         if (check.length === 1) {
           this.clicked = true;
+        }
+      })
+      .catch();
+    const commnetUrl = `http://localhost:8090/api/comment/selectPhotoList/${this.pcode}`;
+    axios
+      .get(commnetUrl)
+      .then(r => {
+        const { data } = r;
+        if (data.resvalue !== undefined) {
+          this.comments = data.resvalue;
         }
       })
       .catch();
