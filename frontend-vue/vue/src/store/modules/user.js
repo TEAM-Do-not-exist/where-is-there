@@ -100,7 +100,6 @@ const actions = {
   },
   LOGOUT({ commit }) {
     // HTTP 요청 헤더값 제거
-    axios.defaults.headers.common["Authorization"] = undefined;
     commit("LOGOUT");
   }
 };
