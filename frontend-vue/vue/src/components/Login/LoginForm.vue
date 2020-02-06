@@ -22,6 +22,7 @@ export default {
   methods: {
     joinSubmit() {
       this.$emit("joinSubmit", this.userName);
+      //$emit 이벤트버스 자식 -> 부모로 넘길때!!
     }
   }
 };
