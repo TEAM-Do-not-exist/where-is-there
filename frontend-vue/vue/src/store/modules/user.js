@@ -75,6 +75,7 @@ const mutations = {
           .then(r=>{
             state.nickname = r.data.resvalue.nickname
             sessionStorage.setItem('nickname',r.data.resvalue.nickname)
+            router.push('/')
             alert("kakao : "+sessionStorage.getItem('nickname'))
           })
       })
