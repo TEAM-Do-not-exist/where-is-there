@@ -46,7 +46,7 @@
                 >
                   <NaverLogin
                     client-id="nsrxqIjEGhhBf9jdPBFD"
-                    callback-url="http://192.168.100.52:8080/naversignin"
+                    callback-url="http://localhost:8080/naversignin"
                     v-bind:is-popup="false"
                     v-bind:button-type="3"
                     v-bind:button-height="60"
