@@ -3,10 +3,10 @@
       <v-card app background-color="#0000">
         <v-container fluid>
           <v-row dense>
-            <v-col v-for="(item, i) in list" :key="i" cols="6">
+            <v-col v-for="(item, i) in list" :key="i" cols="4">
               <v-card>
                 <v-img
-                  :src = item.purl
+                  :src = item.psource
                   class="white--text align-end"
                   gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                   height="200px"
@@ -15,7 +15,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn icon>
-                    ❤️
+                    <!-- ❤️ -->
                     <v-icon @click="delfavorite()">mdi-heart</v-icon>
                   </v-btn>
                 </v-card-actions>
@@ -34,7 +34,6 @@ import axios from "axios";
 export default {
   data: () => ({
     list:[],
-    is_show : false
   }),
 
   methods:{
@@ -42,7 +41,7 @@ export default {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/favorite/selectMyList/";
       // const cid = this.cid;
-      const fid = 123123; // 현재 아이디 박아놓은 상태.
+      const fid = "123@123"; // 현재 아이디 박아놓은 상태.
       axios
         .get(basicUrl+addUrl+fid)
         .then(response => (this.list = response.data['resvalue']))

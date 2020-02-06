@@ -57,7 +57,7 @@ public class RestCommentController {
 	}
 	
 	@DeleteMapping("/delete/{ccode}/{cid}")
-	@ApiOperation(value="comment 삭제 서비스")
+	@ApiOperation(value="comment 삭제 서비스 / 입력 : cid, ccode")
 	public ResponseEntity<Map> comDelete(@PathVariable("ccode")int ccode,@PathVariable("cid")String cid){
 		ResponseEntity<Map> resEntity=null;
 		int state=0;
@@ -87,7 +87,7 @@ public class RestCommentController {
 	}
 	
 	@GetMapping("/selectMyList/{cid}")
-	@ApiOperation(value="comment 내가 쓴 댓글 조회 서비스")
+	@ApiOperation(value="comment 내가 쓴 댓글 조회 서비스 / 입력: cid")
 	public ResponseEntity<Map> comSelect(@PathVariable("cid")String cid){
 		ResponseEntity<Map> resEntity=null;
 		int state=0;
@@ -95,7 +95,6 @@ public class RestCommentController {
 			CommentDTO dto = new CommentDTO();
 			dto.setCid(cid);
 			List<CommentDTO> selectMyList = comSer.selectMyList(dto);
-//			System.out.println(selectMyList.toString());
 			Map<String,Object> msg = new HashMap<String, Object>();
 			if(selectMyList.size()>0) {
 				state = 1;
@@ -103,7 +102,6 @@ public class RestCommentController {
 				msg.put("regmsg", "조회했습니다");
 				msg.put("resvalue",selectMyList);
 			}
-			System.out.println(msg.toString());
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
@@ -114,7 +112,7 @@ public class RestCommentController {
 	}
 	
 	@GetMapping("/selectPhotoList/{ccode}")
-	@ApiOperation(value="comment 사진별 댓글 조회 서비스")
+	@ApiOperation(value="comment 사진별 댓글 조회 서비스 / 입력: ccode")
 	public ResponseEntity<Map> comSelect(@PathVariable("ccode")int ccode){
 		ResponseEntity<Map> resEntity=null;
 		int state=0;
@@ -139,7 +137,7 @@ public class RestCommentController {
 	}
 	
 	@PutMapping("/update")
-	@ApiOperation(value="댓글 수정 서비스")
+	@ApiOperation(value="댓글 수정 서비스 / 입력 : cid, ccode,content")
 	public ResponseEntity<Map<String,Object>> update(@RequestBody CommentDTO dto) {
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		int state = 1;

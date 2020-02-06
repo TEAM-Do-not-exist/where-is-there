@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <!-- <v-card-title  >
-              <h1>My Page</h1>
-      </v-card-title>-->
+
       <v-container>
+        <!-- logo  -->
         <v-card app>
           <v-img
             class="white--text align-end"
@@ -13,22 +12,20 @@
             src="../../../public/logo.png"
           ></v-img>
 
-          <v-card-subtitle class="pb-0">Name:</v-card-subtitle>
-          <v-card-subtitle class="pb-0">ID:</v-card-subtitle>
-          <v-card-subtitle class="pb-0">PW:</v-card-subtitle>
-          <v-card-subtitle class="pb-0">e-mail:</v-card-subtitle>
-          <v-card-subtitle class="pb-0">phone:</v-card-subtitle>
-          <!-- <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
+        <!-- My Information -->
+          <v-card-text class="pb-0">ID: {{item.email}}</v-card-text>
+          <v-card-text class="pb-0">Name: {{item.name}} </v-card-text>
+          <v-card-text class="pb-0">Nickname: {{item.nickname}} </v-card-text>
+          <v-card-text class="pb-0">phone: {{item.phone}}</v-card-text>
 
-          <div>Whitsunday Island, Whitsunday Islands</div>
-        </v-card-text>
-          -->
+        <!-- Update My Information -->
           <v-card-actions>
-            <v-btn color="orange" text>수정하기</v-btn>
+            <v-btn text>           
+               <MyInfoUpdateModal :item="item" @onInsert="onInsert" />
+            </v-btn>
           </v-card-actions>
         </v-card>
-
+        <!-- My Favorite Page || My Comment Page-->
         <v-card app>
           <v-card-actions>
             <v-btn color="yellow" text @click="isLike = !isLike; isComment = false">내 좋아요</v-btn>
@@ -44,20 +41,44 @@
 
 
 <script>
-import MyFavorite from "./MyFavorite";
-import MyComment from "./MyComment";
-// import axios from "axios";
+  import MyFavorite from "./MyFavorite";
+  import MyComment from "./MyComment";
+  import axios from "axios";
+  import MyInfoUpdateModal from "./MyInfoUpdateModal"; 
 
 export default {
   components: {
     MyFavorite,
-    MyComment
+    MyComment,
+    MyInfoUpdateModal
   },
   data() {
     return {
       isLike: false,
-      isComment: false
+      isComment: false,
+      item:{}
     };
+  },
+  methods:{
+    showmyinfo(){
+      const basicUrl = "http://127.0.0.1:8090/";
+      const addUrl = "api/member/selectOneEmail/";
+      // const cid = this.cid;
+      const id = "123@123"; // 현재 아이디 박아놓은 상태.
+      axios
+        .get(basicUrl+addUrl+id)
+        .then(response => (this.item = response.data['resvalue']))
+        .catch(() => {
+               this.errored = true;
+         })
+        . finally(() => (this.loading = false));
+    },
+    updateinfo(){
+      this.$emit("updateInfo");
+    }
+  },
+  mounted(){
+    this.showmyinfo(); 
   }
 };
 </script>
