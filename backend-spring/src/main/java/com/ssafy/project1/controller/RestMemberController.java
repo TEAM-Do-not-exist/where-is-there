@@ -190,7 +190,7 @@ public class RestMemberController {
 		return resEntity;
 	}
 	@PostMapping("/login")
-	@ApiOperation(value="[로그인]member email과 pw를 입력하여 그에 맞는 멤버가 있으면 1 없으면 0을 반환하는 서비스 그리고 토큰도 반환함")
+	@ApiOperation(value="[로그인] 입력 : email, pw / member email과 pw를 입력하여 그에 맞는 멤버가 있으면 1 없으면 0을 반환하는 서비스 그리고 토큰도 반환함")
 	public ResponseEntity<Map> memSelectOneId(@RequestBody MemberDTO dto){
 		ResponseEntity<Map> resEntity=null;
 		int state = 0;

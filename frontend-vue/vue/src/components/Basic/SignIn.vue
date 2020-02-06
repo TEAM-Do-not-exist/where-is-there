@@ -46,7 +46,7 @@
                 >
                   <NaverLogin
                     client-id="nsrxqIjEGhhBf9jdPBFD"
-                    callback-url="http://192.168.100.52:8080/naversignin"
+                    callback-url="http://127.0.0.1:8080/naversignin"
                     v-bind:is-popup="false"
                     v-bind:button-type="3"
                     v-bind:button-height="60"
@@ -76,22 +76,12 @@ import KakaoLogin from "vue-kakao-login";
 import NaverLogin from "vue-naver-login";
 
 import nearo from '../Error/main';
-import Axios from 'axios';
 import router from '../../router'
+import { mapGetters } from 'vuex';
 
 let callbackFunction = nearo.callbackFunction;
 
-let onSuccess = data => {
-  // this.console.log(data);
-  // this.console.log("qwer");
-  // this.console.log("success");
-  Axios
-    .get('http://192.168.100.52:8090/api/external/login_kakao/'+data.access_token)
-    .then(r=>{
-      alert(r.data.token) //카카오 토큰
-      router.push('/'); 
-    })
-};
+// let onSuccess;
 let onFailure = data => {
   this.console.log(data);
   this.console.log("failure");
@@ -110,39 +100,25 @@ export default {
     passwordRules: [v => !!v || "Password is required"],
     drawer: null
   }),
-
+  computed: {
+    ...mapGetters(["token"])
+  },
   methods: {
-    // tokenizer(){
-    //   window.location.href.split("/")[2].split(':')[1]
-    // },
 
     submit() {
       if (this.$refs.form.validate()) {
-        // Native form submission is not yet supported
-        // axios.post('/api/submit', {
-        //   name: this.name,
-        //   email: this.email,
-        //   select: this.select,
-        //   checkbox: this.checkbox
-        // })
-
-        // Axios.get('client_id=nsrxqIjEGhhBf9jdPBFD&response_type=code&redirect_uri=http://192.168.100.52:8080&state=1111111111')
-        // alert(window.location.href.split("/")[2].split(':')[1])
-
-
-        // Axios
-        //   .get('http://localhost:8090/api/member/login/'+this.id+'/'+this.password)
-        //   .then(r=>{
-        //     alert(r.data.token) //그냥 로그인 토큰
-        //     router.push('/'); 
-        // })  
-        
+        this.$store.dispatch('LOGIN_NOMAL',{
+          id : this.id,
+          password : this.password
+        });
       }
     },
     clear() {
       this.$refs.form.reset();
     },
-    onSuccess,
+    onSuccess(data) {
+      this.$store.dispatch('LOGIN_KAKAO',data.access_token).then(router.push('/'));
+    },
     onFailure,
     callbackFunction,
     to_sign_up() {
