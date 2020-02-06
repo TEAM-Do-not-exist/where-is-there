@@ -28,6 +28,10 @@
           </v-btn>
           <PhotoReportModel :pcode="pcode" />
         </div>
+        <div class="my-12 d-flex justify-end" v-if="id === 'admin@admin.com'">
+          <PhotoDeleteSheet :pcode="pcode" :purl="photo[0].purl" />
+          <v-btn class="ma-2" outlined dark color="yellow darken-1" @click="updatePhoto">update</v-btn>
+        </div>
       </v-col>
       <PhotoDetailKakaoMap />
     </v-row>
@@ -55,6 +59,7 @@ import PhotoDetailKakaoMap from "./PhotoDetailKakaoMap";
 import PhotoDetailInput from "./PhotoDetailInput";
 import PhotoDetailComment from "./PhotoDetailComment";
 import PhotoReportModel from "./PhotoReportModal";
+import PhotoDeleteSheet from "./PhotoDeleteSheet";
 
 export default {
   name: "PhotoDetail",
@@ -62,11 +67,13 @@ export default {
     PhotoDetailKakaoMap: PhotoDetailKakaoMap,
     PhotoDetailComment: PhotoDetailComment,
     PhotoDetailInput: PhotoDetailInput,
-    PhotoReportModel: PhotoReportModel
+    PhotoReportModel: PhotoReportModel,
+    PhotoDeleteSheet: PhotoDeleteSheet
   },
   data: () => ({
     comments: [],
-    clicked: false
+    clicked: false,
+    id: "admin@admin.com"
   }),
   props: {
     pcode: String

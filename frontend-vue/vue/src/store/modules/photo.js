@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "../../router";
 
 const url = "http://127.0.0.1:8090/api/photo";
 
@@ -14,6 +15,9 @@ const mutations = {
       .then(r => {
         const { resvalue } = r.data;
         state.photo = resvalue;
+        if (state.photo === null) {
+          router.push("/error");
+        }
 
         const kakaoUrl = "https://dapi.kakao.com/v2/local/search/keyword.json";
         const encoded = encodeURI(state.photo.pplace + state.photo.pname);
