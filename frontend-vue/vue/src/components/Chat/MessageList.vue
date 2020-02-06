@@ -2,23 +2,18 @@
   <v-list v-auto-bottom="msgs" style="overflow-y: auto; overflow-x: hidden;">
     <transition-group name="list">
       <div v-for="(msg,index) in msgs" v-bind:key="index">
-        <v-list-tile>
-          <v-list-tile-action>
-            <span v-if="msg.from.name=='나:'" style="display:block; text-align:right; ">
-              <v-spacer/>
-                   <v-list-tile-content>
-            <v-list-tile-title>{{ msg.msg}}  </v-list-tile-title>
-          </v-list-tile-content>
+        <div>
+          <div>
+            <span v-if="msg.from.name=='나:'" style="display:block; text-align:right; padding:5px;">
+              <div class="list-chat">
+                <span>{{ msg.msg}}  </span>
+              </div>
             </span>
             <span v-else>
-              {{msg.from.name }}
-             <v-list-tile-content>
-            <v-list-tile-title>{{ msg.msg}}</v-list-tile-title>
-          </v-list-tile-content>
+              {{msg.from.name }} {{ msg.msg}}
             </span>
-
-          </v-list-tile-action>
-        </v-list-tile>
+          </div>
+        </div>
       </div>
     </transition-group>
   </v-list>
@@ -30,13 +25,14 @@ export default {
   props: ["msgs"],
   data(){
     return{
-      name: this.msg.from.name
+      // name: this.msg.from.name
     }
-  }
+  },
 };
 </script>
+
 <style>
-.list-item {
+.list-chat {
   display: inline-block;
   margin-right: 10px;
 }

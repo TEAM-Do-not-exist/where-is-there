@@ -7,14 +7,12 @@
   <v-app id="inspire" v-else>
     <v-navigation-drawer v-model="drawerRight" app right class=".d-flex" style="z-index:2">
       <v-list dense>
-        <v-list-item-content>
           <div class="inner-wrap" fluid fill-height inner-wrap>
             <Message-List :msgs="msgDatas" class="msg-list">
 
             </Message-List>
             <Message-From v-on:submitMessage="sendMessage" class="msg-form"></Message-From>
           </div>
-        </v-list-item-content>
       </v-list>
     </v-navigation-drawer>
 
@@ -137,10 +135,10 @@ export default {
     }
   },
   created() {
-    const $ths = this;
+    // const $ths = this;
     this.$socket.on("chat", data => {
       this.pushMsgData(data);
-      $ths.datas.push(data);
+      // $ths.datas.push(data);
     });
   },
 
