@@ -17,7 +17,7 @@ public class FavoriteServiceImpl implements IFavoriteService{
 	
 	@Override
 	public int insert(FavoriteDTO dto) {
-		System.out.println("service들어옴");
+//		System.out.println("service들어옴");
 		// TODO Auto-generated method stub
 		return favRepo.insert(dto) ;
 	}
