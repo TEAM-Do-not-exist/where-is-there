@@ -28,7 +28,7 @@
           </v-row>
 
           <!-- input form -->
-          <v-textarea counter label="Text" :rules="rules" :value="value"></v-textarea>
+          <v-textarea counter label="Text" :rules="rules" v-model="value"></v-textarea>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -57,8 +57,14 @@ export default {
   },
   methods: {
     reportPhoto() {
-      // 신고에 대한 C로직 추가하기
-      console.log("???");
+      this.dialog = false;
+      const report = {
+        rid: "asdf",
+        rcode: this.pcode,
+        rreason: this.value
+      };
+      this.$emit("reportPhoto", report);
+      this.value = "";
     }
   }
 };
