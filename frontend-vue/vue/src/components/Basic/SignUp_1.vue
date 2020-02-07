@@ -8,8 +8,16 @@
           </v-card-title>
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-              <v-btn :disabled="! valid" @click="submit" outlined width="277.33" height="60">submit</v-btn>
+              <v-text-field v-model="email" :rules="emailRules" label="E-mail" required disabled="true"></v-text-field>
+              <v-text-field
+                v-model="password"
+                :rules="passwordRules"
+                label="Password"
+                type="password"
+                required
+              ></v-text-field>
+              <v-text-field v-model="name" :rules="nameRules" :counter="10" label="UserName" required></v-text-field>
+              <v-btn  @click="submit" outlined width="277.33" height="60">submit</v-btn>
               <v-container />
               <v-layout align-center justify-center>
                 <p style="upper-margin: 10px;">
@@ -28,15 +36,20 @@
 
 import axios from 'axios';
 export default {
-  // props: ['email'],
+  props: ['email'],
   data: () => ({
+    info : {
+      email : this.email,
+      name : this.name,
+      pw : this.password
+    },
     valid: true,
     name: "",
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length <= 10) || "Name must be less than 10 characters"
     ],
-    email: "",
+    // email: "",
     emailRules: [
       v => !!v || "E-mail is required",
       v =>
@@ -48,30 +61,20 @@ export default {
       v => !!v || "Password is required",
       v => (v && v.length >= 3) || "Password must be in sufficient size"
     ],
-    checkbox: false,
-    info: {},
-    infom: true,
+    checkbox: false
   }),
 
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        // Native form submission is not yet supported
-        const uri_duplicate = 'http://localhost:8090/api/member/duplicateCheckEmail/'
-        axios.get(uri_duplicate+this.email).then(r=>{
-          if(r.data.resvalue==1){
-            //성공 
-            // alert("okok")
-            // const uri_email_auth = "http://localhost:8090/api/emailauth/request"
-            // axios.post(uri_email_auth,{
-            //   email : this.email
-            // }).then(this.$router.push("/signup1"))
-            this.$router.push("/signup1/"+this.email)
-          }else{
-            //실패
-            alert("중복된 아이디 입니다.")
-          }
-        })
+        const uri_email_auth = "http://localhost:8090/api/emailauth/request"
+        axios.post(uri_email_auth,{
+          email : this.email
+        }).then(this.$router.push({name:"signup2",params:{
+          email:this.email,
+          name: this.name,
+          pw : this.password
+          }}))
       }
     },
     clear() {

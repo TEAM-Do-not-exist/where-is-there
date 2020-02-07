@@ -39,7 +39,6 @@
 						nickname=#{nickname},
 						name=#{name},
 						phone=#{phone},
-						external=#{external}
 		where email=#{email}
 	</update>
 	<select id="selectList" resultType="MemberDTO">
