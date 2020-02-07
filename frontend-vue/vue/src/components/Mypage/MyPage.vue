@@ -56,8 +56,7 @@ export default {
     MyInfoUpdateModal
   },
   props: {
-    nickname: String,
-    token: String
+
   },
   data() {
     return {
@@ -79,6 +78,7 @@ export default {
                this.errored = true;
          })
         . finally(() => (this.loading = false));
+
     },
     updateinfo(){
       this.$emit("updateInfo");

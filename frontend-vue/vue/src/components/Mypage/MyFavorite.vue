@@ -32,7 +32,6 @@ export default {
     list:[],
   }),
   props:{
-    token : String
   },
   methods:{
      showfavorite() {
