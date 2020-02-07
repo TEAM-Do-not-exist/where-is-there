@@ -36,7 +36,7 @@
 	</delete>
 	<update id="update" parameterType="MemberDTO">
 		update mem_p1 set pw=#{pw},
-						name=#{nickname},
+						nickname=#{nickname},
 						name=#{name},
 						phone=#{phone},
 						external=#{external}

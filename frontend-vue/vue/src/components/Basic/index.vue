@@ -42,6 +42,9 @@ export default {
 </script>
 
 <style scoped>
+.contentsitems {
+  margin: 5px 3px !important;
+}
 p {
   font-family: "Zhi Mang Xing", cursive;
   font-size: 4rem;

@@ -76,7 +76,7 @@ import KakaoLogin from "vue-kakao-login";
 import NaverLogin from "vue-naver-login";
 
 import nearo from '../Error/main';
-import router from '../../router'
+// import router from '../../router'
 import { mapGetters } from 'vuex';
 
 let callbackFunction = nearo.callbackFunction;
@@ -117,7 +117,7 @@ export default {
       this.$refs.form.reset();
     },
     onSuccess(data) {
-      this.$store.dispatch('LOGIN_KAKAO',data.access_token).then(router.push('/'));
+      this.$store.dispatch('LOGIN_KAKAO',data.access_token).then();
     },
     onFailure,
     callbackFunction,

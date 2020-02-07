@@ -258,3 +258,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/vue,java,venv,django,python,windows,visualstudiocode
+.vscode/launch.json

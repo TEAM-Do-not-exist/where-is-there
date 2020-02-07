@@ -71,7 +71,9 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"; 
+import { mapGetters } from "vuex";
+
 
 export default {
   data: () => ({
@@ -88,11 +90,11 @@ export default {
   methods: {
      showmyinfo(){
       const basicUrl = "http://127.0.0.1:8090/";
-      const addUrl = "api/member/selectOneEmail/";
-      // const cid = this.cid;
-      const id = "123@123"; // 현재 아이디 박아놓은 상태.
+      const addUrl = "api/member/selectOneToken/";
+      const token = this.token
+
       axios
-        .get(basicUrl+addUrl+id)
+        .get(basicUrl+addUrl+token)
         .then(response => {
           this.item = response.data['resvalue'];
           this.email = this.item.email;
@@ -109,7 +111,7 @@ export default {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/member/update";
       const data = {
-        email: "123@123", //임시로 넣어놓은 아이디 입니다. 
+        email: this.email, //임시로 넣어놓은 아이디 입니다. 
         pw: this.pw, 
         name: this.name,
         phone: this.phone,
@@ -127,6 +129,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["token"]),
     validated() {
       return (
         this.pw &&
@@ -138,7 +141,8 @@ export default {
   },
   mounted(){
     this.showmyinfo(); 
-  }
+  },
+  
 };
 </script>
 
