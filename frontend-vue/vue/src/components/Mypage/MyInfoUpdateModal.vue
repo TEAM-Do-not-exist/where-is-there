@@ -17,14 +17,7 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <!-- name 입력란 -->
-              <v-col cols="12">
-                <v-text-field v-model="name" label="name" required>
-                  {{item.name}}
-                </v-text-field>
-
-                <!-- nickname 입력란 -->
-              </v-col>
+              <!-- nickname 입력란 -->
               <v-col cols="12">
                 <v-text-field v-model="nickname" label="nickname" required>
                   {{item.nickname}}
@@ -117,7 +110,6 @@
       validated() {
         return (
           this.pw &&
-          this.name &&
           this.phone &&
           this.nickname
         );

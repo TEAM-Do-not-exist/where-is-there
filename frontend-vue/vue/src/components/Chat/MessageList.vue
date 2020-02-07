@@ -4,11 +4,15 @@
       <div v-for="(msg,index) in msgs" v-bind:key="index">
         <div>
           <div>
+            
+            <!-- 나의 메세지 -->
             <span v-if="msg.from.name=='나:'" style="display:block; text-align:right; padding:5px;">
               <div class="list-chat">
                 <span>{{ msg.msg}} </span>
               </div>
             </span>
+
+            <!-- 상대방 메세지 -->
             <span v-else>
               {{msg.from.name }} {{ msg.msg}}
             </span>
