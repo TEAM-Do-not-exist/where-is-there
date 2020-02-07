@@ -4,7 +4,7 @@
         <v-container fluid>
           <v-row dense>
             <!-- <v-col v-for="(item, i) in list" :key="i" cols="4"> -->
-            <v-col v-for="(photo, i) in list" :key="i" cols="4">
+            <v-col v-for="(photo, i) in list" :key="i" cols="6">
               <v-card>
                 <v-img
                   :src = photo.psource
@@ -14,13 +14,6 @@
                   @click="showDetail(photo)"
                 >
                 </v-img>
-                <!-- <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn icon>
-                    ❤️
-                    <v-icon @click="delfavorite()">mdi-heart</v-icon>
-                  </v-btn>  
-                </v-card-actions> -->
               </v-card>
             </v-col>
           </v-row>
@@ -59,7 +52,7 @@ export default {
       this.is_show = !this.is_show; // #2, #3
     },
       showDetail(photo) {
-      this.$router.push(`/photo/${photo.pcode}`);
+      this.$router.push(`/photo/${photo.fcode}`);
     }
 
   },  
