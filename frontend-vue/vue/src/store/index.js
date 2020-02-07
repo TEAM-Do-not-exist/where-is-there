@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import reports from "./modules/reports";
 import photos from "./modules/photos";
 import photo from "./modules/photo";
+import comments from "./modules/comments";
 import socket from "./modules/socket";
 import user from "./modules/user";
 // import createPersistedState from 'vuex-persistedstate'
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     reports,
     photos,
     photo,
+    comments,
     socket,
     user
   }
