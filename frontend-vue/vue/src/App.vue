@@ -14,14 +14,12 @@
   <v-app id="inspire" v-else>
     <v-navigation-drawer v-model="drawerRight" app right class=".d-flex" style="z-index:2">
       <v-list dense>
-        <v-list-item-content>
           <div class="inner-wrap" fluid fill-height inner-wrap>
             <Message-List :msgs="msgDatas" class="msg-list">
 
             </Message-List>
             <Message-From v-on:submitMessage="sendMessage" class="msg-form"></Message-From>
           </div>
-        </v-list-item-content>
       </v-list>
     </v-navigation-drawer>
 
@@ -108,7 +106,7 @@
 
 <script>
 import * as easings from "vuetify/es5/services/goto/easing-patterns";
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapState,mapGetters } from "vuex";
 import MessageList from "@/components/Chat/MessageList.vue";
 import MessageForm from "@/components/Chat/MessageForm.vue";
 import Constant from "@/Constant";
@@ -140,6 +138,7 @@ export default {
     "Message-From": MessageForm
   },
   computed: {
+     ...mapGetters(["nickname"]),
     ...mapState({
       msgDatas: state => state.socket.msgDatas,
       nickname: state => state.user.nickname,
@@ -156,10 +155,10 @@ export default {
     }
   },
   created() {
-    const $ths = this;
+    // const $ths = this;
     this.$socket.on("chat", data => {
       this.pushMsgData(data);
-      $ths.datas.push(data);
+      // $ths.datas.push(data);
     });
   },
 
@@ -194,8 +193,8 @@ export default {
         msg
       });
       this.$sendMessage({
-        // name: this.$route.params.username,
-        name: "tmp:",
+        // name: "tmp:",
+        name: this.nickname +":",
         msg
       });
     },

@@ -146,18 +146,19 @@ def tour_api(request):
     res = {}
     if items != None:
         for item in items:
-            code = len(res) + 1
-            place = item.get('galSearchKeyword').split(', ')
-            url = item.get('galWebImageUrl')
-            name = item.get('galTitle')
-            source = 'http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList'
+            if type(item) == object:
+                code = len(res) + 1
+                place = item.get('galSearchKeyword').split(', ')
+                url = item.get('galWebImageUrl')
+                name = item.get('galTitle')
+                source = 'http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList'
 
-            res[code] = {
-                'pcode': code,
-                'purl': url,
-                'psource': source,
-                'pplace_pname': [place, name]
-            }
+                res[code] = {
+                    'pcode': code,
+                    'purl': url,
+                    'psource': source,
+                    'pplace_pname': [place, name]
+                }
 
     return Response(res, status=200)
 

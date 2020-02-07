@@ -26,7 +26,7 @@
           <v-btn class="ma-2" outlined fab color="red darken-1" @click="favorite" v-if="clicked">
             <v-icon>mdi-heart</v-icon>
           </v-btn>
-          <PhotoReportModel :pcode="pcode" />
+          <PhotoReportModel :pcode="pcode" @reportPhoto="reportPhoto" />
         </div>
         <div class="my-12 d-flex justify-end" v-if="id === 'admin@admin.com'">
           <PhotoDeleteSheet :pcode="pcode" :purl="photo[0].purl" />
@@ -141,6 +141,14 @@ export default {
           this.photo[0].pplace = e.pplace;
           this.photo[0].pname = e.pname;
         })
+        .catch();
+    },
+    reportPhoto(e) {
+      console.log(e);
+      const url = "http://localhost:8090/api/report/insert";
+      axios
+        .post(url, e)
+        .then(r => console.log(r))
         .catch();
     }
   },

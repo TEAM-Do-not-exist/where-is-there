@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import reports from "./modules/reports";
 import photos from "./modules/photos";
 import photo from "./modules/photo";
 import socket from "./modules/socket";
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
+    reports,
     photos,
     photo,
     socket,

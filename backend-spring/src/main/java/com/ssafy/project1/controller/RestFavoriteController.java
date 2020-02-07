@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.project1.authorization.JwtService;
 import com.ssafy.project1.dto.CommentDTO;
 import com.ssafy.project1.dto.FavoriteDTO;
 import com.ssafy.project1.service.IFavoriteService;
@@ -29,7 +30,9 @@ import io.swagger.annotations.ApiOperation;
 public class RestFavoriteController {
 	@Autowired
 	IFavoriteService favSer;
-	
+	@Autowired
+	JwtService jwt;
+
 	@PostMapping("/insert")
 	@ApiOperation(value="좋아요 등록 서비스 / 입력: fcode(사진의 코드), fid(회원의 id)")
 	public ResponseEntity<Map> memInsert(@RequestBody FavoriteDTO dto){
@@ -85,13 +88,14 @@ public class RestFavoriteController {
 		return resEntity;
 	}
 	
-	@GetMapping("/selectMyList/{fid}")
-	@ApiOperation(value="나의 좋아요 조회 서비스 / 입력:fid" )
-	public ResponseEntity<Map> comSelect(@PathVariable("fid")String fid){
+	@GetMapping("/selectMyList/{token}")
+	@ApiOperation(value="나의 좋아요 조회 서비스 / 입력:token" )
+	public ResponseEntity<Map> comSelect(@PathVariable("token")String token){
 		ResponseEntity<Map> resEntity=null;
 		int state=0;
 		try {
 			FavoriteDTO dto = new FavoriteDTO();
+			String fid = jwt.getEmail(token);
 			dto.setFid(fid);
 			List<FavoriteDTO> selectMyList = favSer.selectMyList(dto);
 			Map<String,Object> msg = new HashMap<String, Object>();
