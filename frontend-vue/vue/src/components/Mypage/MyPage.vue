@@ -21,7 +21,9 @@
         <!-- Update My Information -->
           <v-card-actions>
             <v-btn text>           
-               <MyInfoUpdateModal :item="item" @onInsert="onInsert" />
+               <!-- <MyInfoUpdateModal :item="item" @onInsert="onInsert" /> -->
+               <MyInfoUpdateModal :item="item"  />
+
             </v-btn>
           </v-card-actions>
         </v-card>

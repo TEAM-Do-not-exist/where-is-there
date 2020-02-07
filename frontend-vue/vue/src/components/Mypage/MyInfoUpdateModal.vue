@@ -119,7 +119,7 @@ export default {
         .put(basicUrl + addUrl, data)
         .then(r => {
           if (r.data.regmsg === "입력했습니다") {
-            this.$emit("onInsert");
+            // this.$emit("onInsert");
           }
         })
         .catch();
