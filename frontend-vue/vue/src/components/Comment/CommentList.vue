@@ -13,12 +13,16 @@
 
           <div class="d-inline-flex">
             <v-btn icon>
-              <v-icon v-show="comment.cid === 'admin@admin.com'" @click="modifyComment">mdi-pencil</v-icon>
+              <v-icon
+                v-show="comment.cid === 'admin@admin.com'"
+                @click="modifyComment"
+                >mdi-pencil</v-icon
+              >
             </v-btn>
-            <PhotoCommentDeleteBtn
+            <!-- <PhotoCommentDeleteBtn
               v-show="comment.cid === 'admin@admin.com'"
               @deleteComment="deleteComment"
-            />
+            /> -->
           </div>
         </v-row>
       </v-col>
@@ -27,11 +31,11 @@
 </template>
 
 <script>
-import PhotoCommentDeleteBtn from "./PhotoCommentDeleteBtn";
+// import PhotoCommentDeleteBtn from "./PhotoCommentDeleteBtn";
 
 export default {
-  name: "PhotoDetailComment",
-  components: { PhotoCommentDeleteBtn: PhotoCommentDeleteBtn },
+  name: "CommentList",
+  // components: { PhotoCommentDeleteBtn: PhotoCommentDeleteBtn },
   data: () => ({
     modified: false
   }),
@@ -57,5 +61,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

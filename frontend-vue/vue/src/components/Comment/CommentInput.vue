@@ -1,8 +1,7 @@
 <template>
-  <!-- DB 수정이 완료되면 다시 할 것 -->
   <v-text-field
-    v-model="comment"
     label="comment"
+    v-model="comment"
     :rules="[v => !errorMessage || 'You cannot leave comments more than 2']"
     :disabled="errorMessage !== ''"
     @keyup.enter="sendComment"
@@ -13,11 +12,8 @@
 import axios from "axios";
 
 export default {
-  name: "PhotoDetailInput",
-  props: {
-    photo: Object,
-    comments: Array
-  },
+  name: "CommentInput",
+  props: { comments: Array, pcode: String },
   data: () => ({
     comment: "",
     errorMessage: ""
@@ -25,23 +21,21 @@ export default {
   methods: {
     sendComment() {
       if (this.comment !== "") {
-        const checkArray = this.comments.filter(
-          comment => comment.cid === "admin@admin.com"
+        console.log(this.comments);
+        const duplicated = this.comments.filter(
+          comment => comment.cid === "admin"
         );
-        if (checkArray.length < 1) {
-          const url = "http://localhost:8090/api/comment/insert";
+        if (duplicated.length < 1) {
+          const url = `${process.env.VUE_APP_SPRING_URL}/api/comment/insert`;
           const data = {
-            ccode: Number(this.photo.pcode),
-            cid: "admin@admin.com",
+            ccode: Number(this.pcode),
+            cid: "admin",
             content: this.comment
           };
-          axios
-            .post(url, data)
-            .then(() => {
-              this.comment = "";
-              this.$emit("onInput");
-            })
-            .catch();
+          axios.post(url, data).then(() => {
+            this.comment = "";
+            this.$emit("onInput");
+          });
         } else {
           this.comment = "";
           this.errorMessage = "You can write only one comment for one ID";
@@ -52,5 +46,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -2,7 +2,7 @@ import vue from "vue";
 import router from "vue-router";
 
 import index from "./components/Basic/IndexPage";
-import PhotoDetail from "./components/Photo/PhotoDetail";
+import photo from "./components/Photo/Photo";
 import PhotoRecommands from "./components/Photo/PhotoRecommands";
 
 import admin from "./components/Admin/Admin";
@@ -31,9 +31,9 @@ export default new router({
       component: index
     },
     {
-      name: "Photo",
+      name: "photo",
       path: "/photo/:pcode",
-      component: PhotoDetail,
+      component: photo,
       props: true
     },
     {
