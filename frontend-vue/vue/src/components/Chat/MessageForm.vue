@@ -1,5 +1,7 @@
 <template>
   <div class="inner-wrap">
+
+    <!-- 로그인 했을 시 채팅 -->
     <div v-if="this.token!=null">
     <v-text-field
       v-model="msg"
@@ -9,6 +11,7 @@
       @keyup.13="submitMessageFunc"
     ></v-text-field>
     </div>
+    <!-- 로그인이 안되었을 때 채팅 -->
     <div v-else>
       <v-text-field
       v-model="msg"

@@ -13,7 +13,6 @@
           ></v-img>
         <!-- My Information -->
           <v-card-text class="pb-0" >ID: {{item.email}}</v-card-text>
-          <v-card-text class="pb-0">Name: {{item.name}} </v-card-text>
           <v-card-text class="pb-0">Nickname: {{item.nickname}} </v-card-text>
           <v-card-text class="pb-0">phone: {{item.phone}}</v-card-text>
 
