@@ -98,9 +98,9 @@ public class RestExternalLogInController {
 				msg.put("resvalue",memSer.selectOneId(dto));
 				
 			}else {
-				state = -1;
+				state = -3;
 				msg.put("state", state);
-				msg.put("regmsg", "조회 실패");
+				msg.put("regmsg", "다른 아이디가 존재");
 			}
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
@@ -132,9 +132,9 @@ public class RestExternalLogInController {
 				msg.put("resvalue",memSer.selectOneId(dto));
 				
 			}else {
-				state = -1;
+				state = -3;
 				msg.put("state", state);
-				msg.put("regmsg", "조회 실패");
+				msg.put("regmsg", "다른 아이디가 존재");
 			}
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
