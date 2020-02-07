@@ -42,15 +42,17 @@
                                         outlined />
                                       
                                       <v-checkbox
-                                      v-model= "agreement"
                                       class="mt-n1"
+                                      v-model= "agreement" 
+                                      :disabled= '!agreement'
+                                      display = "inline"
                                       >
-                                      <template v-slot:label>
-                                        개인정보 이용에&nbsp;
-                                        &nbsp;&nbsp;&nbsp; <a href="#" @click.stop.prevent="dialog = true">동의</a>
-                                        &nbsp; 하십니까?
-                                      </template>
                                     </v-checkbox>
+                                        <p class="mt-n12 subtitle-1" style="margin-left : 32px, margin-top: 30px" align ="left">
+                                        개인정보 이용에 
+                                          <a  ref="#" @click.stop.prevent="dialog = true">동의</a>
+                                        &nbsp; 하십니까?</p>
+                                        
                                 </v-form>
                             </v-card-text>  
                                 <v-divider></v-divider>
@@ -134,6 +136,7 @@
         required: v => !!v || 'This field is required',
       },
     }),
+    
   }
 </script>
 
