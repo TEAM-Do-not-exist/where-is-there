@@ -11,9 +11,8 @@
             aspect-ratio=5
             src="../../../public/logo.png"
           ></v-img>
-
         <!-- My Information -->
-          <v-card-text class="pb-0">ID: {{item.email}}</v-card-text>
+          <v-card-text class="pb-0" >ID: {{item.email}}</v-card-text>
           <v-card-text class="pb-0">Name: {{item.name}} </v-card-text>
           <v-card-text class="pb-0">Nickname: {{item.nickname}} </v-card-text>
           <v-card-text class="pb-0">phone: {{item.phone}}</v-card-text>
@@ -47,12 +46,16 @@
   import MyComment from "./MyComment";
   import axios from "axios";
   import MyInfoUpdateModal from "./MyInfoUpdateModal"; 
+  import { mapGetters } from "vuex";
 
 export default {
   components: {
     MyFavorite,
     MyComment,
     MyInfoUpdateModal
+  },
+  props: {
+
   },
   data() {
     return {
@@ -64,16 +67,17 @@ export default {
   methods:{
     showmyinfo(){
       const basicUrl = "http://127.0.0.1:8090/";
-      const addUrl = "api/member/selectOneEmail/";
-      // const cid = this.cid;
-      const id = "123@123"; // 현재 아이디 박아놓은 상태.   
+      const addUrl = "api/member/selectOneToken/";
+      const token = this.token
+      
       axios
-        .get(basicUrl+addUrl+id)
+        .get(basicUrl+addUrl+token)
         .then(response => (this.item = response.data['resvalue']))
         .catch(() => {
                this.errored = true;
          })
         . finally(() => (this.loading = false));
+
     },
     updateinfo(){
       this.$emit("updateInfo");
@@ -81,6 +85,15 @@ export default {
   },
   mounted(){
     this.showmyinfo(); 
-  }
+  },
+  computed: {
+    ...mapGetters(["token"]),
+    ...mapGetters(["nickname"])
+  },
 };
 </script>
+<style scoped>
+ .pb-0{
+    font-size: 18px;
+  }
+</style>

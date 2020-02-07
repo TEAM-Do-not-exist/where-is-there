@@ -6,7 +6,7 @@
           <div>
             <span v-if="msg.from.name=='나:'" style="display:block; text-align:right; padding:5px;">
               <div class="list-chat">
-                <span>{{ msg.msg}}  </span>
+                <span>{{ msg.msg}} </span>
               </div>
             </span>
             <span v-else>
@@ -20,28 +20,34 @@
 </template>
 
 <script>
-export default {
-  name: "MessageList",
-  props: ["msgs"],
-  data(){
-    return{
-      // name: this.msg.from.name
-    }
-  },
-};
+  export default {
+    name: "MessageList",
+    props: ["msgs"],
+    data() {
+      return {
+        // name: this.msg.from.name
+      }
+    },
+  };
 </script>
 
 <style>
-.list-chat {
-  display: inline-block;
-  margin-right: 10px;
-}
-.list-enter-active,
-.list-leave-active {
-  transition: all 1s;
-}
-.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateX(30px);
-}
+  .list-chat {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 1s;
+  }
+
+  .list-enter,
+  .list-leave-to
+
+  /* .list-leave-active below version 2.1.8 */
+    {
+    opacity: 0;
+    transform: translateX(30px);
+  }
 </style>
