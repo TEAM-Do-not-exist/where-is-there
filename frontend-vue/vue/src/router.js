@@ -1,11 +1,11 @@
 import vue from "vue";
 import router from "vue-router";
 
-import index from "./components/Basic/index";
+import index from "./components/Basic/IndexPage";
 import PhotoDetail from "./components/Photo/PhotoDetail";
 import PhotoRecommands from "./components/Photo/PhotoRecommands";
 
-import Admin from "./components/Admin/Admin";
+import admin from "./components/Admin/Admin";
 import Login from "./views/Login.vue";
 import ChatRoom from "./views/ChatRoom.vue";
 import signin from "./components/Basic/SignIn";
@@ -17,7 +17,6 @@ import mypage from "./components/Mypage/MyPage";
 import myfavorite from "./components/Mypage/MyFavorite";
 import mycomment from "./components/Mypage/MyComment";
 
-
 vue.use(router);
 
 export default new router({
@@ -26,8 +25,8 @@ export default new router({
     {
       name: "index",
       path: "/",
-      component: index,
-      alias: "/index"
+      alias: "/index",
+      component: index
     },
     {
       name: "Photo",
@@ -42,8 +41,9 @@ export default new router({
       props: true
     },
     {
+      name: "admin",
       path: "/admin",
-      component: Admin
+      component: admin
     },
     {
       path: "/signin",

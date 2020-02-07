@@ -1,15 +1,18 @@
 <template>
   <div class="overflow-hidden">
+    <!-- title -->
     <div class="text-center mb-2">
       <v-btn text color="deep-purple" @click="showNav = !showNav">Pagination</v-btn>
     </div>
 
+    <!-- move page -->
     <v-bottom-navigation v-model="activeBtn" :input-value="showNav" color="indigo">
       <v-btn @click="onPageChange(-1)">
         <span>Prev</span>
         <v-icon>mdi-minus</v-icon>
       </v-btn>
 
+      <!-- now page -->
       <v-btn disabled>
         <span>{{page}}</span>
       </v-btn>
@@ -30,13 +33,13 @@ export default {
   }),
   props: {
     page: Number,
-    pageLength: Number
+    length: Number
   },
   methods: {
-    onPageChange(num) {
-      const changedPage = this.page + num;
-      if (0 < changedPage && changedPage <= this.pageLength) {
-        return this.$emit("onPageChange", changedPage);
+    onPageChange(n) {
+      const newPage = this.page + n;
+      if (0 < newPage && newPage <= this.length) {
+        this.$emit("onPageChange", newPage);
       }
     }
   }
