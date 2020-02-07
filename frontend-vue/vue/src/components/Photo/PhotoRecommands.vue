@@ -21,8 +21,12 @@
 
     <div v-else>
       <div class="justify-space-between my-1">
-        <p class="subtitle-1 font-weight-thin my-4">더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!</p>
-        <p class="subtitle-1 fonr-weight-thin my-4" @click="toBack">돌아가려면 클릭해주세요!</p>
+        <p class="subtitle-1 font-weight-thin my-4">
+          더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!
+        </p>
+        <p class="subtitle-1 fonr-weight-thin my-4" @click="toBack">
+          돌아가려면 클릭해주세요!
+        </p>
       </div>
       <!-- TourAPI -->
       <div v-for="(tour, idx) in tours" :key="idx" :id="`tour-${idx}`">
@@ -71,22 +75,16 @@ export default {
       const mangoUrl = `http://localhost:8000/mango/?keyword=${place}`;
 
       // TourAPI 3.0
-      axios
-        .get(tourUrl)
-        .then(r => {
-          this.tours = new Map(Object.entries(r.data));
-          this.onMarkers("tour");
-        })
-        .catch();
+      axios.get(tourUrl).then(r => {
+        this.tours = new Map(Object.entries(r.data));
+        this.onMarkers("tour");
+      });
 
       // mangoplate
-      axios
-        .get(mangoUrl)
-        .then(r => {
-          this.mangos = new Map(Object.entries(r.data));
-          this.onMarkers("mango");
-        })
-        .catch();
+      axios.get(mangoUrl).then(r => {
+        this.mangos = new Map(Object.entries(r.data));
+        this.onMarkers("mango");
+      });
     },
     onLoad(map) {
       this.map = map;
@@ -105,8 +103,7 @@ export default {
             .get(kakaoUrl + `?query=${encoded}`, { headers: headers })
             .then(r => {
               this.onMarkerDetail(r, tour, "tour");
-            })
-            .catch();
+            });
         }
       } else if (target === "mango" && this.mangos.length !== 0) {
         for (const mango of this.mangos) {
@@ -115,8 +112,7 @@ export default {
             .get(kakaoUrl + `?query=${encoded}`, { headers: headers })
             .then(r => {
               this.onMarkerDetail(r, mango, "mango");
-            })
-            .catch();
+            });
         }
       } else {
         this.noData = true;

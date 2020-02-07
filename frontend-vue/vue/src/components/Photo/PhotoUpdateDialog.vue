@@ -1,56 +1,77 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn class="ma-2" outlined dark v-on="on" color="yellow darken-1">update</v-btn>
+      <v-btn class="ma-2" v-on="on" color="yellow darken-1" outlined dark
+        >update</v-btn
+      >
     </template>
+
     <v-card>
       <v-card-title>
-        <span class="headline">Photo update</span>
+        <span class="headline">Photo Update</span>
       </v-card-title>
       <v-divider></v-divider>
+
       <v-card-text>
         <v-container>
-          <v-img :src="photo.psource"></v-img>
-          <v-divider class="my-4"></v-divider>
+          <v-img :src="photo[0].psource"></v-img>
           <v-row>
-            <v-col cols="12" sm="6" md="6">
+            <v-col cols="6">
               <v-text-field
-                label="Place*"
-                :hint="`기존 지역 이름은 ${photo.pplace}입니다.`"
                 v-model="place"
+                :hint="`기존 지역 이름은 ${photo[0].pplace}입니다.`"
+                label="Place*"
                 persistent-hint
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="6" md="6">
+            <v-col cols="6">
               <v-text-field
-                label="hashtag*"
-                :hint="`기존 태그 이름은 ${photo.pname}입니다.`"
                 v-model="name"
+                :hint="`기존 장소 이름은 ${photo[0].pname}입니다.`"
+                label="Store*"
                 persistent-hint
                 required
               ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field label="Source*" required :value="photo.psource" disabled></v-text-field>
+              <v-text-field
+                label="Source*"
+                :value="photo[0].psource"
+                disabled
+              ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field label="URL*" required :value="photo.purl" disabled></v-text-field>
+              <v-text-field
+                label="URL*"
+                :value="photo[0].purl"
+                disabled
+              ></v-text-field>
             </v-col>
           </v-row>
         </v-container>
       </v-card-text>
       <v-divider></v-divider>
+
       <v-card-actions>
         <v-spacer></v-spacer>
+        <v-btn
+          color="warning darken-1"
+          text
+          :disabled="validated"
+          @click="updatePhoto"
+          >Update</v-btn
+        >
         <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-        <v-btn color="blue darken-1" text @click="updatePhoto">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+import axios from "axios";
+import { mapGetters } from "vuex";
+
 export default {
   name: "PhotoUpdateDialog",
   data: () => ({
@@ -58,24 +79,29 @@ export default {
     place: "",
     name: ""
   }),
-  props: {
-    photo: Object
-  },
   methods: {
     updatePhoto() {
-      const updatedPhoto = {
-        pcode: this.photo.pcode,
+      const url = `${process.env.VUE_APP_SPRING_URL}/api/photo/update`;
+      const data = {
+        pcode: this.photo[0].pcode,
         pplace: this.place,
-        purl: this.photo.purl,
+        purl: this.photo[0].purl,
         pname: this.name,
-        psource: this.photo.psource
+        psource: this.photo[0].psource
       };
       this.dialog = false;
-      this.$emit("updatePhoto", updatedPhoto);
+      axios.put(url, data).then(() => {
+        this.$store.dispatch("getPhotoAction", this.photo[0].pcode);
+      });
+    }
+  },
+  computed: {
+    ...mapGetters(["photo"]),
+    validated() {
+      return this.place === "" && this.name === "";
     }
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>
