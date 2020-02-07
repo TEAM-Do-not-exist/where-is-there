@@ -98,7 +98,7 @@
 
 <script>
 import * as easings from "vuetify/es5/services/goto/easing-patterns";
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapState,mapGetters } from "vuex";
 import MessageList from "@/components/Chat/MessageList.vue";
 import MessageForm from "@/components/Chat/MessageForm.vue";
 import Constant from "@/Constant";
@@ -130,6 +130,7 @@ export default {
     "Message-From": MessageForm
   },
   computed: {
+     ...mapGetters(["nickname"]),
     ...mapState({
       msgDatas: state => state.socket.msgDatas
     }),
@@ -176,8 +177,8 @@ export default {
         msg
       });
       this.$sendMessage({
-        // name: this.$route.params.username,
-        name: "tmp:",
+        // name: "tmp:",
+        name: this.nickname,
         msg
       });
     },
