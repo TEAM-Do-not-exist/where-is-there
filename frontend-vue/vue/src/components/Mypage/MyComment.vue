@@ -8,6 +8,7 @@
                 <v-card dark>
                 <div 
                 class="d-flex flex-no-wrap"
+                @click="showDetail(item)"
                 >
                   <v-avatar class="ma-3" size="100" tile>
                     <v-img :src= item.psource></v-img>
@@ -41,9 +42,9 @@ export default {
     token : String
   },
   methods:{
-    // showDetail(item){
-    //   this.$router.push(`photo/`+item.pcode)
-    // },
+    showDetail(item){
+      this.$router.push(`photo/`+item.ccode)
+    },
      showcomment() {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/comment/selectMyList/";
