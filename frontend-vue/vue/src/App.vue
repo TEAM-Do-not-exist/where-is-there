@@ -178,7 +178,7 @@ export default {
       });
       this.$sendMessage({
         // name: "tmp:",
-        name: this.nickname,
+        name: this.nickname +":",
         msg
       });
     },

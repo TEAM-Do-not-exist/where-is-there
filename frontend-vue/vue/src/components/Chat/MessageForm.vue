@@ -1,5 +1,6 @@
 <template>
   <div class="inner-wrap">
+    <div v-if="this.token!=null">
     <v-text-field
       v-model="msg"
       label="chat"
@@ -7,10 +8,21 @@
       solo
       @keyup.13="submitMessageFunc"
     ></v-text-field>
+    </div>
+    <div v-else>
+      <v-text-field
+      v-model="msg"
+      label="chat"
+      placeholder="로그인 후 사용 가능합니다."
+      solo
+    ></v-text-field>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "MessageForm",
   data() {
@@ -25,6 +37,9 @@ export default {
       this.msg = "";
       return true;
     }
+  },
+  computed:{
+    ...mapGetters(["token"])
   }
 };
 </script>
