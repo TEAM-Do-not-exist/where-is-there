@@ -44,7 +44,7 @@ export default {
   methods:{
     showDetail(item){
       this.$router.push(`photo/`+item.ccode)
-    },
+    },   
      showcomment() {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/comment/selectMyList/";
