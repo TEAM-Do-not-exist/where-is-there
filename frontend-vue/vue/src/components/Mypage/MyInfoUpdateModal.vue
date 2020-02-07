@@ -111,7 +111,7 @@ export default {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/member/update";
       const data = {
-        email: this.email, //임시로 넣어놓은 아이디 입니다. 
+        email: this.email, 
         pw: this.pw, 
         name: this.name,
         phone: this.phone,

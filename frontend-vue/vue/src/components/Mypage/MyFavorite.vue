@@ -38,13 +38,15 @@ export default {
   data: () => ({
     list:[],
   }),
-
+  props:{
+    token : String
+  },
   methods:{
      showfavorite() {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/favorite/selectMyList/";
       // const cid = this.cid;
-      const fid = "123@123"; // 현재 아이디 박아놓은 상태.
+      const fid = this.token; // 현재 아이디 박아놓은 상태.
       axios
         .get(basicUrl+addUrl+fid)
         .then(response => (this.list = response.data['resvalue']))
@@ -62,11 +64,10 @@ export default {
 
   },  
   computed: {
-    ...mapGetters(["photos"])
+    ...mapGetters(["token"])
   },
   mounted(){
     this.showfavorite();
-    this.$store.dispatch("getPhotosAction");
 
   }
 
