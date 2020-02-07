@@ -9,7 +9,7 @@ import store from "./store";
 
 import App from "./App.vue";
 import "roboto-fontface/css/roboto/roboto-fontface.css";
-import "@mdi/font/scss/materialdesignicons.scss";
+import "@mdi/font/css/materialdesignicons.css";
 import "./plugins/socketPlugin";
 
 Vue.config.productionTip = false;
