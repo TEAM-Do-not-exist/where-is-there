@@ -8,7 +8,7 @@
           </v-card-title>
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+              <v-text-field v-model="email" :rules="emailRules" label="E-mail" required disabled="true"></v-text-field>
               <v-text-field
                 v-model="password"
                 :rules="passwordRules"
@@ -17,7 +17,7 @@
                 required
               ></v-text-field>
               <v-text-field v-model="name" :rules="nameRules" :counter="10" label="UserName" required></v-text-field>
-              <v-btn :disabled="! valid" @click="submit" outlined width="277.33" height="60">submit</v-btn>
+              <v-btn  @click="submit" outlined width="277.33" height="60">submit</v-btn>
               <v-container />
               <v-layout align-center justify-center>
                 <p style="upper-margin: 10px;">
@@ -36,14 +36,20 @@
 
 import axios from 'axios';
 export default {
+  props: ['email'],
   data: () => ({
+    info : {
+      email : this.email,
+      name : this.name,
+      pw : this.password
+    },
     valid: true,
     name: "",
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length <= 10) || "Name must be less than 10 characters"
     ],
-    email: "",
+    // email: "",
     emailRules: [
       v => !!v || "E-mail is required",
       v =>
@@ -64,7 +70,11 @@ export default {
         const uri_email_auth = "http://localhost:8090/api/emailauth/request"
         axios.post(uri_email_auth,{
           email : this.email
-        }).then(this.$router.push("/signup2"))
+        }).then(this.$router.push({name:"signup2",params:{
+          email:this.email,
+          name: this.name,
+          pw : this.password
+          }}))
       }
     },
     clear() {

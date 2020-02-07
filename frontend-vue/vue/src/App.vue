@@ -42,12 +42,20 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click="to_sign_in">
+        <v-list-item v-if="token == null" @click="to_sign_in">
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Sign in</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-else @click="to_log_out">
+          <v-list-item-action>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item @click="to_admin">
@@ -125,7 +133,7 @@ export default {
     left: false,
     easing: "easeInOutCubic",
     easings: Object.keys(easings),
-    enter: true
+    enter: true,
   }),
   components: {
     "Message-List": MessageList,
@@ -133,8 +141,12 @@ export default {
   },
   computed: {
     ...mapState({
-      msgDatas: state => state.socket.msgDatas
-    }),
+      msgDatas: state => state.socket.msgDatas,
+      nickname: state => state.user.nickname,
+      token: state => state.user.token
+    }
+    
+    ),
     options() {
       return {
         duration: 300,
@@ -160,6 +172,10 @@ export default {
     },
     to_sign_in() {
       this.$router.push("/signin");
+    },
+    to_log_out() {
+      this.$store.dispatch('LOGOUT')
+      this.$router.push("/");
     },
     to_chat() {
       this.$router.push("/chat");

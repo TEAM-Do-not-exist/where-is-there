@@ -66,7 +66,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int login(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return memRepo.selectOneIdPw(dto);
+		MemberDTO mem = memRepo.selectOneId(dto);
+		if(mem.getExternal()==0) {
+			return memRepo.selectOneIdPw(dto);
+		}
+		return 0;
 	}
 
 	@Override

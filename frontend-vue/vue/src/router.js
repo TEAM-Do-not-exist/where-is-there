@@ -56,12 +56,15 @@ export default new router({
       component: signup
     },
     {
-      path: "/signup1",
-      component: signup1
+      path: "/signup1/:email",
+      component: signup1,
+      props:true
     },
     {
+      name: "signup2",
       path: "/signup2",
-      component: signup2
+      component: signup2,
+      props: true
     },
     {
       path: "/naversignin",

@@ -40,6 +40,8 @@ const mutations = {
         }else{
           sessionStorage.setItem('token',null)
           sessionStorage.setItem('nickname',null)
+          state.token = null
+          state.nickname = null
           alert('로그인을 실패하였습니다')
           router.push('/signin')
         }
@@ -53,14 +55,24 @@ const mutations = {
       .then(r=>{
         state.token = r.data.token
         sessionStorage.setItem('token',r.data.token)
-        axios
+        if(r.data.state==1){
+          axios
           .get('http://localhost:8090/api/member/selectOneToken/'+r.data.token)
           .then(r=>{
             state.nickname = r.data.resvalue.nickname
             sessionStorage.setItem('nickname',r.data.resvalue.nickname)
             // console.log(sessionStorage.getItem('nickname'))
             alert(sessionStorage.getItem('nickname'))
+            router.push('/')
           })
+        }else if(r.data.state==-3){
+          sessionStorage.setItem('token',null)
+          sessionStorage.setItem('nickname',null)
+          state.token = null
+          state.nickname = null
+          alert("로그인을 실패하였습니다.")
+          router.push('/signin')
+        }
       })
   },
   LOGIN_KAKAO_mutation (state, access_token) {
@@ -70,20 +82,32 @@ const mutations = {
       .then(r=>{
         state.token = r.data.token
         sessionStorage.setItem('token',r.data.token)
-        axios
-          .get('http://localhost:8090/api/member/selectOneToken/'+r.data.token)
-          .then(r=>{
-            state.nickname = r.data.resvalue.nickname
-            sessionStorage.setItem('nickname',r.data.resvalue.nickname)
-            // router.push('/')
-            alert("kakao : "+sessionStorage.getItem('nickname'))
-          })
+        if(r.data.state==1){
+          axios
+            .get('http://localhost:8090/api/member/selectOneToken/'+r.data.token)
+            .then(r=>{
+              state.nickname = r.data.resvalue.nickname
+              sessionStorage.setItem('nickname',r.data.resvalue.nickname)
+              // router.push('/')
+              alert("kakao : "+sessionStorage.getItem('nickname'))
+              router.push('/')
+            })
+        }else if(r.data.state==-3){
+          sessionStorage.setItem('token',null)
+          sessionStorage.setItem('nickname',null)
+          state.token = null
+          state.nickname = null
+          alert("로그인을 실패하였습니다.")
+          router.push('/signin')
+        }
       })
   },
   LOGOUT(state) {
     // 토큰 정보 삭제
-
+    sessionStorage.setItem('token',null)
+    sessionStorage.setItem('nickname',null)
     state.token = null
+    state.nickname = null
     delete localStorage.token
   },
 };

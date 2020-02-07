@@ -28,6 +28,7 @@
 
 import axios from 'axios';
 export default {
+  // props: ['email'],
   data: () => ({
     valid: true,
     name: "",
@@ -47,7 +48,9 @@ export default {
       v => !!v || "Password is required",
       v => (v && v.length >= 3) || "Password must be in sufficient size"
     ],
-    checkbox: false
+    checkbox: false,
+    info: {},
+    infom: true,
   }),
 
   methods: {
@@ -58,15 +61,15 @@ export default {
         axios.get(uri_duplicate+this.email).then(r=>{
           if(r.data.resvalue==1){
             //성공 
-            alert("okok")
+            // alert("okok")
             // const uri_email_auth = "http://localhost:8090/api/emailauth/request"
             // axios.post(uri_email_auth,{
             //   email : this.email
             // }).then(this.$router.push("/signup1"))
-            this.$router.push("/signup1")
+            this.$router.push("/signup1/"+this.email)
           }else{
             //실패
-            alert("nono"+r.data.resvalue)
+            alert("중복된 아이디 입니다.")
           }
         })
       }
