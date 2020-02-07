@@ -1,6 +1,8 @@
 <template>
-  <v-container>
-    <v-card v-for="item in src" :key="item.pcode" class="mx-auto">
+  <div>
+    <!-- item cards -->
+    <v-card v-for="item in src" :key="item.pcode" class="my-5">
+      <!-- item image -->
       <v-img height="400px" position="center center" :src="item.psource[0]">
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
@@ -8,27 +10,29 @@
           </v-row>
         </template>
       </v-img>
+      <!-- item dialog -->
       <v-card-actions>
-        <AdminItemModal :item="item" @onInsert="onInsert" />
+        <AdminInstaListDialog :item="item" @onInsert="onInsert" />
       </v-card-actions>
     </v-card>
-  </v-container>
+  </div>
 </template>
 
 <script>
-import AdminItemModal from "./AdminItemModal.vue";
+import AdminInstaListDialog from "./AdminInstaListDialog";
 
 export default {
+  name: "AdminInstaList",
   components: {
-    AdminItemModal: AdminItemModal
+    AdminInstaListDialog: AdminInstaListDialog
+  },
+  props: {
+    src: Object
   },
   methods: {
     onInsert(item) {
       this.$emit("onInsert", item);
     }
-  },
-  props: {
-    src: Object
   }
 };
 </script>
