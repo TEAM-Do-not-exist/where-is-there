@@ -1,6 +1,7 @@
 import Vue from "vue";
 import vuex from "vuex";
 import VueMasonry from "vue-masonry-css";
+import VueResizeText from "vue-resize-text";
 
 import Directives from "./plugins/directives";
 import vuetify from "./plugins/vuetify";
@@ -15,6 +16,7 @@ import "./plugins/socketPlugin";
 Vue.config.productionTip = false;
 Vue.use(Directives);
 Vue.use(VueMasonry);
+Vue.use(VueResizeText);
 
 new Vue({
   router,

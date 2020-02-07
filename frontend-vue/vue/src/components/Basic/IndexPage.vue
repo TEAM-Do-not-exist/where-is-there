@@ -1,13 +1,23 @@
 <template>
   <div>
-    <p>Where is there, Editor`s Pick</p>
+    <p class="font-weight-bold" v-resize-text="resizeText">
+      #거기어디니 에디터의 pick!
+    </p>
     <v-divider></v-divider>
     <masonry :cols="mansonryCols" :gutters="mansonryGutters">
       <div v-for="(photo, idx) in photos" :key="idx" id="photos">
-        <v-img :src="photo.psource" class="grey lighten-2" @click="showDetail(photo)">
+        <!-- photo image, if click it, show detail -->
+        <v-img
+          :src="photo.psource"
+          class="grey lighten-2"
+          @click="selectPhoto(photo)"
+        >
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
             </v-row>
           </template>
         </v-img>
@@ -21,14 +31,14 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "IndexPage",
-  components: {},
   data: () => ({
+    resizeText: { minFontSize: 10, maxFontSize: 60, delay: 0 },
     mansonryCols: { default: 4, 1000: 3, 700: 2, 400: 1 },
     mansonryGutters: { default: "30px", 700: "15px" },
     openModal: false
   }),
   methods: {
-    showDetail(photo) {
+    selectPhoto(photo) {
       this.$router.push(`/photo/${photo.pcode}`);
     }
   },
@@ -42,14 +52,6 @@ export default {
 </script>
 
 <style scoped>
-.contentsitems {
-  margin: 5px 3px !important;
-}
-p {
-  font-family: "Zhi Mang Xing", cursive;
-  font-size: 4rem;
-}
-
 #photos {
   margin: 15px 5px !important;
 }

@@ -1,7 +1,7 @@
 import vue from "vue";
 import router from "vue-router";
 
-import index from "./components/Basic/index";
+import index from "./components/Basic/IndexPage";
 import PhotoDetail from "./components/Photo/PhotoDetail";
 import PhotoRecommands from "./components/Photo/PhotoRecommands";
 
@@ -25,8 +25,8 @@ export default new router({
     {
       name: "index",
       path: "/",
-      component: index,
-      alias: "/index"
+      alias: "/index",
+      component: index
     },
     {
       name: "Photo",
