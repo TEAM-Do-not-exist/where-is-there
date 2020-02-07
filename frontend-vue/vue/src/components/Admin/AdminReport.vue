@@ -1,12 +1,14 @@
 <template>
   <v-col cols="12" md="6" sm="12">
     <v-alert
-      border="top"
       colored-border
+      border="top"
       color="red"
       elevation="2"
       class="text-center font-weight-bold"
-    >User report board</v-alert>
+    >User Report Board</v-alert>
+
+    <!-- report list -->
     <AdminReportList :reports="reports" />
   </v-col>
 </template>
