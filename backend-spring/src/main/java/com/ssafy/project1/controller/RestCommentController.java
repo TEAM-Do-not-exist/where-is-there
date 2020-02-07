@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.project1.authorization.JwtService;
 import com.ssafy.project1.dto.CommentDTO;
 import com.ssafy.project1.dto.MemberDTO;
 import com.ssafy.project1.service.ICommentService;
@@ -32,6 +33,8 @@ public class RestCommentController {
 	
 	@Autowired
 	ICommentService comSer;
+	@Autowired
+	JwtService jwt;
 	
 	@PostMapping("/insert")
 	@ApiOperation(value="comment 등록 서비스 / 입력: cid, ccode, content / 결과 : 성공시 1")
@@ -86,12 +89,13 @@ public class RestCommentController {
 		return resEntity;
 	}
 	
-	@GetMapping("/selectMyList/{cid}")
-	@ApiOperation(value="comment 내가 쓴 댓글 조회 서비스 / 입력: cid")
-	public ResponseEntity<Map> comSelect(@PathVariable("cid")String cid){
+	@GetMapping("/selectMyList/{token}")
+	@ApiOperation(value="comment 내가 쓴 댓글 조회 서비스 / 입력: token")
+	public ResponseEntity<Map> comSelect(@PathVariable("token")String token){
 		ResponseEntity<Map> resEntity=null;
 		int state=0;
 		try {
+			String cid = jwt.getEmail(token);
 			CommentDTO dto = new CommentDTO();
 			dto.setCid(cid);
 			List<CommentDTO> selectMyList = comSer.selectMyList(dto);
