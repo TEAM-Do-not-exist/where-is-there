@@ -19,41 +19,26 @@
             <v-row>
               <!-- name 입력란 -->
               <v-col cols="12">
-                <v-text-field
-                  v-model="name"
-                  label="name"
-                  required > 
-                {{item.name}}
+                <v-text-field v-model="name" label="name" required>
+                  {{item.name}}
                 </v-text-field>
 
                 <!-- nickname 입력란 -->
               </v-col>
-                 <v-col cols="12">
-                <v-text-field
-                  v-model="nickname"
-                  label="nickname"
-                  required > 
-                {{item.nickname}}
+              <v-col cols="12">
+                <v-text-field v-model="nickname" label="nickname" required>
+                  {{item.nickname}}
                 </v-text-field>
               </v-col>
 
               <!-- phone 입력란 -->
               <v-col cols="12">
-                <v-text-field
-                  v-model="phone"
-                  label="phone"
-                  required
-                ></v-text-field>
+                <v-text-field v-model="phone" label="phone" required></v-text-field>
               </v-col>
 
               <!-- pw 입력란 -->
-                 <v-col cols="12">
-                <v-text-field
-                  v-model="pw"
-                  label="pw*"
-                  required
-                  :rules="[v => !!v || '비밀번호를 입력해주세요']"
-                ></v-text-field>
+              <v-col cols="12">
+                <v-text-field v-model="pw" label="pw*" required :rules="[v => !!v || '비밀번호를 입력해주세요']"></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -71,79 +56,78 @@
 </template>
 
 <script>
-import axios from "axios"; 
-import { mapGetters } from "vuex";
+  import axios from "axios";
+  import { mapGetters } from "vuex";
 
+  export default {
+    data: () => ({
+      email: null,
+      phone: null,
+      name: "",
+      pw: "",
+      nickname: "",
+      dialog: false,
+      item:[]
+    }),
+    
+    methods: {
+      showmyinfo() {
+        const basicUrl = "http://127.0.0.1:8090/";
+        const addUrl = "api/member/selectOneToken/";
+        const token = this.token
 
-export default {
-  data: () => ({
-    email: null,
-    phone: null,
-    name: "",
-    pw:"",
-    nickname:"",
-    dialog: false
-  }),
-  props: {
-    item: Object
-  },
-  methods: {
-     showmyinfo(){
-      const basicUrl = "http://127.0.0.1:8090/";
-      const addUrl = "api/member/selectOneToken/";
-      const token = this.token
-
-      axios
-        .get(basicUrl+addUrl+token)
-        .then(response => {
-          this.item = response.data['resvalue'];
-          this.email = this.item.email;
-          this.phone = this.item.phone; 
-          this.name = this.item.name;
-          this.nickname = this.item.nickname;
-        })
-        .catch(() => {
-               this.errored = true;
-         })
-        . finally(() => (this.loading = false));
-    },
-    updateMember() {
-      const basicUrl = "http://127.0.0.1:8090/";
-      const addUrl = "api/member/update";
-      const data = {
-        email: this.email, //임시로 넣어놓은 아이디 입니다. 
-        pw: this.pw, 
-        name: this.name,
-        phone: this.phone,
-        nickname: this.nickname
+        axios
+          .get(basicUrl + addUrl + token)
+          .then(response => {
+            this.item = response.data['resvalue'];
+            this.email = this.item.email;
+            this.phone = this.item.phone;
+            this.name = this.item.name;
+            this.nickname = this.item.nickname;
+          })
+          .catch(() => {
+            this.errored = true;
+          })
+          .finally(() => (this.loading = false));
+      },
+      updateMember() {
+        const basicUrl = "http://127.0.0.1:8090/";
+        const addUrl = "api/member/update";
+        const data = {
+          email: this.email,
+          pw: this.pw,
+          name: this.name,
+          phone: this.phone,
+          nickname: this.nickname
         };
-      axios
-        .put(basicUrl + addUrl, data)
-        .then(r => {
-          if (r.data.regmsg === "입력했습니다") {
-            // this.$emit("onInsert");
-          }
-        })
-        .catch();
-      return (this.dialog = false);
-    }
-  },
-  computed: {
-    ...mapGetters(["token"]),
-    validated() {
-      return (
-        this.pw &&
-        this.name &&
-        this.phone &&
-        this.nickname
-      );
-    }
-  },
-  mounted(){
-    this.showmyinfo(); 
-  },
-  
-};
+        axios
+          .put(basicUrl + addUrl, data)
+          .then(r => {
+            if (r.data.regmsg === "입력했습니다") {
+              // this.$emit("onInsert");
+            }
+          })
+          .catch();
+        location.reload(); //얘 말고 다른 방법이 있을까?
+        return (this.dialog = false);
+      }
+    },
+    computed: {
+      ...mapGetters(["token"]),
+      validated() {
+        return (
+          this.pw &&
+          this.name &&
+          this.phone &&
+          this.nickname
+        );
+      }
+    },
+    mounted() {
+      this.showmyinfo();
+    },
+
+  };
 </script>
 
 <style></style>

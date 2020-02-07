@@ -11,9 +11,8 @@
             aspect-ratio=5
             src="../../../public/logo.png"
           ></v-img>
-
         <!-- My Information -->
-          <v-card-text class="pb-0">ID: {{item.email}}</v-card-text>
+          <v-card-text class="pb-0" >ID: {{item.email}}</v-card-text>
           <v-card-text class="pb-0">Name: {{item.name}} </v-card-text>
           <v-card-text class="pb-0">Nickname: {{item.nickname}} </v-card-text>
           <v-card-text class="pb-0">phone: {{item.phone}}</v-card-text>
@@ -56,8 +55,7 @@ export default {
     MyInfoUpdateModal
   },
   props: {
-    nickname: String,
-    token: String
+
   },
   data() {
     return {
@@ -79,6 +77,7 @@ export default {
                this.errored = true;
          })
         . finally(() => (this.loading = false));
+
     },
     updateinfo(){
       this.$emit("updateInfo");
@@ -93,3 +92,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+ .pb-0{
+    font-size: 18px;
+  }
+</style>
