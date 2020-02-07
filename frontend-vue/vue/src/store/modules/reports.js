@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8090/api/report/selectReportList";
+const url = `${process.env.VUE_APP_SPRING_URL}/api/report/selectReportList`;
 
 const state = {
   reports: []
