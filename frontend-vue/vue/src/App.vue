@@ -12,11 +12,12 @@
     </v-layout>
   </v-app>
   <v-app id="inspire" v-else>
+
+    <!-- 오른쪽 채팅창 -->
     <v-navigation-drawer v-model="drawerRight" app right class=".d-flex" style="z-index:2">
       <v-list dense>
           <div class="inner-wrap" fluid fill-height inner-wrap>
             <Message-List :msgs="msgDatas" class="msg-list">
-
             </Message-List>
             <Message-From v-on:submitMessage="sendMessage" class="msg-form"></Message-From>
           </div>
@@ -62,7 +63,7 @@
             <span v-if="token == 'null' || token == undefined" 
                 @click="to_sign_in"
                 style="cursor:pointer;">
-              회원가입
+              로그인
             </span>
           </div>
         </v-card>
