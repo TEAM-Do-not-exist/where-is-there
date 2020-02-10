@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <!-- 지도 데이터 -->
+    <!-- map data -->
     <v-card height="600">
       <vue-daum-map
         :appKey="appKey"
@@ -12,30 +12,27 @@
       ></vue-daum-map>
     </v-card>
 
-    <!-- 추천 데이터 -->
-    <!-- 결과가 없다면 -->
+    <!-- reco data -->
+    <!-- if there is not data -->
     <div v-if="tours.size + mangos.size === 0" @click="toBack">
-      <p class="title font-weight-bold my-2">관련 데이터가 없습니다.</p>
-      <p class="subtitle-1 my-2">클릭하시면 이전 페이지로 돌아갑니다.</p>
+      <p class="title font-weight-thin my-2">관련 데이터가 없습니다.</p>
+      <p class="subtitle-1 font-weight-black my-2">클릭하시면 이전 페이지로 돌아갑니다.</p>
     </div>
 
     <div v-else>
       <div class="justify-space-between my-1">
-        <p class="subtitle-1 font-weight-thin my-4">
-          더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!
-        </p>
-        <p class="subtitle-1 fonr-weight-thin my-4" @click="toBack">
-          돌아가려면 클릭해주세요!
-        </p>
+        <p class="subtitle-1 font-weight-thin my-4">더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!</p>
+        <p class="subtitle-1 fonr-weight-black my-4" @click="toBack">돌아가려면 클릭해주세요!</p>
       </div>
+
       <!-- TourAPI -->
-      <div v-for="(tour, idx) in tours" :key="idx" :id="`tour-${idx}`">
-        <PhotoRecommandsLine :photo="tour" :place="photo[0].pplace" />
+      <div v-for="(tour, idx) in tours" :key="`tour-${idx}`" :id="`tour-${idx}`">
+        <RecommandList :photo="tour" :place="photo[0].pplace" />
       </div>
 
       <!-- mango -->
-      <div v-for="(mango, idx) in mangos" :key="idx" :id="`mango-${idx}`">
-        <PhotoRecommandsLine :photo="mango" :place="photo[0].pplace" />
+      <div v-for="(mango, idx) in mangos" :key="`mango-${idx}`" :id="`mango-${idx}`">
+        <RecommandList :photo="mango" :place="photo[0].pplace" />
       </div>
     </div>
   </v-container>
@@ -45,13 +42,13 @@
 import axios from "axios";
 import VueDaumMap from "vue-daum-map";
 import { mapGetters } from "vuex";
-import PhotoRecommandsLine from "./PhotoRecommandsLine";
+import RecommandList from "./RecommandList";
 
 export default {
-  name: "PhotoRecommands",
+  name: "Recommand",
   components: {
     VueDaumMap: VueDaumMap,
-    PhotoRecommandsLine: PhotoRecommandsLine
+    RecommandList: RecommandList
   },
   data: () => {
     return {
@@ -71,8 +68,8 @@ export default {
   methods: {
     loadPlaces() {
       const place = this.photo[0].pplace;
-      const tourUrl = `http://localhost:8000/tour-api/?keyword=${place}`;
-      const mangoUrl = `http://localhost:8000/mango/?keyword=${place}`;
+      const tourUrl = `${process.env.VUE_APP_PYTHON_URL}/tour-api/?keyword=${place}`;
+      const mangoUrl = `${process.env.VUE_APP_PYTHON_URL}/mango/?keyword=${place}`;
 
       // TourAPI 3.0
       axios.get(tourUrl).then(r => {
