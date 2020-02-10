@@ -2,7 +2,7 @@
   <div class="inner-wrap">
 
     <!-- 로그인 했을 시 채팅 -->
-    <div v-if="this.token!=null">
+    <div v-if="token != 'null' && token != undefined">
     <v-text-field
       v-model="msg"
       label="chat"

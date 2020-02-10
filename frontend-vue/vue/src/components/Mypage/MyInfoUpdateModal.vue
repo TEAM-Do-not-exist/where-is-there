@@ -31,7 +31,9 @@
 
               <!-- pw 입력란 -->
               <v-col cols="12">
+                <div v-if="external=0">
                 <v-text-field v-model="pw" label="pw*" required :rules="[v => !!v || '비밀번호를 입력해주세요']"></v-text-field>
+                </div>
               </v-col>
             </v-row>
           </v-container>
@@ -59,6 +61,7 @@
       name: "",
       pw: "",
       nickname: "",
+      external:"",
       dialog: false,
       item:[]
     }),
@@ -77,6 +80,7 @@
             this.phone = this.item.phone;
             this.name = this.item.name;
             this.nickname = this.item.nickname;
+            this.external = this.item.external;
           })
           .catch(() => {
             this.errored = true;
@@ -109,7 +113,6 @@
       ...mapGetters(["token"]),
       validated() {
         return (
-          this.pw &&
           this.phone &&
           this.nickname
         );
