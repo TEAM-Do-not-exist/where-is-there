@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: "PhotoRecommandsLine",
+  name: "RecommandList",
   props: {
     photo: Array,
     place: String
