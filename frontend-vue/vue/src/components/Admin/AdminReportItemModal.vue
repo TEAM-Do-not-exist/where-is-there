@@ -20,12 +20,26 @@
           <v-container>
             <v-row>
               <v-col cols="12" sm="6" md="6">
-                <v-text-field label="신고된 사진 번호*" :value="report.rcode" required disabled></v-text-field>
+                <v-text-field
+                  label="신고된 사진 번호*"
+                  :value="report.rcode"
+                  required
+                  disabled
+                ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="6">
-                <v-text-field label="신고자 이름*" :value="report.rid" disabled></v-text-field>
+                <v-text-field
+                  label="신고자 이름*"
+                  :value="report.rid"
+                  disabled
+                ></v-text-field>
               </v-col>
-              <v-textarea counter label="Text" :value="report.rreason" disabled></v-textarea>
+              <v-textarea
+                counter
+                label="Text"
+                :value="report.rreason"
+                disabled
+              ></v-textarea>
             </v-row>
           </v-container>
         </v-card-text>
@@ -35,8 +49,9 @@
         <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <!-- <v-btn :disabled="!this.selectedSource" color="red darken-1" text @click="deny(item)">Deny</v-btn> -->
+          <v-btn color="blue darken-1" text @click="dialog = false"
+            >Close</v-btn
+          >
           <v-btn color="blue darken-1" text @click="done">Done</v-btn>
         </v-card-actions>
       </v-card>
@@ -46,6 +61,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   data: () => ({
@@ -56,16 +72,21 @@ export default {
   },
   methods: {
     done() {
-      const url = `http://localhost:8090/api/report/delete/${this.report.rnum}`;
-      const num = this.report.rnum;
-      axios
-        .delete(url)
-        .then(() => {
-          this.dialog = false;
-          this.$emit("deleteReport", num);
-        })
-        .catch();
+      if (this.getAdmin === true) {
+        const url = `${process.env.VUE_APP_SPRING_URL}/api/report/delete/${this.report.rnum}`;
+        const num = this.report.rnum;
+        axios
+          .delete(url)
+          .then(() => {
+            this.$emit("deleteReport", num);
+          })
+          .catch();
+      }
+      this.dialog = false;
     }
+  },
+  computed: {
+    ...mapGetters(["getAdmin"])
   }
 };
 </script>

@@ -59,6 +59,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "AdminReportDialog",
@@ -70,12 +71,17 @@ export default {
   },
   methods: {
     complete() {
-      const url = `${process.env.VUE_APP_SPRING_URL}/api/report/delete/${this.report.rnum}`;
-      axios.delete(url).then(() => {
-        this.dialog = false;
-        this.$store.dispatch("getReportsAction");
-      });
+      if (this.getAdmin === true) {
+        const url = `${process.env.VUE_APP_SPRING_URL}/api/report/delete/${this.report.rnum}`;
+        axios.delete(url).then(() => {
+          this.$store.dispatch("getReportsAction");
+        });
+      }
+      this.dialog = false;
     }
+  },
+  computed: {
+    ...mapGetters(["getAdmin"])
   }
 };
 </script>

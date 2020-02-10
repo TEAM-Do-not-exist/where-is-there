@@ -98,6 +98,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "AdminInstaItemsDialog",
@@ -121,24 +122,29 @@ export default {
       });
     },
     insertItem(item) {
-      const url = `${process.env.VUE_APP_SPRING_URL}/api/photo/insert`;
-      const data = {
-        pname: this.store,
-        pplace: this.place,
-        psource: this.source,
-        purl: this.url
-      };
-      this.sendPost(url, data, item);
+      if (this.getAdmin === true) {
+        const url = `${process.env.VUE_APP_SPRING_URL}/api/photo/insert`;
+        const data = {
+          pname: this.store,
+          pplace: this.place,
+          psource: this.source,
+          purl: this.url
+        };
+        this.sendPost(url, data, item);
+      }
       this.dialog = false;
     },
     denyItem(item) {
-      const url = `${process.env.VUE_APP_SPRING_URL}/api/photocheck/insert`;
-      const data = { purl: this.url };
-      this.sendPost(url, data, item);
+      if (this.getAdmin === true) {
+        const url = `${process.env.VUE_APP_SPRING_URL}/api/photocheck/insert`;
+        const data = { purl: this.url };
+        this.sendPost(url, data, item);
+      }
       this.dialog = false;
     }
   },
   computed: {
+    ...mapGetters(["getAdmin"]),
     validated() {
       return this.place && this.store && this.source && this.url;
     }
