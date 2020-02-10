@@ -1,10 +1,11 @@
 <template>
   <v-text-field
+    persistent-hint
     label="comment"
-    hint="press enter for remain comment"
     v-model="comment"
+    :hint="hint"
     :rules="[v => !errorMessage || 'You cannot leave comments more than 2']"
-    :disabled="errorMessage !== ''"
+    :disabled="errorMessage !== '' || getUser === undefined"
     @keyup.enter="sendComment"
   ></v-text-field>
 </template>
@@ -45,10 +46,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["comments"])
+    ...mapGetters(["comments", "getUser"]),
+    hint() {
+      if (this.getUser === undefined) {
+        return "로그인이 필요한 기능입니다.";
+      } else {
+        return "댓글을 남겨주세요.";
+      }
+    }
   },
   mounted() {
     this.$store.dispatch("getCommentsAction", this.ccode);
+    this.$store.dispatch("getUserAction");
   }
 };
 </script>

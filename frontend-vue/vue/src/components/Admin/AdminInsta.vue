@@ -13,6 +13,7 @@
     <v-subheader class="pl-0">Infomation Request Size</v-subheader>
     <v-slider
       v-model="slider"
+      :disabled="!isAdmin"
       :rules="[v => v > 0 || 'Request more than 0']"
       :thumb-size="24"
       :step="10"
@@ -26,7 +27,7 @@
           dark
           color="blue"
           :block="true"
-          :disabled="loading || slider === 0"
+          :disabled="!isAdmin || loading || slider < 10"
           @click="getInstaItems(name)"
           >{{ name.name }}</v-btn
         >
@@ -110,7 +111,7 @@ export default {
         this.page = 1;
         this.length = 1;
 
-        if (this.getAdmin === true) {
+        if (this.getUser === "admin") {
           this.loading = true;
           const url = `${process.env.VUE_APP_PYTHON_URL}/instagram/?length=${this.slider}&target=${name.target}`;
           axios
@@ -150,7 +151,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getAdmin"])
+    ...mapGetters(["getUser"]),
+    isAdmin() {
+      return this.getUser === "admin" ? true : false;
+    }
+  },
+  mounted() {
+    this.$store.dispatch("getUserAction");
   }
 };
 </script>

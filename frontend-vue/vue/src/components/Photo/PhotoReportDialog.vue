@@ -2,7 +2,13 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn class="ma-2" outlined color="yellow darken-1" v-on="on">
+        <v-btn
+          class="ma-2"
+          outlined
+          color="yellow darken-1"
+          v-on="on"
+          v-if="getUser || getAdmin"
+        >
           <v-icon>mdi-alert</v-icon>
         </v-btn>
       </template>
@@ -23,9 +29,9 @@
             </v-col>
             <v-col cols="6">
               <v-text-field
-                :value="id"
+                :value="getUser"
+                :hint="hint"
                 label="신고자 이름*"
-                hint="신고자의 아이디가 전송됩니다."
                 persistent-hint
                 disabled
               ></v-text-field>
@@ -44,7 +50,13 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="warning" text @click="reportPhoto">Report</v-btn>
+          <v-btn
+            text
+            color="warning"
+            :disabled="getUser === undefined"
+            @click="reportPhoto"
+            >Report</v-btn
+          >
           <v-btn color="primary" text @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
@@ -54,12 +66,12 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "PhotoReportDialog",
   data: () => ({
     // update needed: id must be user id
-    id: "admin",
     dialog: false,
     value: ""
   }),
@@ -70,7 +82,7 @@ export default {
     reportPhoto() {
       const url = `${process.env.VUE_APP_SPRING_URL}/api/report/insert`;
       const data = {
-        rid: this.id,
+        rid: this.getUser || this.getAdmin,
         rcode: parseInt(this.pcode),
         rreason: this.value
       };
@@ -79,6 +91,19 @@ export default {
         this.dialog = false;
       });
     }
+  },
+  computed: {
+    ...mapGetters(["getUser", "getAdmin"]),
+    hint() {
+      if (this.getUser === undefined || this.getAdmin) {
+        return "로그인이 필요한 기능입니다.";
+      } else {
+        return "사용자의 이메일이 전송됩니다.";
+      }
+    }
+  },
+  mounted() {
+    this.$store.dispatch("getUserAction");
   }
 };
 </script>

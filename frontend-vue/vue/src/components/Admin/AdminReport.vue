@@ -6,7 +6,8 @@
       color="red"
       elevation="2"
       class="text-center font-weight-bold"
-    >User Report Board</v-alert>
+      >User Report Board</v-alert
+    >
 
     <!-- report list -->
     <AdminReportList :reports="reports" />
@@ -31,5 +32,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
