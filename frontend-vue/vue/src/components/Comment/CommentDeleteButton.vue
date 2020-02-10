@@ -16,15 +16,25 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "CommentDeleteButton",
   data: () => ({
     sheet: false
   }),
+  props: {
+    ccode: String
+  },
   methods: {
     deleteComment() {
       this.sheet = !this.sheet;
-      this.$emit("deleteComment");
+      if (this.sheet === false) {
+        const url = `${process.env.VUE_APP_SPRING_URL}/api/comment/delete/${this.ccode}/admin`;
+        axios.delete(url).then(() => {
+          this.$store.dispatch("deleteCommentAction", this.ccode);
+        });
+      }
     }
   }
 };
