@@ -37,7 +37,7 @@
           <div v-if="token != 'null' && token != undefined" 
               style="text-align:center;" >
             <br>
-            <span style="text-decoration:underline;">
+            <span style="">
             {{this.nickname}}
             </span>
             <span>
@@ -46,12 +46,12 @@
             <br><br>
             <span v-if="token != 'null' && token != undefined" 
                   @click="to_mypage"
-                  style="cursor:pointer;display:inline-block; width:100px;">
+                  style="cursor:pointer; display:inline-block; width:100px; text-decoration:underline;">
               MyPage     
             </span>
             <span v-if="token != 'null' && token != undefined" 
                   @click="to_log_out"
-                  style="text-align:center; cursor:pointer;">
+                  style="text-align:center; cursor:pointer; text-decoration:underline;">
              Logout 
             </span>
           </div>
@@ -62,7 +62,7 @@
           <br>
             <span v-if="token == 'null' || token == undefined" 
                 @click="to_sign_in"
-                style="cursor:pointer;">
+                style="cursor:pointer; text-decoration:underline;">
               로그인
             </span>
           </div>
