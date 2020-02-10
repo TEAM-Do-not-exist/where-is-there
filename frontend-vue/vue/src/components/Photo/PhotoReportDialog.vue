@@ -2,35 +2,44 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn class="ma-2" outlined fab color="yellow darken-1" v-on="on">
-          <v-icon>mdi-alert-octagon</v-icon>
+        <v-btn class="ma-2" outlined color="yellow darken-1" v-on="on">
+          <v-icon>mdi-alert</v-icon>
         </v-btn>
       </template>
 
       <v-card>
         <v-card-title class="headline" primary-title>Report</v-card-title>
+        <v-divider></v-divider>
 
         <v-card-text>
           <!-- autofield -->
           <v-row>
-            <v-col cols="12" sm="6" md="6">
-              <v-text-field label="신고할 사진 번호*" :value="pcode" required disabled></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="6">
+            <v-col cols="6">
               <v-text-field
+                :value="pcode"
+                label="신고할 사진 번호*"
+                disabled
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <v-text-field
+                :value="id"
                 label="신고자 이름*"
                 hint="신고자의 아이디가 전송됩니다."
-                :value="id"
                 persistent-hint
                 disabled
               ></v-text-field>
             </v-col>
           </v-row>
 
-          <!-- input form -->
-          <v-textarea counter label="Text" :rules="rules" v-model="value"></v-textarea>
+          <!-- input reason -->
+          <v-textarea
+            v-model="value"
+            :rules="[v => v.length <= 300 || 'Max 300 characters']"
+            label="신고 사유"
+            counter
+          ></v-textarea>
         </v-card-text>
-
         <v-divider></v-divider>
 
         <v-card-actions>
@@ -44,12 +53,14 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "PhotoReportModal",
+  name: "PhotoReportDialog",
   data: () => ({
+    // update needed: id must be user id
+    id: "admin",
     dialog: false,
-    id: "admin@admin.com",
-    rules: [v => v.length <= 300 || "Max 300 characters"],
     value: ""
   }),
   props: {
@@ -57,18 +68,19 @@ export default {
   },
   methods: {
     reportPhoto() {
-      this.dialog = false;
-      const report = {
-        rid: "asdf",
-        rcode: this.pcode,
+      const url = `${process.env.VUE_APP_SPRING_URL}/api/report/insert`;
+      const data = {
+        rid: this.id,
+        rcode: parseInt(this.pcode),
         rreason: this.value
       };
-      this.$emit("reportPhoto", report);
-      this.value = "";
+      axios.post(url, data).then(() => {
+        this.value = "";
+        this.dialog = false;
+      });
     }
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>

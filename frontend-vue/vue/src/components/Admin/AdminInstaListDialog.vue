@@ -73,9 +73,23 @@
         <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn :disabled="!this.source" color="red darken-1" text @click="denyItem(item)">Deny</v-btn>
-          <v-btn :disabled="!validated" color="blue darken-1" text @click="insertItem(item)">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="dialog = false"
+            >Close</v-btn
+          >
+          <v-btn
+            :disabled="!this.source"
+            color="red darken-1"
+            text
+            @click="denyItem(item)"
+            >Deny</v-btn
+          >
+          <v-btn
+            :disabled="!validated"
+            color="blue darken-1"
+            text
+            @click="insertItem(item)"
+            >Save</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -102,12 +116,9 @@ export default {
       (this.source = url), (this.url = this.item.purl); // url: original link, source: image url
     },
     sendPost(url, data, item) {
-      axios
-        .post(url, data)
-        .then(() => {
-          this.$emit("onInsert", item);
-        })
-        .catch();
+      axios.post(url, data).then(() => {
+        this.$emit("onInsert", item);
+      });
     },
     insertItem(item) {
       const url = `${process.env.VUE_APP_SPRING_URL}/api/photo/insert`;

@@ -8,13 +8,10 @@ const state = {
 
 const mutations = {
   getReports(state) {
-    axios
-      .get(url)
-      .then(r => {
-        const { resvalue } = r.data;
-        state.reports = resvalue;
-      })
-      .catch();
+    axios.get(url).then(r => {
+      const { resvalue } = r.data;
+      state.reports = resvalue;
+    });
   }
 };
 

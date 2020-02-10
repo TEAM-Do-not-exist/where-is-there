@@ -38,7 +38,7 @@
 		update mem_p1 set pw=#{pw},
 						nickname=#{nickname},
 						name=#{name},
-						phone=#{phone},
+						phone=#{phone}
 		where email=#{email}
 	</update>
 	<select id="selectList" resultType="MemberDTO">
