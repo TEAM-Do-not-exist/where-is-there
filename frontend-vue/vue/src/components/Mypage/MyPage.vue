@@ -1,7 +1,6 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <v-app id="inspire">
-
       <v-container>
         <!-- logo  -->
         <v-card app>
@@ -12,9 +11,22 @@
             src="../../../public/logo.png"
           ></v-img>
         <!-- My Information -->
-          <v-card-text class="pb-0" >ID: {{item.email}}</v-card-text>
-          <v-card-text class="pb-0">Nickname: {{item.nickname}} </v-card-text>
-          <v-card-text class="pb-0">phone: {{item.phone}}</v-card-text>
+        <div >
+          <table class="pb-0">
+            <tr class="pb-1">
+              <td>아이디 : </td><td>   </td><td>{{item.email}}</td>
+            </tr>
+             <tr class="pb-1">
+              <td>닉네임 : </td><td>   </td><td>{{item.nickname}}</td>
+            </tr>
+             <tr class="pb-1">
+              <td>전화번호 : </td><td>   </td><td>{{item.phone}}</td>
+            </tr>
+          </table>
+        </div>
+          <!-- <v-card-text class="pb-0" >아이디: {{item.email}}</v-card-text>
+          <v-card-text class="pb-0">닉네임: {{item.nickname}} </v-card-text>
+          <v-card-text class="pb-0">전화번호: {{item.phone}}</v-card-text> -->
 
         <!-- Update My Information -->
           <v-card-actions>
@@ -94,5 +106,11 @@ export default {
 <style scoped>
  .pb-0{
     font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 20px;
+  }
+
+  .pb-1{
+    height: 50px;
   }
 </style>

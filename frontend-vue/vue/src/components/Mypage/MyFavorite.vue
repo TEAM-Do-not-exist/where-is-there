@@ -3,7 +3,6 @@
       <v-card app background-color="#0000">
         <v-container fluid>
           <v-row dense>
-            <!-- <v-col v-for="(item, i) in list" :key="i" cols="4"> -->
             <v-col v-for="(photo, i) in list" :key="i" cols="6">
               <v-card>
                 <v-img
@@ -37,8 +36,7 @@ export default {
      showfavorite() {
       const basicUrl = "http://127.0.0.1:8090/";
       const addUrl = "api/favorite/selectMyList/";
-      // const cid = this.cid;
-      const fid = this.token; // 현재 아이디 박아놓은 상태.
+      const fid = this.token; 
       axios
         .get(basicUrl+addUrl+fid)
         .then(response => (this.list = response.data['resvalue']))
@@ -48,7 +46,7 @@ export default {
         . finally(() => (this.loading = false));
     },
     delfavorite(){
-      this.is_show = !this.is_show; // #2, #3
+      this.is_show = !this.is_show; 
     },
       showDetail(photo) {
       this.$router.push(`/photo/${photo.fcode}`);

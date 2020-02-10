@@ -32,13 +32,11 @@
           <div style="text-align:center;" @click="to_home">
               <i class="fas fa-home fa-10x"></i>
           </div>
-
           <!-- 로그인 되었을 때 -->
           <div v-if="token != 'null' && token != undefined" 
               style="text-align:center;" >
             <br>
-            <span style="">
-            {{this.nickname}}
+            <span v-text='nickname'>
             </span>
             <span>
                님 환영합니다 :>
@@ -136,7 +134,7 @@ export default {
     left: false,
     easing: "easeInOutCubic",
     easings: Object.keys(easings),
-    enter: true,
+    enter: true
   }),
   components: {
     "Message-List": MessageList,
@@ -146,7 +144,7 @@ export default {
     ...mapGetters(["nickname"]),
     ...mapState({
       msgDatas: state => state.socket.msgDatas,
-      nickname: state => state.user.nickname,
+      nickname1: state => state.user.nickname,
       token: state => state.user.token
     }
     
