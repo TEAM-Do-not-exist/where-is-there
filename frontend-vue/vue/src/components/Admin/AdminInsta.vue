@@ -6,7 +6,8 @@
       color="blue"
       elevation="2"
       class="text-center font-weight-bold"
-    >Instagram Crawling Board</v-alert>
+      >Instagram Crawling Board</v-alert
+    >
 
     <!-- silder for dicide crawling size -->
     <v-subheader class="pl-0">Infomation Request Size</v-subheader>
@@ -27,7 +28,8 @@
           :block="true"
           :disabled="loading || slider === 0"
           @click="getInstaItems(name)"
-        >{{ name.name }}</v-btn>
+          >{{ name.name }}</v-btn
+        >
       </v-col>
     </v-row>
 
@@ -42,12 +44,17 @@
     </div>
 
     <!-- pagination -->
-    <AdminPagination :page="page" :length="length" @onPageChange="onPageChange" />
+    <AdminPagination
+      :page="page"
+      :length="length"
+      @onPageChange="onPageChange"
+    />
   </v-col>
 </template>
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 import AdminInstaList from "./AdminInstaList";
 import AdminPagination from "./AdminPagination";
 import AdminLoadingCircle from "./AdminLoadingCircle";
@@ -102,25 +109,27 @@ export default {
       if (this.slider > 0) {
         this.page = 1;
         this.length = 1;
-        this.loading = true;
 
-        const url = `${process.env.VUE_APP_PYTHON_URL}/instagram/?length=${this.slider}&target=${name.target}`;
-        axios
-          .get(url)
-          .then(r => {
-            this.src = r.data;
-            const keys = Object.keys(this.src);
-            for (const key of keys) {
-              if (key % 10 === 0) {
-                this.length++;
+        if (this.getAdmin === true) {
+          this.loading = true;
+          const url = `${process.env.VUE_APP_PYTHON_URL}/instagram/?length=${this.slider}&target=${name.target}`;
+          axios
+            .get(url)
+            .then(r => {
+              this.src = r.data;
+              const keys = Object.keys(this.src);
+              for (const key of keys) {
+                if (key % 10 === 0) {
+                  this.length++;
+                }
               }
-            }
-            this.pagination();
-            this.loading = false;
-          })
-          .catch(() => {
-            this.loading = false;
-          });
+              this.pagination();
+              this.loading = false;
+            })
+            .catch(() => {
+              this.loading = false;
+            });
+        }
       }
     },
     onInsert(item) {
@@ -139,6 +148,9 @@ export default {
       this.page = newPage;
       this.pagination();
     }
+  },
+  computed: {
+    ...mapGetters(["getAdmin"])
   }
 };
 </script>

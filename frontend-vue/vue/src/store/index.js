@@ -6,6 +6,7 @@ import photo from "./modules/photo";
 import comments from "./modules/comments";
 import socket from "./modules/socket";
 import user from "./modules/user";
+import auth from "./modules/auth";
 // import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex);
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     photo,
     comments,
     socket,
-    user
+    user,
+    auth
   }
 });
