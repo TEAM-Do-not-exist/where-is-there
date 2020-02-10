@@ -15,7 +15,7 @@
                 <v-text-field
                   v-model="id"
                   :rules="nameRules"
-                  :counter="10"
+                  :counter="30"
                   label="ID"
                   required
                   @keyup.13="submit"
