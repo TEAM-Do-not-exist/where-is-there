@@ -40,7 +40,7 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item v-if="token == 'null'" @click="to_sign_in">
+        <v-list-item v-if="token == 'null' || token == undifine" @click="to_sign_in">
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
@@ -161,7 +161,9 @@ export default {
       // $ths.datas.push(data);
     });
   },
-
+  mounted(){
+    // this.$store.dispatch('LOGOUT')
+  },
   methods: {
     to_admin() {
       this.$router.push("/admin");
