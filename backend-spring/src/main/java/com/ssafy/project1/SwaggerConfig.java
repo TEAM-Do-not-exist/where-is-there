@@ -35,9 +35,9 @@ public class SwaggerConfig implements WebMvcConfigurer{
 			"/api/member/**",
 			"/api/jwt/jwt",
 			"/api/emailauth/**",
-			"/api/photo/**",
+//			"/api/photo/**",
 			"/api/external/**",
-			"/api/**"
+//			"/api/**"
 	};
 	
 	@Autowired

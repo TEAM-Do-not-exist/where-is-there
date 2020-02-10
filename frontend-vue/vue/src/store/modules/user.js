@@ -29,6 +29,7 @@ const mutations = {
         if(r.data.resvalue==1){
           state.token = r.data.token
           sessionStorage.setItem('token',r.data.token)
+          axios.defaults.headers.common['Authorization']= r.data.token
           axios
             .get('http://localhost:8090/api/member/selectOneToken/'+r.data.token)
             .then(r=>{
@@ -55,6 +56,7 @@ const mutations = {
       .then(r=>{
         state.token = r.data.token
         sessionStorage.setItem('token',r.data.token)
+        axios.defaults.headers.common['Authorization']= r.data.token
         if(r.data.state==1){
           axios
           .get('http://localhost:8090/api/member/selectOneToken/'+r.data.token)
@@ -81,6 +83,7 @@ const mutations = {
       .get('http://localhost:8090/api/external/login_kakao/'+access_token)
       .then(r=>{
         state.token = r.data.token
+        axios.defaults.headers.common['Authorization']= r.data.token
         sessionStorage.setItem('token',r.data.token)
         if(r.data.state==1){
           axios
@@ -108,6 +111,7 @@ const mutations = {
     sessionStorage.setItem('nickname',null)
     state.token = null
     state.nickname = null
+    axios.defaults.headers.common['Authorization'] = undefined
     delete localStorage.token
   },
 };
