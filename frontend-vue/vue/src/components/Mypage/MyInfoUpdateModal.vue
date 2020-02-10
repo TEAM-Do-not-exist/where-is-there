@@ -30,8 +30,9 @@
               </v-col>
 
               <!-- pw 입력란 -->
+              <!-- extenal==0 일 때만(직접 회원가입 시) 비밀번호 수정이 가능합니다.  -->
               <v-col cols="12">
-                <div v-if="external=0">
+                <div v-if="external==0">
                 <v-text-field v-model="pw" label="pw*" required :rules="[v => !!v || '비밀번호를 입력해주세요']"></v-text-field>
                 </div>
               </v-col>
@@ -97,11 +98,13 @@
           phone: this.phone,
           nickname: this.nickname
         };
+        sessionStorage.setItem("nickname",this.nickname);
+        this.$store.state.nickname = this.nickname;
         axios
           .put(basicUrl + addUrl, data)
           .then(r => {
             if (r.data.regmsg === "입력했습니다") {
-              // this.$emit("onInsert");
+              console.log("rr")
             }
           })
           .catch();
@@ -111,7 +114,7 @@
     },
     computed: {
       ...mapGetters(["token"]),
-      validated() {
+        validated() {
         return (
           this.phone &&
           this.nickname
@@ -120,7 +123,7 @@
     },
     mounted() {
       this.showmyinfo();
-    },
+    }
 
   };
 </script>
