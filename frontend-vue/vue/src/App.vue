@@ -23,59 +23,62 @@
       </v-list>
     </v-navigation-drawer>
 
+      <!-- 왼쪽 네비게이션바 -->
     <v-navigation-drawer v-model="drawer" class=".d-flex" temporary app style="z-index:3">
       <v-container>
-        <img
-          width="80"
-          @click="to_home"
-          src="https://lab.ssafy.com/uploads/-/system/appearance/header_logo/1/ssafy_logo.png"
-        />
+        <v-card>
+          <!-- 맨 위 로고 들어갈 자리 -->
+          <div style="text-align:center;" @click="to_home">
+              <i class="fas fa-home fa-10x"></i>
+          </div>
+
+          <!-- 로그인 되었을 때 -->
+          <div v-if="token != 'null' && token != undefined" 
+              style="text-align:center;" >
+            <br>
+            <span style="text-decoration:underline;">
+            {{this.nickname}}
+            </span>
+            <span>
+               님 환영합니다 :>
+            </span>
+            <br><br>
+            <span v-if="token != 'null' && token != undefined" 
+                  @click="to_mypage"
+                  style="cursor:pointer;display:inline-block; width:100px;">
+              MyPage     
+            </span>
+            <span v-if="token != 'null' && token != undefined" 
+                  @click="to_log_out"
+                  style="text-align:center; cursor:pointer;">
+             Logout 
+            </span>
+          </div>
+          <!-- 로그인 안되었을 때 -->
+          <div v-else style="text-align:center;">
+          <br>
+          <div style="text-align:center">로그인을 해주세요! :(</div>
+          <br>
+            <span v-if="token == 'null' || token == undefined" 
+                @click="to_sign_in"
+                style="cursor:pointer;">
+              회원가입
+            </span>
+          </div>
+        </v-card>
       </v-container>
+
       <v-list dense>
-        <v-list-item @click="to_home">
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item v-if="token == 'null' || token == undefined" @click="to_sign_in">
-          <v-list-item-action>
-            <v-icon>mdi-account</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Sign in</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item v-else @click="to_log_out">
-          <v-list-item-action>
-            <i class="fas fa-unlock"></i>
-            <!-- <v-icon>mdi-account</v-icon> -->
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Logout</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
         <v-list-item @click="to_admin">
           <v-list-item-action>
             <i class="fas fa-user-shield"></i>
-            <!-- <v-icon>mdi-account</v-icon> -->
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Administator page</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item v-if="token != 'null' || token != undefined" @click="to_mypage">
-          <v-list-item-action>
-            <i class="fas fa-user"></i>
-            <!-- <v-icon>mdi-account</v-icon> -->
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>MyPage</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
       </v-list>
+
       <v-footer absolute bottom>
         <span class="white--text">&copy; 2020, Team 404</span>
         <v-spacer/>
@@ -85,11 +88,9 @@
     </v-navigation-drawer>
 
     <v-app-bar id="navbar" app flat style="pointer-events: none; z-index:1">
-      <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" style="pointer-events: auto;"></v-app-bar-nav-icon>
       <v-spacer style="pointer-events: none;"></v-spacer>
       <i class="far fa-comments fa-2x" @click.stop="drawerRight = !drawerRight" style="pointer-events: auto;"></i>
-      <!-- <v-app-bar-nav-icon @click.stop="drawerRight = !drawerRight"></v-app-bar-nav-icon> -->
     </v-app-bar>
 
     <v-content>
@@ -141,7 +142,7 @@ export default {
     "Message-From": MessageForm
   },
   computed: {
-     ...mapGetters(["nickname"]),
+    ...mapGetters(["nickname"]),
     ...mapState({
       msgDatas: state => state.socket.msgDatas,
       nickname: state => state.user.nickname,
@@ -199,7 +200,6 @@ export default {
         msg
       });
       this.$sendMessage({
-        // name: "tmp:",
         name: this.nickname +":",
         msg
       });

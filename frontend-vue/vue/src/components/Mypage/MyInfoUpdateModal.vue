@@ -31,7 +31,7 @@
 
               <!-- pw 입력란 -->
               <v-col cols="12">
-                <div v-if="external==0">
+                <div v-if="external=0">
                 <v-text-field v-model="pw" label="pw*" required :rules="[v => !!v || '비밀번호를 입력해주세요']"></v-text-field>
                 </div>
               </v-col>
