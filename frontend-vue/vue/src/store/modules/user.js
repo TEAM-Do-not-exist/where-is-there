@@ -29,6 +29,7 @@ const mutations = {
         if(r.data.resvalue==1){
           state.token = r.data.token
           sessionStorage.setItem('token',r.data.token)
+          // axios.defaults.headers.common['Authorization']= r.data.token
           axios.defaults.headers.common['Authorization']= r.data.token
           axios
             .get('http://localhost:8090/api/member/selectOneToken/'+r.data.token)
