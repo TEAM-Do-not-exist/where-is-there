@@ -14,7 +14,7 @@
           <PhotoReportDialog :pcode="pcode" />
         </div>
         <!-- update needed: check id is admin id -->
-        <div class="my-5 d-flex" v-if="id === 'admin'">
+        <div class="my-5 d-flex" v-if="getAdmin === true">
           <PhotoDeleteButton />
           <PhotoUpdateDialog />
         </div>
@@ -25,7 +25,11 @@
 
     <!-- comment vue -->
     <v-divider :dark="true" class="my-3"></v-divider>
-    <Comments :ccode="pcode" @onModifyComment="onModifyComment" @deleteComment="deleteComment" />
+    <Comments
+      :ccode="pcode"
+      @onModifyComment="onModifyComment"
+      @deleteComment="deleteComment"
+    />
   </v-container>
 </template>
 
@@ -75,10 +79,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["photo"])
+    ...mapGetters(["photo", "getAdmin"])
   },
   mounted() {
     this.$store.dispatch("getPhotoAction", this.pcode);
+    this.$store.dispatch("getAdminAction");
   }
 };
 </script>

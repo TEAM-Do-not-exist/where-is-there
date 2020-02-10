@@ -15,9 +15,17 @@ const state = {
   admin: isAdmin() ? true : false
 };
 
-const mutations = {};
+const mutations = {
+  getAdmin(state) {
+    state.admin = isAdmin();
+  }
+};
 
-const actions = {};
+const actions = {
+  getAdminAction(options) {
+    options.commit("getAdmin");
+  }
+};
 
 const getters = {
   getAdmin(state) {
