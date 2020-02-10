@@ -3,7 +3,9 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <!-- dialog open button -->
       <template v-slot:activator="{ on }">
-        <v-btn color="blue" text v-on="on">Check Information</v-btn>
+        <v-btn color="blue" text v-on="on" :disabled="!isAdmin"
+          >Check Information</v-btn
+        >
       </template>
 
       <!-- dialog information -->
@@ -77,16 +79,16 @@
             >Close</v-btn
           >
           <v-btn
-            :disabled="!this.source"
-            color="red darken-1"
             text
+            color="red darken-1"
+            :disabled="!this.source || this.admin"
             @click="denyItem(item)"
             >Deny</v-btn
           >
           <v-btn
-            :disabled="!validated"
-            color="blue darken-1"
             text
+            color="blue darken-1"
+            :disabled="!validated"
             @click="insertItem(item)"
             >Save</v-btn
           >
@@ -122,7 +124,7 @@ export default {
       });
     },
     insertItem(item) {
-      if (this.getAdmin === true) {
+      if (this.getUser === "admin") {
         const url = `${process.env.VUE_APP_SPRING_URL}/api/photo/insert`;
         const data = {
           pname: this.store,
@@ -135,7 +137,7 @@ export default {
       this.dialog = false;
     },
     denyItem(item) {
-      if (this.getAdmin === true) {
+      if (this.getUser === "admin") {
         const url = `${process.env.VUE_APP_SPRING_URL}/api/photocheck/insert`;
         const data = { purl: this.url };
         this.sendPost(url, data, item);
@@ -144,10 +146,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getAdmin"]),
+    ...mapGetters(["getUser"]),
+    isAdmin() {
+      return this.getUser === "admin" ? true : false;
+    },
     validated() {
-      return this.place && this.store && this.source && this.url;
+      return (
+        this.place && this.store && this.source && this.url && this.getUser
+      );
     }
+  },
+  mounted() {
+    this.$store.dispatch("getUserAction");
   }
 };
 </script>

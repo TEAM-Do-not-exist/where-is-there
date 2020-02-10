@@ -2,11 +2,17 @@
   <div class="overflow-hidden">
     <!-- title -->
     <div class="text-center mb-2">
-      <v-btn text color="deep-purple" @click="showNav = !showNav">Pagination</v-btn>
+      <v-btn text color="deep-purple" @click="showNav = !showNav"
+        >Pagination</v-btn
+      >
     </div>
 
     <!-- move page -->
-    <v-bottom-navigation v-model="activeBtn" :input-value="showNav" color="indigo">
+    <v-bottom-navigation
+      v-model="activeBtn"
+      :input-value="showNav"
+      color="indigo"
+    >
       <v-btn @click="onPageChange(-1)">
         <span>Prev</span>
         <v-icon>mdi-minus</v-icon>
@@ -14,7 +20,7 @@
 
       <!-- now page -->
       <v-btn disabled>
-        <span>{{page}}</span>
+        <span>{{ page }}</span>
       </v-btn>
 
       <v-btn @click="onPageChange(1)">
@@ -46,5 +52,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

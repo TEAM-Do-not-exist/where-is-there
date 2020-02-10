@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="getUser !== undefined">
     <v-btn
       v-if="!clicked"
       color="red darken-1"
@@ -23,6 +23,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "PhotoLikeButton",
@@ -49,6 +50,12 @@ export default {
         });
       }
     }
+  },
+  computed: {
+    ...mapGetters(["getUser"])
+  },
+  mounted() {
+    this.$store.dispatch("getUserAction");
   }
 };
 </script>

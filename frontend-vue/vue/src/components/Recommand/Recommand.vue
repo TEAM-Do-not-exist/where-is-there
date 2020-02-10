@@ -16,22 +16,36 @@
     <!-- if there is not data -->
     <div v-if="tours.size + mangos.size === 0" @click="toBack">
       <p class="title font-weight-thin my-2">관련 데이터가 없습니다.</p>
-      <p class="subtitle-1 font-weight-black my-2">클릭하시면 이전 페이지로 돌아갑니다.</p>
+      <p class="subtitle-1 font-weight-black my-2">
+        클릭하시면 이전 페이지로 돌아갑니다.
+      </p>
     </div>
 
     <div v-else>
       <div class="justify-space-between my-1">
-        <p class="subtitle-1 font-weight-thin my-4">더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!</p>
-        <p class="subtitle-1 fonr-weight-black my-4" @click="toBack">돌아가려면 클릭해주세요!</p>
+        <p class="subtitle-1 font-weight-thin my-4">
+          더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!
+        </p>
+        <p class="subtitle-1 fonr-weight-black my-4" @click="toBack">
+          돌아가려면 클릭해주세요!
+        </p>
       </div>
 
       <!-- TourAPI -->
-      <div v-for="(tour, idx) in tours" :key="`tour-${idx}`" :id="`tour-${idx}`">
+      <div
+        v-for="(tour, idx) in tours"
+        :key="`tour-${idx}`"
+        :id="`tour-${idx}`"
+      >
         <RecommandList :photo="tour" :place="photo[0].pplace" />
       </div>
 
       <!-- mango -->
-      <div v-for="(mango, idx) in mangos" :key="`mango-${idx}`" :id="`mango-${idx}`">
+      <div
+        v-for="(mango, idx) in mangos"
+        :key="`mango-${idx}`"
+        :id="`mango-${idx}`"
+      >
         <RecommandList :photo="mango" :place="photo[0].pplace" />
       </div>
     </div>
@@ -139,7 +153,7 @@ export default {
       }
     },
     toBack() {
-      this.$router.push({ name: "Photo", params: { pcode: this.pcode } });
+      this.$router.push({ name: "photo", params: { pcode: this.pcode } });
     }
   },
   computed: {

@@ -6,7 +6,10 @@
       <v-img height="400px" position="center center" :src="item.psource[0]">
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
-            <v-progress-circular indeterminate color="blue-grey darken-4"></v-progress-circular>
+            <v-progress-circular
+              indeterminate
+              color="blue-grey darken-4"
+            ></v-progress-circular>
           </v-row>
         </template>
       </v-img>

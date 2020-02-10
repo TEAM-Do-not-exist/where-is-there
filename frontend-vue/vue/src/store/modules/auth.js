@@ -1,35 +1,35 @@
 import jwtDecode from "jwt-decode";
 
-const isAdmin = () => {
+const whoIsThis = () => {
   const token = sessionStorage.getItem("token");
-  if (token !== "null") {
+  if (token !== null && token !== "null") {
     const user = jwtDecode(token).member.email;
-    if (user === "admin") {
-      return true;
+    if (user) {
+      return user;
     }
   }
   return false;
 };
 
 const state = {
-  admin: isAdmin() ? true : false
+  user: whoIsThis()
 };
 
 const mutations = {
-  getAdmin(state) {
-    state.admin = isAdmin();
+  getUser(state) {
+    state.user = whoIsThis() ? whoIsThis() : false;
   }
 };
 
 const actions = {
-  getAdminAction(options) {
-    options.commit("getAdmin");
+  getUserAction(options) {
+    options.commit("getUser");
   }
 };
 
 const getters = {
-  getAdmin(state) {
-    return state.admin;
+  getUser(state) {
+    return state.user;
   }
 };
 
