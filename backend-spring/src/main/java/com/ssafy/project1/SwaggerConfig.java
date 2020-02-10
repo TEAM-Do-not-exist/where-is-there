@@ -29,15 +29,20 @@ public class SwaggerConfig implements WebMvcConfigurer{
 	
 	private static final String[] EXCLUDE_PATHS= {
 			"/swagger-ui.html",
-			"/swagger-resources/**",
+			"/swagger-resources/**", 
 			"/error",
 			"/webjars/**",
 			"/api/member/**",
 			"/api/jwt/jwt",
 			"/api/emailauth/**",
-			"/api/photo/**",
+//			"/api/photo/**",
 			"/api/external/**",
-			"/api/**"
+			"/api/photo/selectOne/**",
+			"/api/photo/selectList",
+			"/api/photo/selectListFavorite",
+			"/api/favorite/selectPhotoList/**",
+			"/api/comment/selectPhotoList/**"
+//			"/api/**"
 	};
 	
 	@Autowired

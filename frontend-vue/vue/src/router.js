@@ -3,7 +3,7 @@ import router from "vue-router";
 
 import index from "./components/Basic/IndexPage";
 import photo from "./components/Photo/Photo";
-import PhotoRecommands from "./components/Photo/PhotoRecommands";
+import recommand from "./components/Recommand/Recommand";
 
 import admin from "./components/Admin/Admin";
 import Login from "./views/Login.vue";
@@ -37,9 +37,9 @@ export default new router({
       props: true
     },
     {
-      name: "PhotoRecommands",
+      name: "recommand",
       path: "/photo/:pcode/recommands",
-      component: PhotoRecommands,
+      component: recommand,
       props: true
     },
     {
@@ -58,7 +58,7 @@ export default new router({
     {
       path: "/signup1/:email",
       component: signup1,
-      props:true
+      props: true
     },
     {
       name: "signup2",

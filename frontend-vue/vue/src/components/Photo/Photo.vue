@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <!-- photo vue -->
-    <v-parallax dark :src="photo[0].psource"> </v-parallax>
+    <v-parallax dark :src="photo[0].psource"></v-parallax>
     <v-divider :dark="true" class="my-3"></v-divider>
 
     <v-row>
@@ -25,15 +25,7 @@
 
     <!-- comment vue -->
     <v-divider :dark="true" class="my-3"></v-divider>
-    <CommentInput :comments="comments" :pcode="pcode" />
-    <v-divider :dark="true" class="my-3"></v-divider>
-    <div v-for="(comment, idx) in comments" :key="idx">
-      <CommentList
-        :comment="comment"
-        @onModifyComment="onModifyComment"
-        @deleteComment="deleteComment"
-      />
-    </div>
+    <Comments :ccode="pcode" @onModifyComment="onModifyComment" @deleteComment="deleteComment" />
   </v-container>
 </template>
 
@@ -46,8 +38,7 @@ import PhotoReportDialog from "./PhotoReportDialog";
 import PhotoDeleteButton from "./PhotoDeleteButton";
 import PhotoUpdateDialog from "./PhotoUpdateDialog";
 import PhotoKakaoMap from "./PhotoKakaoMap";
-import CommentInput from "../Comment/CommentInput";
-import CommentList from "../Comment/CommentList";
+import Comments from "../Comment/Comments";
 
 export default {
   name: "Photo",
@@ -58,8 +49,7 @@ export default {
     PhotoDeleteButton: PhotoDeleteButton,
     PhotoUpdateDialog: PhotoUpdateDialog,
     PhotoKakaoMap: PhotoKakaoMap,
-    CommentInput: CommentInput,
-    CommentList: CommentList
+    Comments: Comments
   },
   data: () => ({
     id: "admin"
@@ -85,11 +75,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ photo: "photo", comments: "comments" })
+    ...mapGetters(["photo"])
   },
   mounted() {
     this.$store.dispatch("getPhotoAction", this.pcode);
-    this.$store.dispatch("getCommentsAction", this.pcode);
   }
 };
 </script>
