@@ -148,6 +148,9 @@ const mutations = {
     axios.defaults.headers.common['Authorization'] = undefined
     delete localStorage.token
   },
+  SET_HEADER_mutation(){
+    axios.defaults.headers.common['Authorization'] = sessionStorage.getItem('token')
+  }
 };
 
 const actions = {
@@ -163,6 +166,9 @@ const actions = {
   LOGOUT({ commit }) {
     // HTTP 요청 헤더값 제거
     commit("LOGOUT");
+  },
+  SET_HEADER(options){
+    options.commit("SET_HEADER_mutation");
   }
 };
 
