@@ -12,9 +12,11 @@
 			#{psource}
 		)
 	</insert>
+	
 	<delete id="delete" parameterType="int">
 		delete from photo where pcode = #{pcode}
 	</delete>
+	
 	<update id="update" parameterType="PhotoDTO">
 		update photo set pplace=#{pplace},
 						purl=#{purl},
@@ -22,6 +24,7 @@
 						psource=#{psource}
 		where pcode=#{pcode}
 	</update>
+	
 	<select id="selectList" resultType="PhotoDTO">
 		select pcode, pplace, purl, pname, psource, ifnull(cnt,0) favorite_cnt
 		from photo p left join (
@@ -32,6 +35,7 @@
 		order by pcode desc;
 		
 	</select>
+	
 	<select id="selectListFavorite" resultType="PhotoDTO">
 		select pcode, pplace, purl, pname, psource, ifnull(cnt,0) favorite_cnt
 		from photo p left join (
@@ -45,4 +49,5 @@
 	<select id="selectOne" parameterType="PhotoDTO" resultType="PhotoDTO">
 		select * from photo where pcode=#{pcode}
 	</select>
+	
 </mapper>
