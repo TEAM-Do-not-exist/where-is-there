@@ -1,7 +1,17 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 const url = `${process.env.VUE_APP_SPRING_URL}/api/report/selectReportList`;
-const token = sessionStorage.getItem("token");
+const isAdmin = () => {
+  const token = sessionStorage.getItem("token");
+  if (token !== null && token !== "null") {
+    const user = jwtDecode(token).member.email;
+    if (user === "admin") {
+      return user;
+    }
+  }
+  return false;
+};
 
 const state = {
   reports: []
@@ -9,18 +19,12 @@ const state = {
 
 const mutations = {
   getReports(state) {
-    const headers = {
-      Authorization: token
-    };
-    console.log({ headers });
-    axios
-      .get(url, { headers })
-      .then(r => {
-        console.log(r);
+    if (isAdmin === true) {
+      axios.get(url).then(r => {
         const { resvalue } = r.data;
         state.reports = resvalue;
-      })
-      .catch(e => console.log(e));
+      });
+    }
   }
 };
 

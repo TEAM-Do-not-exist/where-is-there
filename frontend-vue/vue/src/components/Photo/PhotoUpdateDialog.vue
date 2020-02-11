@@ -1,9 +1,14 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn class="ma-2" v-on="on" color="yellow darken-1" outlined dark
-        >update</v-btn
-      >
+      <v-btn
+        :disabled="!isAdmin"
+        color="yellow darken-1"
+        class="ma-2"
+        v-on="on"
+        outlined
+        dark
+      >update</v-btn>
     </template>
 
     <v-card>
@@ -35,18 +40,10 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field
-                label="Source*"
-                :value="photo[0].psource"
-                disabled
-              ></v-text-field>
+              <v-text-field label="Source*" :value="photo[0].psource" disabled></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field
-                label="URL*"
-                :value="photo[0].purl"
-                disabled
-              ></v-text-field>
+              <v-text-field label="URL*" :value="photo[0].purl" disabled></v-text-field>
             </v-col>
           </v-row>
         </v-container>
@@ -58,10 +55,9 @@
         <v-btn
           color="warning darken-1"
           text
-          :disabled="validated"
+          :disabled="!validated || !isAdmin"
           @click="updatePhoto"
-          >Update</v-btn
-        >
+        >Update</v-btn>
         <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
       </v-card-actions>
     </v-card>
@@ -81,24 +77,29 @@ export default {
   }),
   methods: {
     updatePhoto() {
-      const url = `${process.env.VUE_APP_SPRING_URL}/api/photo/update`;
-      const data = {
-        pcode: this.photo[0].pcode,
-        pplace: this.place,
-        purl: this.photo[0].purl,
-        pname: this.name,
-        psource: this.photo[0].psource
-      };
-      this.dialog = false;
-      axios.put(url, data).then(() => {
-        this.$store.dispatch("getPhotoAction", this.photo[0].pcode);
-      });
+      if (this.isAdmin === true) {
+        const url = `${process.env.VUE_APP_SPRING_URL}/api/photo/update`;
+        const data = {
+          pcode: this.photo[0].pcode,
+          pplace: this.place,
+          purl: this.photo[0].purl,
+          pname: this.name,
+          psource: this.photo[0].psource
+        };
+        this.dialog = false;
+        axios.put(url, data).then(() => {
+          this.$store.dispatch("getPhotoAction", this.photo[0].pcode);
+        });
+      }
     }
   },
   computed: {
-    ...mapGetters(["photo"]),
+    ...mapGetters(["photo", "getUser"]),
     validated() {
-      return this.place === "" && this.name === "";
+      return this.place !== "" && this.name !== "";
+    },
+    isAdmin() {
+      return this.getUser === "admin" ? true : false;
     }
   }
 };

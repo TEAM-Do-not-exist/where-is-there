@@ -14,7 +14,7 @@
           <PhotoReportDialog :pcode="pcode" />
         </div>
         <!-- update needed: check id is admin id -->
-        <div class="my-5 d-flex" v-if="getAdmin === true">
+        <div class="my-5 d-flex" v-if="getAdmin">
           <PhotoDeleteButton />
           <PhotoUpdateDialog />
         </div>
@@ -25,11 +25,7 @@
 
     <!-- comment vue -->
     <v-divider :dark="true" class="my-3"></v-divider>
-    <Comments
-      :ccode="pcode"
-      @onModifyComment="onModifyComment"
-      @deleteComment="deleteComment"
-    />
+    <Comments :ccode="pcode" @onModifyComment="onModifyComment" @deleteComment="deleteComment" />
   </v-container>
 </template>
 
@@ -72,18 +68,21 @@ export default {
       axios.put(url, data);
     },
     deleteComment(code, id) {
-      const url = `http://localhost:8090/api/comment/delete/${code}/${id}`;
+      const url = `${process.env.VUE_APP_SPRING_URL}/api/comment/delete/${code}/${id}`;
       axios.delete(url).then(() => {
         this.onInput();
       });
     }
   },
   computed: {
-    ...mapGetters(["photo", "getAdmin"])
+    ...mapGetters(["photo", "getUser"]),
+    getAdmin() {
+      return this.getUser === "admin" ? true : false;
+    }
   },
   mounted() {
     this.$store.dispatch("getPhotoAction", this.pcode);
-    this.$store.dispatch("getAdminAction");
+    this.$store.dispatch("getUserAction");
   }
 };
 </script>
