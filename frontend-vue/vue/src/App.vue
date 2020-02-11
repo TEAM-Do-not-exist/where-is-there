@@ -163,6 +163,7 @@ export default {
   },
   mounted(){
     // this.$store.dispatch('LOGOUT')
+    this.$store.dispatch('SET_HEADER')
   },
   methods: {
     to_admin() {
@@ -176,7 +177,7 @@ export default {
     },
     to_log_out() {
       alert("로그아웃 되었습니다.")
-      this.$store.dispatch('LOGOUT')
+      this.$store.dispatch('LOGOUT') 
       this.$router.push("/");
     },
     to_chat() {
