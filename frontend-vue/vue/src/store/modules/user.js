@@ -39,6 +39,17 @@ const mutations = {
               // alert(r.data.resvalue.nickname)
               router.push('/')
             })
+        }else if(r.data.state==-2){
+          sessionStorage.setItem('token',null)
+          sessionStorage.setItem('nickname',null)
+          state.token = null
+          state.nickname = null
+          if(r.data.resvalue==2){
+            alert("로그인을 실패하였습니다. 이 아이디는 네이버로 가입이 되어있습니다.")
+          }else if(r.data.resvalue==3){
+            alert("로그인을 실패하였습니다. 이 아이디는 카카오로 가입이 되어있습니다.")
+          }
+          router.push('/signin')
         }else{
           sessionStorage.setItem('token',null)
           sessionStorage.setItem('nickname',null)
@@ -68,6 +79,17 @@ const mutations = {
             alert(sessionStorage.getItem('nickname'))
             router.push('/')
           })
+        }else if(r.data.state==-2){
+          sessionStorage.setItem('token',null)
+          sessionStorage.setItem('nickname',null)
+          state.token = null
+          state.nickname = null
+          if(r.data.resvalue==1){
+            alert("로그인을 실패하였습니다. 이 아이디는 일반회원으로 가입이 되어있습니다.")
+          }else if(r.data.resvalue==3){
+            alert("로그인을 실패하였습니다. 이 아이디는 카카오로 가입이 되어있습니다.")
+          }
+          router.push('/signin')
         }else if(r.data.state==-3){
           sessionStorage.setItem('token',null)
           sessionStorage.setItem('nickname',null)
@@ -96,6 +118,17 @@ const mutations = {
               alert("kakao : "+sessionStorage.getItem('nickname'))
               router.push('/')
             })
+        }else if(r.data.state==-2){
+          sessionStorage.setItem('token',null)
+          sessionStorage.setItem('nickname',null)
+          state.token = null
+          state.nickname = null
+          if(r.data.resvalue==2){
+            alert("로그인을 실패하였습니다. 이 아이디는 네이버로 가입이 되어있습니다.")
+          }else if(r.data.resvalue==1){
+            alert("로그인을 실패하였습니다. 이 아이디는 일반회원으로 가입이 되어있습니다.")
+          }
+          router.push('/signin')
         }else if(r.data.state==-3){
           sessionStorage.setItem('token',null)
           sessionStorage.setItem('nickname',null)

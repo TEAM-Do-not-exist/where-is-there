@@ -69,8 +69,12 @@ public class MemberServiceImpl implements MemberService {
 		MemberDTO mem = memRepo.selectOneId(dto);
 		if(mem.getExternal()==0) {
 			return memRepo.selectOneIdPw(dto);
+		}else if(mem.getExternal()==1){
+			return 2;
+		}else if(mem.getExternal()==2){
+			return 3;
 		}
-		return 0;
+		return -1;
 	}
 
 	@Override
@@ -79,14 +83,17 @@ public class MemberServiceImpl implements MemberService {
 		MemberDTO mem = memRepo.selectOneId(dto);
 		if(mem==null) {	//처음 로그인 시
 			memRepo.insert1(dto);
-			return 1;
+			return 2;
 		}else {			//처음이 아닐 시
 			if(mem.getExternal()==1) {	//네이버로 가입했는지 확인 후
+				return 2;
+			}else if(mem.getExternal()==0){
 				return 1;
-			}else {
-				return -1;
+			}else if(mem.getExternal()==2){
+				return 3;
 			}
 		}
+		return -1;
 	}
 
 	@Override
@@ -95,14 +102,17 @@ public class MemberServiceImpl implements MemberService {
 		MemberDTO mem = memRepo.selectOneId(dto);
 		if(mem==null) {	//처음 로그인 시
 			memRepo.insert2(dto);
-			return 1;
+			return 3;
 		}else {
 			if(mem.getExternal()==2) {
+				return 3;
+			}else if(mem.getExternal()==0){
 				return 1;
-			}else {
-				return -1;
+			}else if(mem.getExternal()==1){
+				return 2;
 			}
 		}
+		return -1;
 	}
 
 }

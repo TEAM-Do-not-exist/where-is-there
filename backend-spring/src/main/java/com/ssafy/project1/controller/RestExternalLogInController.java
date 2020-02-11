@@ -89,7 +89,7 @@ public class RestExternalLogInController {
 			MemberDTO dto = new MemberDTO(naverMem.getEmail(),naverMem.getNickName(),naverMem.getName());
 			int loginNaver = memSer.loginNaver(dto);
 			System.out.println(loginNaver);
-			if(loginNaver==1) {
+			if(loginNaver==2) {
 				state = 1;
 				String token = jwtService.create("member", memSer.selectOneId(dto), "user");
 				msg.put("state", state);
@@ -97,6 +97,10 @@ public class RestExternalLogInController {
 				msg.put("regmsg", "조회 성공");
 				msg.put("resvalue",memSer.selectOneId(dto));
 				
+			}else if(loginNaver>0){
+				state=-2;
+				msg.put("state", state);
+				msg.put("resvalue",loginNaver);
 			}else {
 				state = -3;
 				msg.put("state", state);
@@ -123,7 +127,7 @@ public class RestExternalLogInController {
 			MemberDTO dto = new MemberDTO(kakaoMember.getEmail(),kakaoMember.getNickName());
 			int loginKakao = memSer.loginKakao(dto);
 			System.out.println("kakao email : "+dto.getEmail());
-			if(loginKakao==1) {
+			if(loginKakao==3) {
 				state = 1;
 				String token = jwtService.create("member", memSer.selectOneId(dto), "user");
 				msg.put("state", state);
@@ -131,6 +135,10 @@ public class RestExternalLogInController {
 				msg.put("regmsg", "조회 성공");
 				msg.put("resvalue",memSer.selectOneId(dto));
 				
+			}else if(loginKakao>0){
+				state=-2;
+				msg.put("state", state);
+				msg.put("resvalue",loginKakao);
 			}else {
 				state = -3;
 				msg.put("state", state);

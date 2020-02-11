@@ -201,11 +201,15 @@ public class RestMemberController {
 			if(selectOneIdPw==1) {
 				String token = jwtService.create("member", mem, "user");
 				msg.put("token",token);
+				state = 1;
+				msg.put("state", state);
+				msg.put("regmsg", "조회했습니다");
+				msg.put("resvalue",selectOneIdPw);
+			}else {
+				state=-2;
+				msg.put("state", state);
+				msg.put("resvalue",selectOneIdPw);
 			}
-			state = 1;
-			msg.put("state", state);
-			msg.put("regmsg", "조회했습니다");
-			msg.put("resvalue",selectOneIdPw);
 			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
 		}catch(RuntimeException e) {
 			Map<String, Object> msg = new HashMap<String, Object>();
