@@ -2,13 +2,7 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn
-          class="ma-2"
-          outlined
-          color="yellow darken-1"
-          v-on="on"
-          v-if="getUser || getAdmin"
-        >
+        <v-btn class="ma-2" outlined color="yellow darken-1" v-on="on" v-if="getUser">
           <v-icon>mdi-alert</v-icon>
         </v-btn>
       </template>
@@ -21,20 +15,10 @@
           <!-- autofield -->
           <v-row>
             <v-col cols="6">
-              <v-text-field
-                :value="pcode"
-                label="신고할 사진 번호*"
-                disabled
-              ></v-text-field>
+              <v-text-field :value="pcode" label="신고할 사진 번호*" disabled></v-text-field>
             </v-col>
             <v-col cols="6">
-              <v-text-field
-                :value="getUser"
-                :hint="hint"
-                label="신고자 이름*"
-                persistent-hint
-                disabled
-              ></v-text-field>
+              <v-text-field :value="getUser" :hint="hint" label="신고자 이름*" persistent-hint disabled></v-text-field>
             </v-col>
           </v-row>
 
@@ -50,13 +34,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            text
-            color="warning"
-            :disabled="getUser === undefined"
-            @click="reportPhoto"
-            >Report</v-btn
-          >
+          <v-btn text color="warning" :disabled="!getUser" @click="reportPhoto">Report</v-btn>
           <v-btn color="primary" text @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
@@ -71,7 +49,6 @@ import { mapGetters } from "vuex";
 export default {
   name: "PhotoReportDialog",
   data: () => ({
-    // update needed: id must be user id
     dialog: false,
     value: ""
   }),
@@ -82,7 +59,7 @@ export default {
     reportPhoto() {
       const url = `${process.env.VUE_APP_SPRING_URL}/api/report/insert`;
       const data = {
-        rid: this.getUser || this.getAdmin,
+        rid: this.getUser,
         rcode: parseInt(this.pcode),
         rreason: this.value
       };
@@ -93,9 +70,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getUser", "getAdmin"]),
+    ...mapGetters(["getUser"]),
     hint() {
-      if (this.getUser === undefined || this.getAdmin) {
+      if (this.getUser === undefined) {
         return "로그인이 필요한 기능입니다.";
       } else {
         return "사용자의 이메일이 전송됩니다.";

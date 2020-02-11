@@ -3,9 +3,7 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <!-- dialog open button -->
       <template v-slot:activator="{ on }">
-        <v-btn color="blue" text v-on="on" :disabled="!isAdmin"
-          >Check Information</v-btn
-        >
+        <v-btn color="blue" text v-on="on" :disabled="!isAdmin">Check Information</v-btn>
       </template>
 
       <!-- dialog information -->
@@ -75,23 +73,14 @@
         <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false"
-            >Close</v-btn
-          >
+          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
           <v-btn
             text
             color="red darken-1"
-            :disabled="!this.source || this.admin"
+            :disabled="!this.source || !this.isAdmin"
             @click="denyItem(item)"
-            >Deny</v-btn
-          >
-          <v-btn
-            text
-            color="blue darken-1"
-            :disabled="!validated"
-            @click="insertItem(item)"
-            >Save</v-btn
-          >
+          >Deny</v-btn>
+          <v-btn text color="blue darken-1" :disabled="!validated" @click="insertItem(item)">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -146,7 +135,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getUser"]),
+    ...mapGetters(["getUser", "token"]),
     isAdmin() {
       return this.getUser === "admin" ? true : false;
     },

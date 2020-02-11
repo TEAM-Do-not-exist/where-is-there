@@ -3,8 +3,10 @@ from rest_framework.response import Response
 from .models import Photo, PhotoCheck
 from datetime import datetime, date
 from bs4 import BeautifulSoup as bs
+from selenium import webdriver
 from urllib.parse import quote
 from decouple import config
+from time import sleep
 import requests
 import json
 import os
@@ -27,17 +29,28 @@ def crawling_info(info, idx, filename):
         source = info.get('img_urls')
         words = info.get('caption')
 
+        # hashtag do cannot find in instagram crawlers, so find it one more
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        options.add_argument('disable-gpu')
+
+        driver = webdriver.Chrome(
+            './crawling/instagram-crawler/inscrawler/bin/chromedriver.exe', options=options)
+        driver.get(url)
+        sleep(5)
+
+        page_string = driver.page_source
+        bs_obj = bs(page_string, 'lxml')
+
+        org_tags_div = bs_obj.find_all(name='div', attrs={'class': 'C4VMK'})
+        if len(org_tags_div) > 0:
+            tags = org_tags_div[0].find_all(name='a', attrs={'class': 'xil3i'})
+        else:
+            tags = []
+
         hashtags = []
-        if words != None:
-            words = words.replace('\n', '')
-            for i in range(len(words)):
-                if words[i] == '#':
-                    for j in range(i + 1, len(words)):
-                        if words[j] in [' ', '#']:
-                            word = words[i + 1:j].replace('.', '')
-                            if word != '':
-                                hashtags.append(word)
-                            break
+        for tag in tags:
+            hashtags.append(tag.contents[0][1:].strip())
 
         if hashtags != []:
             return code, url, source, hashtags
@@ -60,14 +73,15 @@ def crawling(target, length, filename):
     address = f'{mid_output}/{filename}.json'
 
     os.system(
-        f'python {crawler} posts_full -u {account} -n {length} -o {address} --fetch_details')
+        f'python {crawler} posts_full -u {account} -n {length} -o {address}')
 
     with open(address, 'r', encoding='utf-8') as f:
         datas = json.load(f)
 
     # return results
-    res = {}
+    res, epoch = {}, 1
     for data in datas:
+        print(f'===== {epoch} / {length} done =====')
         code, url, source, hashtags = crawling_info(data, len(res), filename)
         if hashtags != None:
             res[code] = {
@@ -113,23 +127,23 @@ def instagram(request):
         res = crawling(target=target, length=length, filename=filename)
     else:
         # or not, compare files
-        with open(f'{mid_output}/{filename}.json', 'r', encoding='utf-8') as f:
-            datas = json.load(f)
+        # with open(f'{mid_output}/{filename}.json', 'r', encoding='utf-8') as f:
+        #     datas = json.load(f)
 
-        end = datas[0].get('datetime')[:10]
-        now = date.strftime(date.today(), '%Y-%m-%d')
-        if len(datas) != length or now != end:
-            res = crawling(target=target, length=length, filename=filename)
-        else:
-            with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
-                json_datas = json.load(f)
+        # end = datas[0].get('datetime')[:10]
+        # now = date.strftime(date.today(), '%Y-%m-%d')
+        # if len(datas) != length or now != end:
+        #     res = crawling(target=target, length=length, filename=filename)
+        # else:
+        with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
+            json_datas = json.load(f)
 
-            for key, val in json_datas.items():
-                url = val['purl']
-                checked = Photo.objects.filter(purl=url)
-                unused = PhotoCheck.objects.filter(purl=url)
-                if len(checked) < 1 and len(unused) < 1:
-                    res[key] = val
+        for key, val in json_datas.items():
+            url = val['purl']
+            checked = Photo.objects.filter(purl=url)
+            unused = PhotoCheck.objects.filter(purl=url)
+            if len(checked) < 1 and len(unused) < 1:
+                res[key] = val
 
     return Response(res, status=200)
 
