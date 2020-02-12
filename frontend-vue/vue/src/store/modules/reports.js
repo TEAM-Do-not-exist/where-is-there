@@ -6,8 +6,8 @@ const isAdmin = () => {
   const token = sessionStorage.getItem("token");
   if (token !== null && token !== "null") {
     const user = jwtDecode(token).member.email;
-    if (user === "admin") {
-      return user;
+    if (user === process.env.VUE_APP_ADMIN_EMAIL) {
+      return true;
     }
   }
   return false;
@@ -19,7 +19,7 @@ const state = {
 
 const mutations = {
   getReports(state) {
-    if (isAdmin === true) {
+    if (isAdmin() === true) {
       axios.get(url).then(r => {
         const { resvalue } = r.data;
         state.reports = resvalue;

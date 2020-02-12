@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="font-weight-bold" v-resize-text="resizeText">
-      #거기어디니 에디터의 pick!
+      당신을 위한 '거기'
     </p>
     <v-divider></v-divider>
     <masonry :cols="mansonryCols" :gutters="mansonryGutters">
