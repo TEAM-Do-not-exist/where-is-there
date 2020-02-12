@@ -28,6 +28,10 @@
                   required
                   @keyup.13="submit"
                 ></v-text-field>
+
+                <v-btn @click="submit" outlined width="277.33" height="60">
+                  로 그 인
+                </v-btn>
                 
                 <v-layout
                   align-center
