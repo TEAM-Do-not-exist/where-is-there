@@ -60,14 +60,16 @@ export default {
     this.$store.dispatch("getUserAction");
     const url = `${process.env.VUE_APP_SPRING_URL}/api/favorite/selectMyList/`;
     const token = sessionStorage.token;
-    axios.get(url + token).then(r => {
-      const checked = r.data.resvalue.filter(
-        fav => fav.fcode === Number(this.pcode)
-      );
-      if (checked.length > 0) {
-        this.clicked = true;
-      }
-    });
+    if (token !== "null" && token !== null) {
+      axios.get(url + token).then(r => {
+        const checked = r.data.resvalue.filter(
+          fav => fav.fcode === Number(this.pcode)
+        );
+        if (checked.length > 0) {
+          this.clicked = true;
+        }
+      });
+    }
   }
 };
 </script>
