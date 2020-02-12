@@ -85,7 +85,6 @@ export default {
   computed: {
     ...mapGetters(["getUser"]),
     isAdmin() {
-      console.log(this.getUser);
       return this.getUser === process.env.VUE_APP_ADMIN_EMAIL ? true : false;
     }
   }
