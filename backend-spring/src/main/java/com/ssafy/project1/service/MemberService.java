@@ -6,21 +6,29 @@ import com.ssafy.project1.dto.MemberDTO;
 
 public interface MemberService {
 	public int insert(MemberDTO dto);
-	//추가
+
+	// 추가
 	public int delete(String str);
-	//삭제
+
+	// 삭제
 	public int update(MemberDTO dto);
-	//수정
+
+	// 수정
 	public List<MemberDTO> selectList();
-	//전체 회원정보
+
+	// 전체 회원정보
 	public MemberDTO selectOneId(MemberDTO dto);
-	//id에 따른 검색했을때 전체정보
+
+	// id에 따른 검색했을때 전체정보
 	public int login(MemberDTO dto);
-	//id와 pw가 맞으면 1을 출력 없으면 해당사항이 없으면 0을 출력
+
+	// id와 pw가 맞으면 1을 출력 없으면 해당사항이 없으면 0을 출력
 	public int loginNaver(MemberDTO dto);
-	//이메일이 존재하는지 확인 후 없으면 가입 있으면 로그인 
+
+	// 이메일이 존재하는지 확인 후 없으면 가입 있으면 로그인
 	public int loginKakao(MemberDTO dto);
-	//이메일이 존재하는지 확인 후 없으면 가입 있으면 로그인 
+
+	// 이메일이 존재하는지 확인 후 없으면 가입 있으면 로그인
 	public int duplicateCheckId(MemberDTO dto);
-	//아이디 중복체크
+	// 아이디 중복체크
 }

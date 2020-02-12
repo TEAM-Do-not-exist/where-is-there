@@ -5,7 +5,7 @@ public class EmailAuthDTO {
 	private String auth_key;
 	private String time_expire;
 	private boolean auth_check;
-	
+
 	public EmailAuthDTO() {
 		super();
 	}
@@ -17,7 +17,6 @@ public class EmailAuthDTO {
 		this.time_expire = time_expire;
 		this.auth_check = auth_check;
 	}
-
 
 	public String getEmail() {
 		return email;
@@ -56,6 +55,5 @@ public class EmailAuthDTO {
 		return "EmailAuthDTO [email=" + email + ", auth_key=" + auth_key + ", time_expire=" + time_expire
 				+ ", auth_check=" + auth_check + "]";
 	}
-	
-	
+
 }

@@ -9,11 +9,11 @@ import com.ssafy.project1.dto.ReportDTO;
 import com.ssafy.project1.repository.IReportRepository;
 
 @Service
-public class ReportServiceImpl implements IReportService{
+public class ReportServiceImpl implements IReportService {
 
 	@Autowired
 	IReportRepository reRepo;
-	
+
 	@Override
 	public int insert(ReportDTO dto) {
 		// TODO Auto-generated method stub

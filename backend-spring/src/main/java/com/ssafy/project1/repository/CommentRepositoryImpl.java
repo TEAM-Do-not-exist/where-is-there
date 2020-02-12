@@ -14,38 +14,35 @@ public class CommentRepositoryImpl implements ICommentRepository {
 
 	@Autowired
 	SqlSession session;
-	
+
 	@Override
 	public int insert(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		return session.insert("ssafy.comment.insert",dto);
+		return session.insert("ssafy.comment.insert", dto);
 	}
-
 
 	@Override
 	public List<CommentDTO> selectMyList(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		return session.selectList("ssafy.comment.selectMyList",dto);
+		return session.selectList("ssafy.comment.selectMyList", dto);
 	}
 
 	@Override
 	public List<CommentDTO> selectPhotoList(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		return session.selectList("ssafy.comment.selectPhotoList",dto);
+		return session.selectList("ssafy.comment.selectPhotoList", dto);
 	}
 
 	@Override
 	public int delete(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		return session.delete("ssafy.comment.delete",dto);
+		return session.delete("ssafy.comment.delete", dto);
 	}
+
 	@Override
 	public int update(CommentDTO dto) {
 		// TODO Auto-generated method stub
-		return session.update("ssafy.comment.update",dto);
+		return session.update("ssafy.comment.update", dto);
 	}
-	
-	
-	
 
 }

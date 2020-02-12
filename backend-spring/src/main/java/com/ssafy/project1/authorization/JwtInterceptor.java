@@ -15,34 +15,27 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.ssafy.project1.exception.UnauthorizedException;
 
-@CrossOrigin(origins= {"*"},maxAge=6000)
+@CrossOrigin(origins = { "*" }, maxAge = 6000)
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
-	
+
 	private static final String HEADER_AUTH = "Authorization";
-	
+
 	@Autowired
 	JwtService jwtService;
-	
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
-		//content-type
+		// content-type
 		final String token = request.getHeader(HEADER_AUTH);
-//		Enumeration<String> attributeNames = request.getHeaderNames();
-//		while(attributeNames.hasMoreElements()) {
-//			String nextElement = attributeNames.nextElement();
-//			String str = request.getHeader(nextElement);
-//			System.out.println(nextElement+" ::: "+str);
-//		}
-		if(request.getHeader("access-control-request-headers")!=null) {
+		if (request.getHeader("access-control-request-headers") != null) {
 			return true;
 		}
-		if(token !=null && jwtService.isUsable(token) ) {
+		if (token != null && jwtService.isUsable(token)) {
 			return true;
-		}
-		else {
+		} else {
 			throw new UnauthorizedException();
 		}
 	}

@@ -9,11 +9,11 @@ import com.ssafy.project1.dto.CommentDTO;
 import com.ssafy.project1.repository.ICommentRepository;
 
 @Service
-public class CommentServiceImpl implements ICommentService{
+public class CommentServiceImpl implements ICommentService {
 
 	@Autowired
 	ICommentRepository comRepo;
-	
+
 	@Override
 	public int insert(CommentDTO dto) {
 		// TODO Auto-generated method stub
@@ -31,18 +31,17 @@ public class CommentServiceImpl implements ICommentService{
 		// TODO Auto-generated method stub
 		return comRepo.selectPhotoList(dto);
 	}
-	
+
 	@Override
 	public int delete(CommentDTO dto) {
 		// TODO Auto-generated method stub
 		return comRepo.delete(dto);
 	}
-	
+
 	@Override
 	public int update(CommentDTO dto) {
 		// TODO Auto-generated method stub
 		return comRepo.update(dto);
 	}
-	
 
 }

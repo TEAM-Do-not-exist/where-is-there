@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService {
 	MemberRepository memRepo;
 	@Autowired
 	EmailAuthRepository emailAuthRepo;
-	
+
 	@Override
 	public int insert(MemberDTO dto) {
 		// TODO Auto-generated method stub
@@ -49,17 +49,17 @@ public class MemberServiceImpl implements MemberService {
 		return memRepo.selectOneId(dto);
 	}
 
-
 	@Override
 	public int duplicateCheckId(MemberDTO dto) {
 		// TODO Auto-generated method stub
 		EmailAuthDTO emailDto = new EmailAuthDTO();
 		emailDto.setEmail(dto.getEmail());
-		emailAuthRepo.delete_useless();	//쓸데 업는 것들을 삭제
+		emailAuthRepo.delete_useless(); // 쓸데 업는 것들을 삭제
 		SuccessTemp authIdCheck = emailAuthRepo.exists_check_email_auth(emailDto);
-		if(authIdCheck.success==0 && memRepo.selectOneId(dto)==null) {	//인증받는리스트에 없고 회원리스트에서 찾았을때 null이면 중복되는 것이 없으므로 만들어도 된다
+		if (authIdCheck.success == 0 && memRepo.selectOneId(dto) == null) { // 인증받는리스트에 없고 회원리스트에서 찾았을때 null이면 중복되는 것이
+																			// 없으므로 만들어도 된다
 			return 1;
-		}else
+		} else
 			return -1;
 	}
 
@@ -67,11 +67,11 @@ public class MemberServiceImpl implements MemberService {
 	public int login(MemberDTO dto) {
 		// TODO Auto-generated method stub
 		MemberDTO mem = memRepo.selectOneId(dto);
-		if(mem.getExternal()==0) {
+		if (mem.getExternal() == 0) {
 			return memRepo.selectOneIdPw(dto);
-		}else if(mem.getExternal()==1){
+		} else if (mem.getExternal() == 1) {
 			return 2;
-		}else if(mem.getExternal()==2){
+		} else if (mem.getExternal() == 2) {
 			return 3;
 		}
 		return -1;
@@ -81,15 +81,15 @@ public class MemberServiceImpl implements MemberService {
 	public int loginNaver(MemberDTO dto) {
 		// TODO Auto-generated method stub
 		MemberDTO mem = memRepo.selectOneId(dto);
-		if(mem==null) {	//처음 로그인 시
+		if (mem == null) { // 처음 로그인 시
 			memRepo.insert1(dto);
 			return 2;
-		}else {			//처음이 아닐 시
-			if(mem.getExternal()==1) {	//네이버로 가입했는지 확인 후
+		} else { // 처음이 아닐 시
+			if (mem.getExternal() == 1) { // 네이버로 가입했는지 확인 후
 				return 2;
-			}else if(mem.getExternal()==0){
+			} else if (mem.getExternal() == 0) {
 				return 1;
-			}else if(mem.getExternal()==2){
+			} else if (mem.getExternal() == 2) {
 				return 3;
 			}
 		}
@@ -100,15 +100,15 @@ public class MemberServiceImpl implements MemberService {
 	public int loginKakao(MemberDTO dto) {
 		// TODO Auto-generated method stub
 		MemberDTO mem = memRepo.selectOneId(dto);
-		if(mem==null) {	//처음 로그인 시
+		if (mem == null) { // 처음 로그인 시
 			memRepo.insert2(dto);
 			return 3;
-		}else {
-			if(mem.getExternal()==2) {
+		} else {
+			if (mem.getExternal() == 2) {
 				return 3;
-			}else if(mem.getExternal()==0){
+			} else if (mem.getExternal() == 0) {
 				return 1;
-			}else if(mem.getExternal()==1){
+			} else if (mem.getExternal() == 1) {
 				return 2;
 			}
 		}

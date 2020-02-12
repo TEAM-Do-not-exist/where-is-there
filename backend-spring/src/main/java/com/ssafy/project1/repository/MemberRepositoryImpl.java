@@ -17,31 +17,31 @@ public class MemberRepositoryImpl implements MemberRepository {
 	@Override
 	public int insert0(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return session.insert("ssafy.member.insert0",dto);
+		return session.insert("ssafy.member.insert0", dto);
 	}
 
 	@Override
 	public int insert1(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return session.insert("ssafy.member.insert1",dto);
+		return session.insert("ssafy.member.insert1", dto);
 	}
 
 	@Override
 	public int insert2(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return session.insert("ssafy.member.insert2",dto);
-	}	
+		return session.insert("ssafy.member.insert2", dto);
+	}
 
 	@Override
 	public int delete(String str) {
 		// TODO Auto-generated method stub
-		return session.delete("ssafy.member.delete",str);
+		return session.delete("ssafy.member.delete", str);
 	}
 
 	@Override
 	public int update(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return session.update("ssafy.member.update",dto);
+		return session.update("ssafy.member.update", dto);
 	}
 
 	@Override
@@ -53,14 +53,13 @@ public class MemberRepositoryImpl implements MemberRepository {
 	@Override
 	public MemberDTO selectOneId(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return session.selectOne("ssafy.member.selectOne_id",dto);
+		return session.selectOne("ssafy.member.selectOne_id", dto);
 	}
 
 	@Override
 	public int selectOneIdPw(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return session.selectOne("ssafy.member.selectOne_id_pw",dto);
+		return session.selectOne("ssafy.member.selectOne_id_pw", dto);
 	}
-
 
 }
