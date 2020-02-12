@@ -7,16 +7,20 @@
             <h1>SIGN UP</h1>
           </v-card-title>
           <v-card-text>
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-              <v-btn :disabled="! valid" @click="submit" outlined width="277.33" height="60">submit</v-btn>
-              <v-container />
-              <v-layout align-center justify-center>
-                <p style="upper-margin: 10px;">
-                  <a @click="goback">back</a>
-                </p>
-              </v-layout>
-            </v-form>
+            <v-text-field 
+              v-model="email" 
+              :rules="emailRules" 
+              label="E-mail" 
+              required 
+              @keyup.13="submit"
+            ></v-text-field>
+            <v-btn :disabled="! valid" @click="submit" outlined width="277.33" height="60">submit</v-btn>
+            <v-container />
+            <v-layout align-center justify-center>
+              <p style="upper-margin: 10px;">
+                <a @click="goback">back</a>
+              </p>
+            </v-layout>
           </v-card-text>
         </v-card>
       </v-layout>
@@ -55,17 +59,11 @@ export default {
 
   methods: {
     submit() {
-      if (this.$refs.form.validate()) {
+      if (this.valid) {
         // Native form submission is not yet supported
         const uri_duplicate = 'http://localhost:8090/api/member/duplicateCheckEmail/'
         axios.get(uri_duplicate+this.email).then(r=>{
           if(r.data.resvalue==1){
-            //성공 
-            // alert("okok")
-            // const uri_email_auth = "http://localhost:8090/api/emailauth/request"
-            // axios.post(uri_email_auth,{
-            //   email : this.email
-            // }).then(this.$router.push("/signup1"))
             this.$router.push("/signup1/"+this.email)
           }else{
             //실패

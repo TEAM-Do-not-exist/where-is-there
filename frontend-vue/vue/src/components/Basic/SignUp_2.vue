@@ -7,17 +7,15 @@
           </v-card-title>
           <v-card-text>
             <span style="color : red;">남은 시간: {{ timeCounter }}초</span>
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field v-model="auth_key" :rules="nameRules" :counter="10" label="인증 번호" required></v-text-field>
-              <v-btn  @click="submit" outlined width="277.33" height="60">submit</v-btn>
-              <v-btn  @click="re_request" outlined width="277.33" height="60">인증번호 재발급</v-btn>
-              <v-container />
-              <v-layout align-center justify-center>
-                <p style="upper-margin: 10px;">
-                  <a @click="goback">back</a>
-                </p>
-              </v-layout>
-            </v-form>
+            <v-text-field v-model="auth_key" :rules="nameRules" :counter="10" label="인증 번호" required @keyup.13="submit"></v-text-field>
+            <v-btn  @click="submit" outlined width="277.33" height="60">submit</v-btn>
+            <v-btn  @click="re_request" outlined width="277.33" height="60">인증번호 재발급</v-btn>
+            <v-container />
+            <v-layout align-center justify-center>
+              <p style="upper-margin: 10px;">
+                <a @click="goback">back</a>
+              </p>
+            </v-layout>
           </v-card-text>
         </v-card>
       </v-layout>
@@ -60,7 +58,7 @@ export default {
         },1000)
     },
     re_request(){
-        const uri_email_auth = "http://localhost:8090/api/emailauth/re_request"
+        const uri_email_auth = "http://localhost:8090/api/emailauth/request_re"
         this.timeCounter=300
         axios.post(uri_email_auth,{
           email : this.$route.params.email
@@ -69,7 +67,7 @@ export default {
         )
     },
     submit() {
-      if (this.$refs.form.validate()) {
+      if (this.valid) {
         // Native form submission is not yet supported
         const uri_email_check = 'http://localhost:8090/api/emailauth/auth_check'
         const uri_signup = 'http://localhost:8090/api/member/insert'
