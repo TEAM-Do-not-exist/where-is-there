@@ -18,6 +18,12 @@ export default {
   components: {
     AdminInsta: AdminInsta,
     AdminReport: AdminReport
+  },
+  mounted() {
+    const isAdmin = this.$store.getters.getUser;
+    if (!isAdmin) {
+      this.$router.push("/error");
+    }
   }
 };
 </script>

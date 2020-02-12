@@ -1,5 +1,5 @@
 <template>
-  <div v-if="getUser !== undefined">
+  <div v-if="isUser">
     <v-btn
       v-if="!clicked"
       color="red darken-1"
@@ -51,7 +51,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getUser"])
+    ...mapGetters(["getUser"]),
+    isUser() {
+      return this.getUser ? true : false;
+    }
   },
   mounted() {
     this.$store.dispatch("getUserAction");

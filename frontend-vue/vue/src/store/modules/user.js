@@ -5,6 +5,7 @@ const state = {
   nickname: null,
   token: null
 };
+
 const mutations = {
   LOGIN_NOMAL_mutation(state, { id, password }) {
     // 스토어에 액세스 토큰 저장
