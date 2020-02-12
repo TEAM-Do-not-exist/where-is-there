@@ -36,6 +36,12 @@ public class FavoriteRepositoryImpl implements IFavoriteRepository{
 		// TODO Auto-generated method stub
 		return session.selectList("ssafy.favorite.selectPhotoList",dto);
 	}
+
+	@Override
+	public List<FavoriteDTO> selectBestList(FavoriteDTO dto) {
+		// TODO Auto-generated method stub
+		return session.selectList("ssafy.favorite.selectBestList",dto);
+	}
 	
 
 

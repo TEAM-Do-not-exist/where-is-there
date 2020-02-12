@@ -141,4 +141,29 @@ public class RestFavoriteController {
 		return resEntity;
 	}
 
+	@GetMapping("/selectBestList")
+	@ApiOperation(value=" 사진별 좋아요  많은순 조회 서비스")
+	public ResponseEntity<Map> comSelect(){
+		ResponseEntity<Map> resEntity=null;
+		int state=0;
+		int cnt=0;
+		try {
+			FavoriteDTO dto = new FavoriteDTO();
+			List<FavoriteDTO> selectBestList = favSer.selectBestList(dto);
+			Map<String,Object> msg = new HashMap<String, Object>();
+			state = 1;
+			msg.put("state", state);
+			msg.put("regmsg", "조회했습니다");
+			msg.put("resvalue",selectBestList);
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+			System.out.println(msg.toString());
+		}catch(RuntimeException e) {
+			Map<String, Object> msg = new HashMap<String, Object>();
+			state = -1;
+			msg.put("state", state);
+			msg.put("resmsg","조회실패");
+			resEntity = new ResponseEntity<Map>(msg,HttpStatus.OK);
+		}
+		return resEntity;
+	}
 }

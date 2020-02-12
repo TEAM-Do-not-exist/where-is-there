@@ -40,4 +40,10 @@ public class FavoriteServiceImpl implements IFavoriteService{
 		return favRepo.selectPhotoList(dto);
 	}
 
+	@Override
+	public List<FavoriteDTO> selectBestList(FavoriteDTO dto) {
+		// TODO Auto-generated method stub
+		return favRepo.selectBestList(dto);
+	}
+
 }

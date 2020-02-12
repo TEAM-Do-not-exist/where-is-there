@@ -29,5 +29,11 @@
 		select * from favorite where fcode = #{fcode}
 	</select>
 	
+	<select id="selectBestList" resultType="FavoriteDTO">
+		select photo.psource,favorite.fcode,count(*)
+		from favorite 
+		left join photo on photo.pcode = favorite.fcode
+		group by fcode order by count(fcode) desc limit 5 ;
+	</select>
 
 </mapper>
