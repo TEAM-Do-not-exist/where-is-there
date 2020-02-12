@@ -8,7 +8,8 @@
         v-on="on"
         outlined
         dark
-      >update</v-btn>
+        >update</v-btn
+      >
     </template>
 
     <v-card>
@@ -40,10 +41,18 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field label="Source*" :value="photo[0].psource" disabled></v-text-field>
+              <v-text-field
+                label="Source*"
+                :value="photo[0].psource"
+                disabled
+              ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field label="URL*" :value="photo[0].purl" disabled></v-text-field>
+              <v-text-field
+                label="URL*"
+                :value="photo[0].purl"
+                disabled
+              ></v-text-field>
             </v-col>
           </v-row>
         </v-container>
@@ -57,7 +66,8 @@
           text
           :disabled="!validated || !isAdmin"
           @click="updatePhoto"
-        >Update</v-btn>
+          >Update</v-btn
+        >
         <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
       </v-card-actions>
     </v-card>
@@ -99,7 +109,7 @@ export default {
       return this.place !== "" && this.name !== "";
     },
     isAdmin() {
-      return this.getUser === "admin" ? true : false;
+      return this.getUser === process.env.VUE_APP_ADMIN_EMAIL ? true : false;
     }
   }
 };

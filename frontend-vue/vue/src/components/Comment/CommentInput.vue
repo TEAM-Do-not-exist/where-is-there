@@ -25,13 +25,13 @@ export default {
     sendComment() {
       if (this.comment !== "") {
         const duplicated = this.comments.filter(
-          comment => comment.cid === "admin"
+          comment => comment.cid === this.getUser
         );
         if (duplicated.length < 1) {
           const url = `${process.env.VUE_APP_SPRING_URL}/api/comment/insert`;
           const data = {
             ccode: Number(this.ccode),
-            cid: "admin",
+            cid: this.getUser,
             content: this.comment
           };
           axios.post(url, data).then(() => {

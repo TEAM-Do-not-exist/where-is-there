@@ -10,7 +10,7 @@ app.all("/*", function(req, res, next) {
   next();
 });
 
-// localhost:3000서버에 접속하면 클라이언트로 메세지을 전송한다
+// 서버에 접속하면 클라이언트로 메세지을 전송한다
 app.get("/", function(req, res) {
   res.sendFile("Hellow Chating App Server");
 });

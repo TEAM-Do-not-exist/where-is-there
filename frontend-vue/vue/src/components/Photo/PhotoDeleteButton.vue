@@ -1,13 +1,25 @@
 <template>
   <v-bottom-sheet v-model="sheet" persistent>
     <template v-slot:activator="{ on }">
-      <v-btn class="ma-2" color="red darken-1" :disabled="!isAdmin" v-on="on" outlined dark>delete</v-btn>
+      <v-btn
+        class="ma-2"
+        color="red darken-1"
+        :disabled="!isAdmin"
+        v-on="on"
+        outlined
+        dark
+        >delete</v-btn
+      >
     </template>
 
     <v-sheet class="text-center" height="200px">
       <div class="py-12">정말로 삭제하시겠습니까?</div>
-      <v-btn class="mb-6" color="red" @click="deletePhoto" small text>delete</v-btn>
-      <v-btn class="mb-6" color="blue" @click="sheet = !sheet" small text>close</v-btn>
+      <v-btn class="mb-6" color="red" @click="deletePhoto" small text
+        >delete</v-btn
+      >
+      <v-btn class="mb-6" color="blue" @click="sheet = !sheet" small text
+        >close</v-btn
+      >
     </v-sheet>
   </v-bottom-sheet>
 </template>
@@ -39,7 +51,7 @@ export default {
   computed: {
     ...mapGetters(["photo", "getUser"]),
     isAdmin() {
-      return this.getUser === "admin" ? true : false;
+      return this.getUser === process.env.VUE_APP_ADMIN_EMAIL ? true : false;
     }
   }
 };

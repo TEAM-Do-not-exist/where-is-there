@@ -1,7 +1,7 @@
 import axios from "axios";
 import router from "../../router";
 
-const url = "http://127.0.0.1:8090/api/photo";
+const url = `${process.env.VUE_APP_SPRING_URL}/api/photo`;
 
 const state = {
   photo: {},

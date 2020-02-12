@@ -1,6 +1,11 @@
 <template>
   <v-container>
-    <v-card v-for="(report, idx) in reports" :key="idx" :outlined="true" class="mx-auto">
+    <v-card
+      v-for="(report, idx) in reports"
+      :key="idx"
+      :outlined="true"
+      class="mx-auto"
+    >
       <!-- simple info of report -->
       <v-card-text>
         <p class="title text--white">ID: {{ report.rid }}</p>
@@ -30,5 +35,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
