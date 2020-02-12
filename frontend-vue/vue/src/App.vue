@@ -170,32 +170,7 @@ export default {
     "Message-List": MessageList,
     "Message-From": MessageForm
   },
-  computed: {
-    ...mapGetters(["nickname", "getUser"]),
-    ...mapState({
-      msgDatas: state => state.socket.msgDatas,
-      nickname1: state => state.user.nickname,
-      token: state => state.user.token
-    }),
-    isAdmin() {
-      return this.getUser === process.env.VUE_APP_ADMIN_EMAIL ? true : false;
-    },
-    options() {
-      return {
-        duration: 300,
-        offset: 0,
-        easing: 0
-      };
-    }
-  },
-  created() {
-    this.$socket.on("chat", data => {
-      this.pushMsgData(data);
-    });
-  },
-  mounted() {
-    this.$store.dispatch("SET_HEADER");
-  },
+
   methods: {
     to_admin() {
       this.$router.push("/admin");
@@ -235,6 +210,33 @@ export default {
     enterf() {
       this.enter = false;
     }
+  },
+  computed: {
+    ...mapGetters(["nickname", "getUser"]),
+    ...mapState({
+      msgDatas: state => state.socket.msgDatas,
+      nickname1: state => state.user.nickname,
+      token: state => state.user.token
+    }),
+    isAdmin() {
+      return this.getUser === process.env.VUE_APP_ADMIN_EMAIL ? true : false;
+    },
+    options() {
+      return {
+        duration: 300,
+        offset: 0,
+        easing: 0
+      };
+    }
+  },
+  created() {
+    this.$socket.on("chat", data => {
+      this.pushMsgData(data);
+    });
+  },
+  mounted() {
+    this.$store.dispatch("SET_HEADER");
+    this.$store.dispatch("getUserAction");
   }
 };
 </script>
