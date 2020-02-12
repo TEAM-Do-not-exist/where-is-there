@@ -36,7 +36,7 @@ const mutations = {
             .then(r=>{
               state.nickname = r.data.resvalue.nickname
               sessionStorage.setItem('nickname',r.data.resvalue.nickname)
-              // alert(r.data.resvalue.nickname)
+              alert(sessionStorage.getItem('nickname')+"님 안녕하세요!!!")
               router.push('/')
             })
         }else if(r.data.state==-2){
@@ -76,7 +76,7 @@ const mutations = {
             state.nickname = r.data.resvalue.nickname
             sessionStorage.setItem('nickname',r.data.resvalue.nickname)
             // console.log(sessionStorage.getItem('nickname'))
-            alert(sessionStorage.getItem('nickname'))
+            alert(sessionStorage.getItem('nickname')+"님 안녕하세요!!!")
             router.push('/')
           })
         }else if(r.data.state==-2){
@@ -115,7 +115,7 @@ const mutations = {
               state.nickname = r.data.resvalue.nickname
               sessionStorage.setItem('nickname',r.data.resvalue.nickname)
               // router.push('/')
-              alert("kakao : "+sessionStorage.getItem('nickname'))
+              alert(sessionStorage.getItem('nickname')+"님 안녕하세요!!!")
               router.push('/')
             })
         }else if(r.data.state==-2){

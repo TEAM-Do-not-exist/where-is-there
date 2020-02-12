@@ -79,11 +79,9 @@
 import KakaoLogin from "vue-kakao-login";
 import NaverLogin from "vue-naver-login";
 
-import nearo from '../Error/main';
 // import router from '../../router'
 import { mapGetters } from 'vuex';
 
-let callbackFunction = nearo.callbackFunction;
 
 // let onSuccess;
 let onFailure = data => {
@@ -124,7 +122,7 @@ export default {
       this.$store.dispatch('LOGIN_KAKAO',data.access_token).then();
     },
     onFailure,
-    callbackFunction,
+    callbackFunction(){},
     to_sign_up() {
       this.$router.push("/signup");
     }

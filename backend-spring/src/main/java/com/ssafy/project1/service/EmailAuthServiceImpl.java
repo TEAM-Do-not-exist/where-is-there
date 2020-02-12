@@ -40,7 +40,7 @@ public class EmailAuthServiceImpl implements EmailAuthService {
 			//인증요청 db에 저장
 			emailAuthRepo.insert(dto);
 			//인증요청 email 발송 
-			mailService.sendMail(dto.getEmail(), "project1의 인증 메일 입니다", "인증번호는 "+dto.getAuth_key()+" 입니다.");
+			mailService.sendMail(dto.getEmail(), "[거기어디니]의 인증 메일 입니다", "인증번호는 "+dto.getAuth_key()+" 입니다.");
 			return 1;
 		}else
 			return -1;
@@ -63,7 +63,7 @@ public class EmailAuthServiceImpl implements EmailAuthService {
 			//업데이트를 한다
 			emailAuthRepo.update_key(dto);
 			//인증요청 email 다시 발송
-			mailService.sendMail(dto.getEmail(), "project1의 재인증 메일 입니다", "인증번호는 "+dto.getAuth_key()+" 입니다.");
+			mailService.sendMail(dto.getEmail(), "[거기어디니]의 재인증 메일 입니다", "인증번호는 "+dto.getAuth_key()+" 입니다.");
 
 			return 1;
 		}else

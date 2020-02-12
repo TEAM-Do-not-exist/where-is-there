@@ -15,8 +15,9 @@
                 label="Password"
                 type="password"
                 required
+                @keyup.13="submit"
               ></v-text-field>
-              <v-text-field v-model="name" :rules="nameRules" :counter="10" label="UserName" required></v-text-field>
+              <v-text-field v-model="name" :rules="nameRules" :counter="10" label="UserName" required @keyup.13="submit"></v-text-field>
               <v-btn  @click="submit" outlined width="277.33" height="60">submit</v-btn>
               <v-container />
               <v-layout align-center justify-center>
