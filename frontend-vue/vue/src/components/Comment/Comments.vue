@@ -9,7 +9,7 @@
             <v-row class="justify-space-between align-center">
               <div v-if="!modified">{{ comment.content }}</div>
               <v-text-field
-                label="Modify your comment"
+                label="댓글을 수정해주세요."
                 v-else
                 v-model="content"
                 @keyup.enter="updateComment(idx)"

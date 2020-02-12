@@ -1,10 +1,12 @@
 <template>
   <v-text-field
     persistent-hint
-    label="comment"
+    label="댓글"
     v-model="comment"
     :hint="hint"
-    :rules="[v => !errorMessage || 'You cannot leave comments more than 2']"
+    :rules="[
+      v => !errorMessage || '하나의 아이디로 2개 이상의 댓글을 달 수 없습니다.'
+    ]"
     :disabled="errorMessage !== '' || getUser === undefined"
     @keyup.enter="sendComment"
   ></v-text-field>
@@ -40,7 +42,7 @@ export default {
           });
         } else {
           this.comment = "";
-          this.errorMessage = "You can write only one comment for one ID";
+          this.errorMessage = "에러가 발생했습니다.";
         }
       }
     }

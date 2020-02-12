@@ -5,16 +5,16 @@
       border="top"
       color="blue"
       elevation="2"
-      class="text-center font-weight-bold"
-      >Instagram Crawling Board</v-alert
+      class="text-center font-weight-black"
+      >인스타그램 데이터 가져오기</v-alert
     >
 
     <!-- silder for dicide crawling size -->
-    <v-subheader class="pl-0">Infomation Request Size</v-subheader>
+    <v-subheader class="pl-0">데이터 요청량</v-subheader>
     <v-slider
       v-model="slider"
       :disabled="!isAdmin"
-      :rules="[v => v > 0 || 'Request more than 0']"
+      :rules="[v => v > 0 || '요청량은 0보다 커야합니다.']"
       :thumb-size="24"
       :step="10"
       thumb-label
@@ -25,6 +25,7 @@
       <v-col v-for="(name, idx) in btnNames" :key="idx" md="6" sm="12">
         <v-btn
           dark
+          class="font-weight-black"
           color="blue"
           :block="true"
           :disabled="!isAdmin || loading || slider < 10"
@@ -70,12 +71,12 @@ export default {
   data: () => ({
     btnNames: {
       1: {
-        name: "travelholic",
+        name: "여행에미치다",
         url: "instagram",
         target: "tour"
       },
       2: {
-        name: "greedeat",
+        name: "오늘뭐먹지",
         url: "instagram",
         target: "eat"
       }
@@ -111,7 +112,7 @@ export default {
         this.page = 1;
         this.length = 1;
 
-        if (this.getUser === "admin") {
+        if (this.getUser === process.env.VUE_APP_ADMIN_EMAIL) {
           this.loading = true;
           const url = `${process.env.VUE_APP_PYTHON_URL}/instagram/?length=${this.slider}&target=${name.target}`;
           axios

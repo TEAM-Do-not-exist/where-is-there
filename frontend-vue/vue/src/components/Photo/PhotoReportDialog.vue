@@ -14,7 +14,9 @@
       </template>
 
       <v-card>
-        <v-card-title class="headline" primary-title>Report</v-card-title>
+        <v-card-title class="headline font-weight-bold" primary-title
+          >사진의 잘못된 부분을 알려주세요</v-card-title
+        >
         <v-divider></v-divider>
 
         <v-card-text>
@@ -50,10 +52,21 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text color="warning" :disabled="!getUser" @click="reportPhoto"
-            >Report</v-btn
+          <v-btn
+            text
+            class="font-weight-black"
+            color="warning"
+            :disabled="!getUser"
+            @click="reportPhoto"
+            >보내기</v-btn
           >
-          <v-btn color="primary" text @click="dialog = false">Close</v-btn>
+          <v-btn
+            class="font-weight-black"
+            color="primary"
+            text
+            @click="dialog = false"
+            >취소하기</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>

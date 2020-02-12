@@ -3,8 +3,13 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <!-- dialog open button -->
       <template v-slot:activator="{ on }">
-        <v-btn color="blue" text v-on="on" :disabled="!isAdmin"
-          >Check Information</v-btn
+        <v-btn
+          class="font-weight-black"
+          color="blue"
+          text
+          v-on="on"
+          :disabled="!isAdmin"
+          >정보 확인하기</v-btn
         >
       </template>
 
@@ -12,7 +17,7 @@
       <v-card>
         <!-- head -->
         <v-card-title>
-          <span class="headline">Image Information</span>
+          <span class="headline font-weight-black">사진 정보</span>
         </v-card-title>
         <!-- carousel images, when click image, image will set selected image -->
         <v-carousel hide-delimiter-background delimiter-icon="mdi-minus">
@@ -34,9 +39,9 @@
               <v-col cols="12" sm="12" md="6">
                 <v-autocomplete
                   :items="item.pplace_pname"
-                  :rules="[v => !!v || 'Place name is required']"
+                  :rules="[v => !!v || '지역을 확인해주세요.']"
                   v-model="place"
-                  label="Place Name*"
+                  label="지역 이름*"
                   required
                 ></v-autocomplete>
               </v-col>
@@ -44,27 +49,27 @@
               <v-col cols="12" sm="12" md="6">
                 <v-autocomplete
                   :items="item.pplace_pname"
-                  :rules="[v => !!v || 'Store name is required']"
+                  :rules="[v => !!v || '장소를 확인해주세요.']"
                   v-model="store"
-                  label="Store Name*"
+                  label="장소 이름*"
                   required
                 ></v-autocomplete>
               </v-col>
               <!-- check image url -->
               <v-col cols="12">
                 <v-text-field
-                  :rules="[v => !!v || 'Image url is required']"
+                  :rules="[v => !!v || '사진 주소를 확인해주세요.']"
                   v-model="source"
-                  label="Image Url*"
+                  label="사진 주소*"
                   required
                 ></v-text-field>
               </v-col>
               <!-- check original link -->
               <v-col cols="12">
                 <v-text-field
-                  :rules="[v => !!v || 'Original url is required']"
+                  :rules="[v => !!v || '원본 주소를 확인해주세요.']"
                   v-model="url"
-                  label="Original Url*"
+                  label="원본 주소*"
                   required
                 ></v-text-field>
               </v-col>
@@ -75,22 +80,28 @@
         <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false"
-            >Close</v-btn
+          <v-btn
+            class="font-weight-black"
+            color="blue darken-1"
+            text
+            @click="dialog = false"
+            >취소하기</v-btn
           >
           <v-btn
             text
+            class="font-weight-black"
             color="red darken-1"
             :disabled="!this.source || !this.isAdmin"
             @click="denyItem(item)"
-            >Deny</v-btn
+            >제외하기</v-btn
           >
           <v-btn
             text
+            class="font-weight-black"
             color="blue darken-1"
             :disabled="!validated"
             @click="insertItem(item)"
-            >Save</v-btn
+            >저장하기</v-btn
           >
         </v-card-actions>
       </v-card>

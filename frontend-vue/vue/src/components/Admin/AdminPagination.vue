@@ -2,8 +2,12 @@
   <div class="overflow-hidden">
     <!-- title -->
     <div class="text-center mb-2">
-      <v-btn text color="deep-purple" @click="showNav = !showNav"
-        >Pagination</v-btn
+      <v-btn
+        text
+        class="font-weight-black"
+        color="deep-purple"
+        @click="showNav = !showNav"
+        >전체 페이지</v-btn
       >
     </div>
 
@@ -14,7 +18,6 @@
       color="indigo"
     >
       <v-btn @click="onPageChange(-1)">
-        <span>Prev</span>
         <v-icon>mdi-minus</v-icon>
       </v-btn>
 
@@ -24,7 +27,6 @@
       </v-btn>
 
       <v-btn @click="onPageChange(1)">
-        <span>Next</span>
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-bottom-navigation>

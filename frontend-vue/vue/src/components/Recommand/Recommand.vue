@@ -26,7 +26,7 @@
         <p class="subtitle-1 font-weight-thin my-4">
           더 자세한 위치는 하단 각 장소의 이름을 클릭해주세요!
         </p>
-        <p class="subtitle-1 fonr-weight-black my-4" @click="toBack">
+        <p class="subtitle-1 font-weight-black my-4" @click="toBack">
           돌아가려면 클릭해주세요!
         </p>
       </div>

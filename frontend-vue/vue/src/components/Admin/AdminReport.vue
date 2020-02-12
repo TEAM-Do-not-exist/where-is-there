@@ -5,8 +5,8 @@
       border="top"
       color="red"
       elevation="2"
-      class="text-center font-weight-bold"
-      >User Report Board</v-alert
+      class="text-center font-weight-black"
+      >유저 신고 게시판</v-alert
     >
 
     <!-- report list -->

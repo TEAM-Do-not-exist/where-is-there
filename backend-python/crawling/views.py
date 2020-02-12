@@ -81,7 +81,7 @@ def crawling(target, length, filename):
     # return results
     res, epoch = {}, 1
     for data in datas:
-        print(f'===== {epoch} / {length} done =====')
+        print('\n' + f'===== {epoch} / {length} done =====' + '\n')
         code, url, source, hashtags = crawling_info(data, len(res), filename)
         if hashtags != None:
             res[code] = {
@@ -90,6 +90,7 @@ def crawling(target, length, filename):
                 'psource': source,
                 'pplace_pname': hashtags
             }
+        epoch += 1
 
     # save results
     if res != {}:

@@ -4,17 +4,17 @@
       <v-btn
         :disabled="!isAdmin"
         color="yellow darken-1"
-        class="ma-2"
+        class="ma-2 font-weight-black"
         v-on="on"
         outlined
         dark
-        >update</v-btn
+        >수정하기</v-btn
       >
     </template>
 
     <v-card>
       <v-card-title>
-        <span class="headline">Photo Update</span>
+        <span class="headline font-weight-black">사진 정보</span>
       </v-card-title>
       <v-divider></v-divider>
 
@@ -26,7 +26,7 @@
               <v-text-field
                 v-model="place"
                 :hint="`기존 지역 이름은 ${photo[0].pplace}입니다.`"
-                label="Place*"
+                label="지역 이름*"
                 persistent-hint
                 required
               ></v-text-field>
@@ -35,21 +35,21 @@
               <v-text-field
                 v-model="name"
                 :hint="`기존 장소 이름은 ${photo[0].pname}입니다.`"
-                label="Store*"
+                label="장소*"
                 persistent-hint
                 required
               ></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field
-                label="Source*"
+                label="사진 URL*"
                 :value="photo[0].psource"
                 disabled
               ></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field
-                label="URL*"
+                label="원본 URL*"
                 :value="photo[0].purl"
                 disabled
               ></v-text-field>
@@ -62,13 +62,20 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
+          class="font-weight-black"
           color="warning darken-1"
           text
           :disabled="!validated || !isAdmin"
           @click="updatePhoto"
-          >Update</v-btn
+          >수정하기</v-btn
         >
-        <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+        <v-btn
+          class="font-weight-black"
+          color="blue darken-1"
+          text
+          @click="dialog = false"
+          >취소하기</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-dialog>
