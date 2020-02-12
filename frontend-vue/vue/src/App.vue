@@ -142,6 +142,7 @@
 
 <script>
 import Vuetify from "vuetify";
+import jwtDecode from "jwt-decode";
 import { mapMutations, mapState, mapGetters } from "vuex";
 import MessageList from "@/components/Chat/MessageList.vue";
 import MessageForm from "@/components/Chat/MessageForm.vue";
@@ -212,14 +213,21 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["nickname", "getUser"]),
     ...mapState({
       msgDatas: state => state.socket.msgDatas,
       nickname1: state => state.user.nickname,
       token: state => state.user.token
     }),
+    ...mapGetters(["nickname"]),
     isAdmin() {
-      return this.getUser === process.env.VUE_APP_ADMIN_EMAIL ? true : false;
+      if (this.token !== "null" && this.token !== null) {
+        if (
+          jwtDecode(this.token).member.email === process.env.VUE_APP_ADMIN_EMAIL
+        ) {
+          return true;
+        }
+      }
+      return false;
     },
     options() {
       return {

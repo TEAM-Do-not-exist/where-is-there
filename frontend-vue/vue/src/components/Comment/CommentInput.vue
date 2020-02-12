@@ -7,7 +7,7 @@
     :rules="[
       v => !errorMessage || '하나의 아이디로 2개 이상의 댓글을 달 수 없습니다.'
     ]"
-    :disabled="errorMessage !== '' || getUser === undefined"
+    :disabled="!isUser"
     @keyup.enter="sendComment"
   ></v-text-field>
 </template>
@@ -50,11 +50,14 @@ export default {
   computed: {
     ...mapGetters(["comments", "getUser"]),
     hint() {
-      if (this.getUser === undefined) {
+      if (!this.isUser) {
         return "로그인이 필요한 기능입니다.";
       } else {
         return "댓글을 남겨주세요.";
       }
+    },
+    isUser() {
+      return this.getUser ? true : false;
     }
   },
   mounted() {
