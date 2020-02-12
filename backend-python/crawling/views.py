@@ -127,23 +127,23 @@ def instagram(request):
         res = crawling(target=target, length=length, filename=filename)
     else:
         # or not, compare files
-        # with open(f'{mid_output}/{filename}.json', 'r', encoding='utf-8') as f:
-        #     datas = json.load(f)
+        with open(f'{mid_output}/{filename}.json', 'r', encoding='utf-8') as f:
+            datas = json.load(f)
 
-        # end = datas[0].get('datetime')[:10]
-        # now = date.strftime(date.today(), '%Y-%m-%d')
-        # if len(datas) != length or now != end:
-        #     res = crawling(target=target, length=length, filename=filename)
-        # else:
-        with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
-            json_datas = json.load(f)
+        end = datas[0].get('datetime')[:10]
+        now = date.strftime(date.today(), '%Y-%m-%d')
+        if len(datas) != length or now != end:
+            res = crawling(target=target, length=length, filename=filename)
+        else:
+            with open(f'{output}/{filename}.json', 'r', encoding='utf-8') as f:
+                json_datas = json.load(f)
 
-        for key, val in json_datas.items():
-            url = val['purl']
-            checked = Photo.objects.filter(purl=url)
-            unused = PhotoCheck.objects.filter(purl=url)
-            if len(checked) < 1 and len(unused) < 1:
-                res[key] = val
+            for key, val in json_datas.items():
+                url = val['purl']
+                checked = Photo.objects.filter(purl=url)
+                unused = PhotoCheck.objects.filter(purl=url)
+                if len(checked) < 1 and len(unused) < 1:
+                    res[key] = val
 
     return Response(res, status=200)
 
