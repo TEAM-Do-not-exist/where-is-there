@@ -18,9 +18,16 @@
               <!-- update, delete buttons -->
               <div class="d-inline-flex">
                 <v-btn icon>
-                  <v-icon v-show="comment.cid === 'admin'" @click="updateComment(idx)">mdi-pencil</v-icon>
+                  <v-icon
+                    v-show="comment.cid === getUser"
+                    @click="updateComment(idx)"
+                    >mdi-pencil</v-icon
+                  >
                 </v-btn>
-                <CommentDeleteButton v-show="comment.cid === 'admin'" :ccode="ccode" />
+                <CommentDeleteButton
+                  v-show="comment.cid === getUser"
+                  :ccode="ccode"
+                />
               </div>
             </v-row>
           </v-col>
@@ -56,7 +63,7 @@ export default {
         const url = `${process.env.VUE_APP_SPRING_URL}/api/comment/update`;
         const data = {
           ccode: this.ccode,
-          cid: "admin",
+          cid: this.getUser,
           content: this.content
         };
         axios.put(url, data).then(() => {
@@ -68,7 +75,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["comments"])
+    ...mapGetters(["comments", "getUser"])
   },
   mounted() {
     this.$store.dispatch("getCommentsAction", this.ccode);

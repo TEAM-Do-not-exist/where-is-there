@@ -8,17 +8,32 @@
           </v-card-title>
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field v-model="email" :rules="emailRules" label="E-mail" required disabled="true"></v-text-field>
+              <v-text-field
+                v-model="email"
+                :rules="emailRules"
+                :disabled="true"
+                label="E-mail"
+                required
+              ></v-text-field>
               <v-text-field
                 v-model="password"
                 :rules="passwordRules"
                 label="Password"
                 type="password"
                 required
-                @keyup.13="submit"
+                @keyup.enter="submit"
               ></v-text-field>
-              <v-text-field v-model="name" :rules="nameRules" :counter="10" label="UserName" required @keyup.13="submit"></v-text-field>
-              <v-btn  @click="submit" outlined width="277.33" height="60">submit</v-btn>
+              <v-text-field
+                v-model="name"
+                :rules="nameRules"
+                :counter="10"
+                label="UserName"
+                required
+                @keyup.enter="submit"
+              ></v-text-field>
+              <v-btn @click="submit" outlined width="277.33" height="60"
+                >submit</v-btn
+              >
               <v-container />
               <v-layout align-center justify-center>
                 <p style="upper-margin: 10px;">
@@ -34,23 +49,18 @@
 </template>
 
 <script>
+import axios from "axios";
 
-import axios from 'axios';
 export default {
-  props: ['email'],
+  name: "SignUp_1",
+  props: { email: String },
   data: () => ({
-    info : {
-      email : this.email,
-      name : this.name,
-      pw : this.password
-    },
     valid: true,
     name: "",
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length <= 10) || "Name must be less than 10 characters"
     ],
-    // email: "",
     emailRules: [
       v => !!v || "E-mail is required",
       v =>
@@ -61,25 +71,27 @@ export default {
     passwordRules: [
       v => !!v || "Password is required",
       v => (v && v.length >= 3) || "Password must be in sufficient size"
-    ],
-    checkbox: false
+    ]
   }),
-
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        const uri_email_auth = "http://localhost:8090/api/emailauth/request"
-        axios.post(uri_email_auth,{
-          email : this.email
-        }).then(this.$router.push({name:"signup2",params:{
-          email:this.email,
-          name: this.name,
-          pw : this.password
-          }}))
+        const uriEmailAuth = `${process.env.VUE_APP_SPRING_URL}/api/emailauth/request`;
+        axios
+          .post(uriEmailAuth, {
+            email: this.email
+          })
+          .then(
+            this.$router.push({
+              name: "signup2",
+              params: {
+                email: this.email,
+                name: this.name,
+                pw: this.password
+              }
+            })
+          );
       }
-    },
-    clear() {
-      this.$refs.form.reset();
     },
     goback() {
       this.$router.go(-1);
@@ -88,5 +100,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

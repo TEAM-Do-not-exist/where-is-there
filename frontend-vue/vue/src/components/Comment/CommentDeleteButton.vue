@@ -8,8 +8,12 @@
       </template>
       <v-sheet class="text-center" height="200px">
         <div class="py-12">정말로 삭제하시겠습니까?</div>
-        <v-btn class="mt-6" small text color="red" @click="deleteComment">delete</v-btn>
-        <v-btn class="mt-6" small text color="blue" @click="sheet = !sheet">close</v-btn>
+        <v-btn class="mt-6" small text color="red" @click="deleteComment"
+          >delete</v-btn
+        >
+        <v-btn class="mt-6" small text color="blue" @click="sheet = !sheet"
+          >close</v-btn
+        >
       </v-sheet>
     </v-bottom-sheet>
   </div>
@@ -17,6 +21,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CommentDeleteButton",
@@ -30,15 +35,17 @@ export default {
     deleteComment() {
       this.sheet = !this.sheet;
       if (this.sheet === false) {
-        const url = `${process.env.VUE_APP_SPRING_URL}/api/comment/delete/${this.ccode}/admin`;
+        const url = `${process.env.VUE_APP_SPRING_URL}/api/comment/delete/${this.ccode}/${this.getUser}`;
         axios.delete(url).then(() => {
           this.$store.dispatch("deleteCommentAction", this.ccode);
         });
       }
     }
+  },
+  computed: {
+    ...mapGetters(["getUser"])
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>

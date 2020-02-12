@@ -6,7 +6,8 @@
       color="blue"
       elevation="2"
       class="text-center font-weight-bold"
-    >Instagram Crawling Board</v-alert>
+      >Instagram Crawling Board</v-alert
+    >
 
     <!-- silder for dicide crawling size -->
     <v-subheader class="pl-0">Infomation Request Size</v-subheader>
@@ -28,7 +29,8 @@
           :block="true"
           :disabled="!isAdmin || loading || slider < 10"
           @click="getInstaItems(name)"
-        >{{ name.name }}</v-btn>
+          >{{ name.name }}</v-btn
+        >
       </v-col>
     </v-row>
 
@@ -43,7 +45,11 @@
     </div>
 
     <!-- pagination -->
-    <AdminPagination :page="page" :length="length" @onPageChange="onPageChange" />
+    <AdminPagination
+      :page="page"
+      :length="length"
+      @onPageChange="onPageChange"
+    />
   </v-col>
 </template>
 
@@ -147,7 +153,7 @@ export default {
   computed: {
     ...mapGetters(["getUser"]),
     isAdmin() {
-      return this.getUser === "admin" ? true : false;
+      return this.getUser === process.env.VUE_APP_ADMIN_EMAIL ? true : false;
     }
   },
   mounted() {

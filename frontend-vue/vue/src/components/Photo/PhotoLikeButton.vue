@@ -1,9 +1,21 @@
 <template>
   <div v-if="getUser !== undefined">
-    <v-btn v-if="!clicked" color="red darken-1" class="ma-2" outlined @click="favorite">
+    <v-btn
+      v-if="!clicked"
+      color="red darken-1"
+      class="ma-2"
+      outlined
+      @click="favorite"
+    >
       <v-icon>mdi-heart-outline</v-icon>
     </v-btn>
-    <v-btn v-if="clicked" color="red darken-1" class="ma-2" outlined @click="favorite">
+    <v-btn
+      v-if="clicked"
+      color="red darken-1"
+      class="ma-2"
+      outlined
+      @click="favorite"
+    >
       <v-icon>mdi-heart</v-icon>
     </v-btn>
   </div>
