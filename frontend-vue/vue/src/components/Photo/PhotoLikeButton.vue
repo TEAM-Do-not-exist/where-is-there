@@ -1,21 +1,9 @@
 <template>
   <div v-if="isUser">
-    <v-btn
-      v-if="!clicked"
-      color="red darken-1"
-      class="ma-2"
-      outlined
-      @click="favorite"
-    >
+    <v-btn v-if="!clicked" color="red darken-1" class="ma-2" outlined @click="favorite">
       <v-icon>mdi-heart-outline</v-icon>
     </v-btn>
-    <v-btn
-      v-if="clicked"
-      color="red darken-1"
-      class="ma-2"
-      outlined
-      @click="favorite"
-    >
+    <v-btn v-if="clicked" color="red darken-1" class="ma-2" outlined @click="favorite">
       <v-icon>mdi-heart</v-icon>
     </v-btn>
   </div>
@@ -58,17 +46,19 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getUserAction");
-    const url = `${process.env.VUE_APP_SPRING_URL}/api/favorite/selectMyList/`;
     const token = sessionStorage.token;
-    if (token !== "null" && token !== null) {
-      axios.get(url + token).then(r => {
-        const checked = r.data.resvalue.filter(
-          fav => fav.fcode === Number(this.pcode)
-        );
-        if (checked.length > 0) {
-          this.clicked = true;
-        }
-      });
+    if (token !== undefined && token !== "null" && token !== null) {
+      const url = `${process.env.VUE_APP_SPRING_URL}/api/favorite/selectMyList/`;
+      if (token !== "null" && token !== null) {
+        axios.get(url + token).then(r => {
+          const checked = r.data.resvalue.filter(
+            fav => fav.fcode === Number(this.pcode)
+          );
+          if (checked.length > 0) {
+            this.clicked = true;
+          }
+        });
+      }
     }
   }
 };
