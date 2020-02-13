@@ -19,17 +19,18 @@
           <PhotoUpdateDialog />
         </div>
       </v-col>
-      <PhotoKakaoMap />
+      <PhotoKakaoMap v-if="isSearched" />
+      <v-col v-else cols="12" md="6" xs="12">
+        <v-card width="100%" height="300" class="d-flex justify-center align-center">
+          <v-card-subtitle class="subtitle-1 font-weight-thin">정확한 검색 정보를 찾을 수 없습니다.</v-card-subtitle>
+        </v-card>
+      </v-col>
     </v-row>
     <div style="height: 100px"></div>
 
     <!-- comment vue -->
     <v-divider :dark="true" class="my-3"></v-divider>
-    <Comments
-      :ccode="pcode"
-      @onModifyComment="onModifyComment"
-      @deleteComment="deleteComment"
-    />
+    <Comments :ccode="pcode" @onModifyComment="onModifyComment" @deleteComment="deleteComment" />
   </v-container>
 </template>
 
@@ -79,6 +80,12 @@ export default {
     ...mapGetters(["photo", "getUser"]),
     isAdmin() {
       return this.getUser === process.env.VUE_APP_ADMIN_EMAIL ? true : false;
+    },
+    isSearched() {
+      return JSON.stringify(this.photo[1]) !==
+        JSON.stringify({ lat: 33.450701, lng: 126.570667 })
+        ? true
+        : false;
     }
   },
   mounted() {
