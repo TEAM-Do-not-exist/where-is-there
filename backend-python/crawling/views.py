@@ -150,35 +150,6 @@ def instagram(request):
 
 
 @api_view(['GET', ])
-def tour_api(request):
-    keyword = quote(request.GET.get('keyword', '광주'))
-    tour_url = f'http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/gallerySearchList?MobileOS=ETC&MobileApp=AppTest&ServiceKey={config("TOUR_API_KEY")}&keyword={keyword}&_type=json'
-    api_res = requests.get(tour_url).json()
-    items = api_res.get('response').get('body').get('items')
-    if items != '':
-        items = items.get('item')
-
-    res = {}
-    if items != None:
-        for item in items:
-            if type(item) == object:
-                code = len(res) + 1
-                place = item.get('galSearchKeyword').split(', ')
-                url = item.get('galWebImageUrl')
-                name = item.get('galTitle')
-                source = 'http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList'
-
-                res[code] = {
-                    'pcode': code,
-                    'purl': url,
-                    'psource': source,
-                    'pplace_pname': [place, name]
-                }
-
-    return Response(res, status=200)
-
-
-@api_view(['GET', ])
 def mango(request):
     keyword = quote(request.GET.get('keyword', '광주'))
     mango_url = f'https://www.mangoplate.com/search/{keyword}'
