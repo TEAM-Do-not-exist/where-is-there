@@ -3,14 +3,7 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <!-- dialog open button -->
       <template v-slot:activator="{ on }">
-        <v-btn
-          class="font-weight-black"
-          color="blue"
-          text
-          v-on="on"
-          :disabled="!isAdmin"
-          >정보 확인하기</v-btn
-        >
+        <v-btn class="font-weight-black" color="blue" text v-on="on" :disabled="!isAdmin">정보 확인하기</v-btn>
       </template>
 
       <!-- dialog information -->
@@ -80,29 +73,21 @@
         <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            class="font-weight-black"
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-            >취소하기</v-btn
-          >
+          <v-btn class="font-weight-black" color="blue darken-1" text @click="dialog = false">취소하기</v-btn>
           <v-btn
             text
             class="font-weight-black"
             color="red darken-1"
-            :disabled="!this.source || !this.isAdmin"
+            :disabled="!this.isAdmin"
             @click="denyItem(item)"
-            >제외하기</v-btn
-          >
+          >제외하기</v-btn>
           <v-btn
             text
             class="font-weight-black"
             color="blue darken-1"
             :disabled="!validated"
             @click="insertItem(item)"
-            >저장하기</v-btn
-          >
+          >저장하기</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -135,7 +120,7 @@ export default {
       });
     },
     insertItem(item) {
-      if (this.getUser === "admin") {
+      if (this.getUser === process.env.VUE_APP_ADMIN_EMAIL) {
         const url = `${process.env.VUE_APP_SPRING_URL}/api/photo/insert`;
         const data = {
           pname: this.store,
@@ -148,9 +133,9 @@ export default {
       this.dialog = false;
     },
     denyItem(item) {
-      if (this.getUser === "admin") {
+      if (this.getUser === process.env.VUE_APP_ADMIN_EMAIL) {
         const url = `${process.env.VUE_APP_SPRING_URL}/api/photocheck/insert`;
-        const data = { purl: this.url };
+        const data = { purl: this.url || item.purl };
         this.sendPost(url, data, item);
       }
       this.dialog = false;

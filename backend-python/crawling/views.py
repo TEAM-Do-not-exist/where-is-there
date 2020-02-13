@@ -26,31 +26,54 @@ def crawling_info(info, idx, filename):
     # there is not duplicated tour info
     if len(datas) == 0 and len(unused) == 0:
         code = idx + 1
-        source = info.get('img_urls')
-        words = info.get('caption')
 
-        # hashtag do cannot find in instagram crawlers, so find it one more
-        options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        options.add_argument('disable-gpu')
+        tags = []
+        if filename == 'greedeat':
+            source = info.get('img_urls')
 
-        driver = webdriver.Chrome(
-            './crawling/instagram-crawler/inscrawler/bin/chromedriver.exe', options=options)
-        driver.get(url)
-        sleep(5)
+            # hashtag do cannot find in instagram crawlers, so find it one more
+            options = webdriver.ChromeOptions()
+            options.add_argument('headless')
+            options.add_argument('disable-gpu')
 
-        page_string = driver.page_source
-        bs_obj = bs(page_string, 'lxml')
+            driver = webdriver.Chrome(
+                './crawling/instagram-crawler/inscrawler/bin/chromedriver.exe', options=options)
+            driver.get(url)
+            sleep(5)
 
-        org_tags_div = bs_obj.find_all(name='div', attrs={'class': 'C4VMK'})
-        if len(org_tags_div) > 0:
-            tags = org_tags_div[0].find_all(name='a', attrs={'class': 'xil3i'})
+            page_string = driver.page_source
+            bs_obj = bs(page_string, 'lxml')
+
+            org_tags_div = bs_obj.find_all(
+                name='div', attrs={'class': 'C4VMK'})
+            if len(org_tags_div) > 0:
+                tags = org_tags_div[0].find_all(
+                    name='a', attrs={'class': 'xil3i'})
+
+            driver.quit()
         else:
-            tags = []
+            source = [info.get('img_url')]
+
+            raw_tags = info.get('description')
+            if raw_tags != None:
+                raw_tags = raw_tags.replace('\n', ' ').split(' ')
+                for raw_word in raw_tags:
+                    if raw_word != '':
+                        if raw_word[0] == '#' and len(raw_word) > 1:
+                            word = ''
+                            for char in raw_word[1:]:
+                                if char != '~!@#$%^&*()_+`-={}[]:";\'<>?,./|\\�':
+                                    word += char
+                                else:
+                                    break
+                            tags.append(word)
 
         hashtags = []
-        for tag in tags:
-            hashtags.append(tag.contents[0][1:].strip())
+        if filename == 'greedeat':
+            for tag in tags:
+                hashtags.append(tag.contents[0][1:].strip())
+        else:
+            hashtags = tags
 
         if hashtags != []:
             return code, url, source, hashtags
@@ -64,7 +87,7 @@ def crawling(target, length, filename):
 
     # check crawling target(tour or resturant)
     if target == 'tour':
-        account = 'travelholic_insta'
+        tag = '국내여행'
     elif target == 'eat':
         account = 'greedeat'
 
@@ -72,8 +95,12 @@ def crawling(target, length, filename):
     crawler = './crawling/instagram-crawler/crawler.py'
     address = f'{mid_output}/{filename}.json'
 
-    os.system(
-        f'python {crawler} posts_full -u {account} -n {length} -o {address}')
+    if target == 'tour':
+        os.system(
+            f'python {crawler} hashtag -t {tag} -n {length} -o {address} --fetch_details')
+    else:
+        os.system(
+            f'python {crawler} posts_full -u {account} -n {length} -o {address}')
 
     with open(address, 'r', encoding='utf-8') as f:
         datas = json.load(f)
@@ -116,7 +143,7 @@ def instagram(request):
     # check output file is exist
     files = os.listdir(output)
     if target == 'tour':
-        filename = 'travelholic'
+        filename = 'koreantour'
     elif target == 'eat':
         filename = 'greedeat'
     else:
@@ -131,7 +158,9 @@ def instagram(request):
         with open(f'{mid_output}/{filename}.json', 'r', encoding='utf-8') as f:
             datas = json.load(f)
 
-        end = datas[0].get('datetime')[:10]
+        end = datas[0].get('datetime')
+        if end != None:
+            end = end[:10]
         now = date.strftime(date.today(), '%Y-%m-%d')
         if len(datas) != length or now != end:
             res = crawling(target=target, length=length, filename=filename)
