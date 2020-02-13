@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isUser">
+  <div>
     <v-btn v-if="!clicked" color="red darken-1" class="ma-2" outlined @click="favorite">
       <v-icon>mdi-heart-outline</v-icon>
     </v-btn>
@@ -23,6 +23,10 @@ export default {
   }),
   methods: {
     favorite() {
+      if (this.getUser === false) {
+        alert("로그인이 필요한 기능입니다.");
+        this.$router.push("/signin");
+      }
       const data = { fcode: this.pcode, fid: this.getUser };
       let url = `${process.env.VUE_APP_SPRING_URL}/api/favorite/`;
       if (this.clicked === false) {

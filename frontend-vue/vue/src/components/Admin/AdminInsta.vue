@@ -6,8 +6,7 @@
       color="blue"
       elevation="2"
       class="text-center font-weight-black"
-      >인스타그램 데이터 가져오기</v-alert
-    >
+    >인스타그램 데이터 가져오기</v-alert>
 
     <!-- silder for dicide crawling size -->
     <v-subheader class="pl-0">데이터 요청량</v-subheader>
@@ -30,8 +29,7 @@
           :block="true"
           :disabled="!isAdmin || loading || slider < 10"
           @click="getInstaItems(name)"
-          >{{ name.name }}</v-btn
-        >
+        >{{ name.name }}</v-btn>
       </v-col>
     </v-row>
 
@@ -46,11 +44,7 @@
     </div>
 
     <!-- pagination -->
-    <AdminPagination
-      :page="page"
-      :length="length"
-      @onPageChange="onPageChange"
-    />
+    <AdminPagination :page="page" :length="length" @onPageChange="onPageChange" />
   </v-col>
 </template>
 
@@ -71,7 +65,7 @@ export default {
   data: () => ({
     btnNames: {
       1: {
-        name: "여행에미치다",
+        name: "#국내여행",
         url: "instagram",
         target: "tour"
       },
