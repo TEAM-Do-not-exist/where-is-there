@@ -13,7 +13,7 @@
           <PhotoLikeButton :pcode="pcode" />
           <PhotoReportDialog :pcode="pcode" />
         </div>
-        <!-- update needed: check id is admin id -->
+        <!-- only access for admin -->
         <div class="my-5 d-flex" v-if="isAdmin">
           <PhotoDeleteButton />
           <PhotoUpdateDialog />

@@ -10,6 +10,8 @@ const state = {
 
 const mutations = {
   getPhoto(state, pcode) {
+    state.photo = {};
+    state.center = { lat: 33.450701, lng: 126.570667 };
     axios.get(`${url}/selectOne/${pcode}`).then(r => {
       const { resvalue } = r.data;
       state.photo = resvalue;
