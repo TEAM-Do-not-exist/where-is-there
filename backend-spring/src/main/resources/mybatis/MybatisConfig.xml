@@ -11,6 +11,8 @@
 		<typeAlias type="com.ssafy.project1.dto.PhotoCheckDTO" alias="PhotoCheckDTO" />
 		<typeAlias type="com.ssafy.project1.dto.EmailAuthDTO" alias="EmailAuthDTO" />
 		<typeAlias type="com.ssafy.project1.dto.SuccessTemp" alias="SuccessTemp" />
+		<typeAlias type="com.ssafy.project1.dto.ReportDTO" alias="ReportDTO" />
+		
 	</typeAliases>
 	
 	<mappers>
@@ -20,6 +22,7 @@
 		<mapper resource="mybatis/PhotoSQLMapper.xml" />
 		<mapper resource="mybatis/PhotoCheckSQLMapper.xml" />
 		<mapper resource="mybatis/EmailAuthSQLMapper.xml" />
+		<mapper resource="mybatis/ReportSQLMapper.xml" />
 	</mappers>
 	
 </configuration>

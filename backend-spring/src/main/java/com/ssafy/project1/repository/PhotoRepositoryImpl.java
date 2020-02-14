@@ -13,23 +13,23 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 
 	@Autowired
 	SqlSession session;
-	
+
 	@Override
 	public int insert(PhotoDTO dto) {
 		// TODO Auto-generated method stub
-		return session.insert("ssafy.photo.insert",dto);
+		return session.insert("ssafy.photo.insert", dto);
 	}
 
 	@Override
 	public int delete(int pcode) {
 		// TODO Auto-generated method stub
-		return session.delete("ssafy.photo.delete",pcode);
+		return session.delete("ssafy.photo.delete", pcode);
 	}
 
 	@Override
 	public int update(PhotoDTO dto) {
 		// TODO Auto-generated method stub
-		return session.update("ssafy.photo.update",dto);
+		return session.update("ssafy.photo.update", dto);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 	@Override
 	public PhotoDTO selectOne(PhotoDTO dto) {
 		// TODO Auto-generated method stub
-		return session.selectOne("ssafy.photo.selectOne",dto);
+		return session.selectOne("ssafy.photo.selectOne", dto);
 	}
 
 	@Override
@@ -49,5 +49,5 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 		// TODO Auto-generated method stub
 		return session.selectList("ssafy.photo.selectListFavorite");
 	}
-	
+
 }

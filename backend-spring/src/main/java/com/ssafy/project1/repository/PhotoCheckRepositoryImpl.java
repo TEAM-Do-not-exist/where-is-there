@@ -14,23 +14,23 @@ public class PhotoCheckRepositoryImpl implements PhotoCheckRepository {
 
 	@Autowired
 	SqlSession session;
-	
+
 	@Override
 	public int insert(PhotoCheckDTO dto) {
 		// TODO Auto-generated method stub
-		return session.insert("ssafy.photocheck.insert",dto);
+		return session.insert("ssafy.photocheck.insert", dto);
 	}
 
 	@Override
 	public int delete(int pcode) {
 		// TODO Auto-generated method stub
-		return session.delete("ssafy.photocheck.delete",pcode);
+		return session.delete("ssafy.photocheck.delete", pcode);
 	}
 
 	@Override
 	public int update(PhotoCheckDTO dto) {
 		// TODO Auto-generated method stub
-		return session.update("ssafy.photocheck.update",dto);
+		return session.update("ssafy.photocheck.update", dto);
 	}
 
 	@Override
@@ -42,9 +42,7 @@ public class PhotoCheckRepositoryImpl implements PhotoCheckRepository {
 	@Override
 	public PhotoCheckDTO selectOne(PhotoCheckDTO dto) {
 		// TODO Auto-generated method stub
-		return session.selectOne("ssafy.photocheck.selectOne",dto);
+		return session.selectOne("ssafy.photocheck.selectOne", dto);
 	}
-
-
 
 }

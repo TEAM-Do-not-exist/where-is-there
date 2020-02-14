@@ -10,10 +10,10 @@ import com.ssafy.project1.repository.PhotoCheckRepository;
 
 @Service
 public class PhotoCheckServiceImpl implements PhotoCheckService {
-	
+
 	@Autowired
 	PhotoCheckRepository photoCheckRepo;
-	
+
 	@Override
 	public int insert(PhotoCheckDTO dto) {
 		// TODO Auto-generated method stub

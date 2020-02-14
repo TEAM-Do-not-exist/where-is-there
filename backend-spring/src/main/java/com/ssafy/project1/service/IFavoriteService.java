@@ -14,5 +14,7 @@ public interface IFavoriteService {
 	public List<FavoriteDTO> selectMyList(FavoriteDTO dto);
 	
 	public List<FavoriteDTO> selectPhotoList(FavoriteDTO dto);
+	
+	public List<FavoriteDTO> selectBestList(FavoriteDTO dto);
 
 }

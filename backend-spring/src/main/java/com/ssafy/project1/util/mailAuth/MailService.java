@@ -10,13 +10,13 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 @Configuration
 public class MailService {
-	
+
 	Logger logger = LoggerFactory.getLogger(MailService.class);
 
 	@Autowired
 	JavaMailSender javaMailSender;
-	
-	public boolean sendMail(String to, String subject, String content){
+
+	public boolean sendMail(String to, String subject, String content) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(to);
 		message.setSubject(subject);
@@ -24,8 +24,8 @@ public class MailService {
 		try {
 			javaMailSender.send(message);
 			return true;
-		}catch(MailException me) {
-			logger.error("MailException",me);
+		} catch (MailException me) {
+			logger.error("MailException", me);
 			return false;
 		}
 	}

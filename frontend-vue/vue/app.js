@@ -10,7 +10,7 @@ app.all("/*", function(req, res, next) {
   next();
 });
 
-// localhost:3000서버에 접속하면 클라이언트로 메세지을 전송한다
+// 서버에 접속하면 클라이언트로 메세지을 전송한다
 app.get("/", function(req, res) {
   res.sendFile("Hellow Chating App Server");
 });
@@ -18,8 +18,6 @@ app.get("/", function(req, res) {
 io.on("connection", function(socket) {
   // 클라이언트로부터의 메시지가 수신되면
   socket.on("chat", function(data) {
-    console.log("Message from %s: %s", data.name, data.msg);
-
     var msg = {
       from: {
         name: data.name
@@ -31,9 +29,7 @@ io.on("connection", function(socket) {
     socket.broadcast.emit("chat", msg);
   });
 
-  socket.on("disconnect", function() {
-    console.log("user disconnected: " + socket.name);
-  });
+  socket.on("disconnect", function() {});
 });
 
 server.listen(3000);

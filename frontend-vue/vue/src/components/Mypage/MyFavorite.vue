@@ -1,75 +1,63 @@
 <template>
   <div id="my-favorite">
-    <v-app id="inspire">
-      <v-card class="mx-auto" max-width="1000">
-        <v-container fluid>
-          <v-row dense>
-            <v-col v-for="card in cards" :key="card.title" :cols="card.flex">
-              <v-card>
-                <v-img
-                  :src="card.src"
-                  class="white--text align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                  height="200px"
-                >
-                  <v-card-title v-text="card.title"></v-card-title>
-                </v-img>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-
-                  <v-btn icon>
-                    <v-icon>mdi-heart</v-icon>
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card>
-    </v-app>
+    <v-card app background-color="#0000">
+      <v-container fluid>
+        <v-row dense>
+          <v-col v-for="(photo, i) in list" :key="i" cols="6">
+            <v-card>
+              <v-img
+                :src="photo.psource"
+                class="white--text align-end"
+                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                height="200px"
+                @click="showDetail(photo)"
+              >
+              </v-img>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import { mapGetters } from "vuex";
+
 export default {
+  name: "MyFavorite",
   data: () => ({
-    cards: [
-      {
-        title: "Pre-fab homes",
-        src:
-          "https://cdn.pixabay.com/photo/2020/01/22/17/21/camel-4785794__340.jpg",
-        flex: 4
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-        flex: 4
-      },
-      {
-        title: "Best friends",
-        src:
-          "https://cdn.pixabay.com/photo/2018/10/05/10/56/landscape-3725657__340.jpg",
-        flex: 4
-      },
-      {
-        title: "몰라",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        flex: 4
-      },
-      {
-        title: "모른다고",
-        src:
-          "https://cdn.pixabay.com/photo/2020/01/24/15/23/namibia-4790487__340.jpg",
-        flex: 4
-      },
-      {
-        title: "그만",
-        src:
-          "https://cdn.pixabay.com/photo/2020/01/23/17/35/monkey-4788328__340.jpg",
-        flex: 4
-      }
-    ]
-  })
+    list: []
+  }),
+  props: {},
+  methods: {
+    showfavorite() {
+      const basicUrl = process.env.VUE_APP_SPRING_URL;
+      const addUrl = "/api/favorite/selectMyList/";
+      const fid = this.token;
+      axios
+        .get(basicUrl + addUrl + fid)
+        .then(response => (this.list = response.data["resvalue"]))
+        .catch(() => {
+          this.errored = true;
+        })
+        .finally(() => (this.loading = false));
+    },
+    delfavorite() {
+      this.is_show = !this.is_show;
+    },
+    showDetail(photo) {
+      this.$router.push(`/photo/${photo.fcode}`);
+    }
+  },
+  computed: {
+    ...mapGetters(["token"])
+  },
+  mounted() {
+    this.showfavorite();
+  }
 };
 </script>
+
+<style></style>
