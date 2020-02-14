@@ -21,8 +21,17 @@ class Browser:
             chrome_options.add_argument("--headless")
         chrome_options.add_argument("--start-maximized")
         chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        # for local
+        # self.driver = webdriver.Chrome(
+        #     executable_path="%s/bin/chromedriver" % dir_path,
+        #     service_args=service_args,
+        #     chrome_options=chrome_options,
+        #     port=8888
+        # )
+        # for AWS
         self.driver = webdriver.Chrome(
-            executable_path="%s/bin/chromedriver" % dir_path,
+            executable_path='/usr/lib/chromium-browser/chromedriver',
             service_args=service_args,
             chrome_options=chrome_options,
             port=8888
