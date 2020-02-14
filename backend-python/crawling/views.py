@@ -35,9 +35,15 @@ def crawling_info(info, idx, filename):
             options = webdriver.ChromeOptions()
             options.add_argument('headless')
             options.add_argument('disable-gpu')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
 
+            # for local
+            # driver = webdriver.Chrome(
+            #     './crawling/instagram-crawler/inscrawler/bin/chromedriver.exe', options=options, port=8888)
+            # for AWS
             driver = webdriver.Chrome(
-                './crawling/instagram-crawler/inscrawler/bin/chromedriver.exe', options=options, port=8888)
+                '/usr/lib/chromium-browser/chromedriver', options=options, port=8888)
             driver.get(url)
             sleep(5)
 
