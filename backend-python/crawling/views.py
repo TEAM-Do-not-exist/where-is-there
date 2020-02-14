@@ -37,7 +37,7 @@ def crawling_info(info, idx, filename):
             options.add_argument('disable-gpu')
 
             driver = webdriver.Chrome(
-                './crawling/instagram-crawler/inscrawler/bin/chromedriver.exe', options=options)
+                './crawling/instagram-crawler/inscrawler/bin/chromedriver.exe', options=options, port=8888)
             driver.get(url)
             sleep(5)
 
