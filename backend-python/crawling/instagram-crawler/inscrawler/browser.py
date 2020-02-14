@@ -25,6 +25,7 @@ class Browser:
             executable_path="%s/bin/chromedriver" % dir_path,
             service_args=service_args,
             chrome_options=chrome_options,
+            port=8888
         )
         self.driver.implicitly_wait(5)
 
