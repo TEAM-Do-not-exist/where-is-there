@@ -19,6 +19,7 @@ const state = {
 
 const mutations = {
   getReports(state) {
+    state.reports = [];
     if (isAdmin() === true) {
       axios.get(url).then(r => {
         const { resvalue } = r.data;

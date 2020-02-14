@@ -16,18 +16,11 @@
               ></v-text-field>
 
               <!-- update, delete buttons -->
-              <div class="d-inline-flex">
+              <div v-if="isUser" class="d-inline-flex">
                 <v-btn icon>
-                  <v-icon
-                    v-show="comment.cid === getUser"
-                    @click="updateComment(idx)"
-                    >mdi-pencil</v-icon
-                  >
+                  <v-icon @click="updateComment(idx)">mdi-pencil</v-icon>
                 </v-btn>
-                <CommentDeleteButton
-                  v-show="comment.cid === getUser"
-                  :ccode="ccode"
-                />
+                <CommentDeleteButton :ccode="ccode" />
               </div>
             </v-row>
           </v-col>
@@ -75,7 +68,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["comments", "getUser"])
+    ...mapGetters(["comments", "getUser"]),
+    isUser() {
+      const writtenComment = this.comments.filter(
+        comment => comment.cid === this.getUser
+      );
+      if (
+        writtenComment.length > 0 ||
+        this.getUser === process.env.VUE_APP_ADMIN_EMAIL
+      ) {
+        return true;
+      }
+      return false;
+    }
   },
   mounted() {
     this.$store.dispatch("getCommentsAction", this.ccode);
