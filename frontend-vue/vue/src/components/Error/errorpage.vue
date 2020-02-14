@@ -9,10 +9,13 @@
 
 <script>
 export default {
+  name: "ErrorPage",
   methods: {
     goback() {
-      this.$router.go(-1);
+      this.$router.replace("/");
     }
   }
 };
 </script>
+
+<style></style>

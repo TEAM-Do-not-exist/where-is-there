@@ -16,8 +16,12 @@
 	</insert>
 	
 	<select id="selectMyList" resultType="CommentDTO">
-		select * from comment where cid = #{cid}
+		select comment.cid,comment.ccode,comment.content,comment.ctime,photo.psource
+		from photo
+		left join comment on comment.ccode = photo.pcode
+		where cid = #{cid};
 	</select>
+	
 		<select id="selectPhotoList" resultType="CommentDTO">
 		select * from comment where ccode = #{ccode}
 	</select>

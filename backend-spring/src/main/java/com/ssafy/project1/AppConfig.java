@@ -16,4 +16,3 @@ public class AppConfig {
 		return new DataSourceTransactionManager(ds);
 	}
 }
-

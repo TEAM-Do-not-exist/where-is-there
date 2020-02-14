@@ -13,7 +13,7 @@ public class PhotoServiceImpl implements PhotoService {
 
 	@Autowired
 	PhotoRepository photoRepo;
-	
+
 	@Override
 	public int insert(PhotoDTO dto) {
 		// TODO Auto-generated method stub

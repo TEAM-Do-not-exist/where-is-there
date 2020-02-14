@@ -3,8 +3,10 @@ from rest_framework.response import Response
 from .models import Photo, PhotoCheck
 from datetime import datetime, date
 from bs4 import BeautifulSoup as bs
+from selenium import webdriver
 from urllib.parse import quote
 from decouple import config
+from time import sleep
 import requests
 import json
 import os
@@ -24,20 +26,54 @@ def crawling_info(info, idx, filename):
     # there is not duplicated tour info
     if len(datas) == 0 and len(unused) == 0:
         code = idx + 1
-        source = info.get('img_urls')
-        words = info.get('caption')
+
+        tags = []
+        if filename == 'greedeat':
+            source = info.get('img_urls')
+
+            # hashtag do cannot find in instagram crawlers, so find it one more
+            options = webdriver.ChromeOptions()
+            options.add_argument('headless')
+            options.add_argument('disable-gpu')
+
+            driver = webdriver.Chrome(
+                './crawling/instagram-crawler/inscrawler/bin/chromedriver.exe', options=options)
+            driver.get(url)
+            sleep(5)
+
+            page_string = driver.page_source
+            bs_obj = bs(page_string, 'lxml')
+
+            org_tags_div = bs_obj.find_all(
+                name='div', attrs={'class': 'C4VMK'})
+            if len(org_tags_div) > 0:
+                tags = org_tags_div[0].find_all(
+                    name='a', attrs={'class': 'xil3i'})
+
+            driver.quit()
+        else:
+            source = [info.get('img_url')]
+
+            raw_tags = info.get('description')
+            if raw_tags != None:
+                raw_tags = raw_tags.replace('\n', ' ').split(' ')
+                for raw_word in raw_tags:
+                    if raw_word != '':
+                        if raw_word[0] == '#' and len(raw_word) > 1:
+                            word = ''
+                            for char in raw_word[1:]:
+                                if char != '~!@#$%^&*()_+`-={}[]:";\'<>?,./|\\�':
+                                    word += char
+                                else:
+                                    break
+                            tags.append(word)
 
         hashtags = []
-        if words != None:
-            words = words.replace('\n', '')
-            for i in range(len(words)):
-                if words[i] == '#':
-                    for j in range(i + 1, len(words)):
-                        if words[j] in [' ', '#']:
-                            word = words[i + 1:j].replace('.', '')
-                            if word != '':
-                                hashtags.append(word)
-                            break
+        if filename == 'greedeat':
+            for tag in tags:
+                hashtags.append(tag.contents[0][1:].strip())
+        else:
+            hashtags = tags
 
         if hashtags != []:
             return code, url, source, hashtags
@@ -51,7 +87,7 @@ def crawling(target, length, filename):
 
     # check crawling target(tour or resturant)
     if target == 'tour':
-        account = 'travelholic_insta'
+        tag = '국내여행'
     elif target == 'eat':
         account = 'greedeat'
 
@@ -59,15 +95,20 @@ def crawling(target, length, filename):
     crawler = './crawling/instagram-crawler/crawler.py'
     address = f'{mid_output}/{filename}.json'
 
-    os.system(
-        f'python {crawler} posts_full -u {account} -n {length} -o {address} --fetch_details')
+    if target == 'tour':
+        os.system(
+            f'python {crawler} hashtag -t {tag} -n {length} -o {address} --fetch_details')
+    else:
+        os.system(
+            f'python {crawler} posts_full -u {account} -n {length} -o {address}')
 
     with open(address, 'r', encoding='utf-8') as f:
         datas = json.load(f)
 
     # return results
-    res = {}
+    res, epoch = {}, 1
     for data in datas:
+        print('\n' + f'===== {epoch} / {length} done =====' + '\n')
         code, url, source, hashtags = crawling_info(data, len(res), filename)
         if hashtags != None:
             res[code] = {
@@ -76,6 +117,7 @@ def crawling(target, length, filename):
                 'psource': source,
                 'pplace_pname': hashtags
             }
+        epoch += 1
 
     # save results
     if res != {}:
@@ -101,7 +143,7 @@ def instagram(request):
     # check output file is exist
     files = os.listdir(output)
     if target == 'tour':
-        filename = 'travelholic'
+        filename = 'koreantour'
     elif target == 'eat':
         filename = 'greedeat'
     else:
@@ -116,7 +158,9 @@ def instagram(request):
         with open(f'{mid_output}/{filename}.json', 'r', encoding='utf-8') as f:
             datas = json.load(f)
 
-        end = datas[0].get('datetime')[:10]
+        end = datas[0].get('datetime')
+        if end != None:
+            end = end[:10]
         now = date.strftime(date.today(), '%Y-%m-%d')
         if len(datas) != length or now != end:
             res = crawling(target=target, length=length, filename=filename)
@@ -130,32 +174,6 @@ def instagram(request):
                 unused = PhotoCheck.objects.filter(purl=url)
                 if len(checked) < 1 and len(unused) < 1:
                     res[key] = val
-
-    return Response(res, status=200)
-
-
-@api_view(['GET', ])
-def tour_api(request):
-    keyword = quote(request.GET.get('keyword', '광주'))
-    tour_url = f'http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/gallerySearchList?MobileOS=ETC&MobileApp=AppTest&ServiceKey={config("TOUR_API_KEY")}&keyword={keyword}&_type=json'
-    api_res = requests.get(tour_url).json()
-    items = api_res.get('response').get('body').get('items').get('item')
-
-    res = {}
-    if items != None:
-        for item in items:
-            code = len(res) + 1
-            place = item.get('galSearchKeyword').split(', ')
-            url = item.get('galWebImageUrl')
-            name = item.get('galTitle')
-            source = 'http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList'
-
-            res[code] = {
-                'pcode': code,
-                'purl': url,
-                'psource': source,
-                'pplace_pname': [place, name]
-            }
 
     return Response(res, status=200)
 
@@ -177,8 +195,8 @@ def mango(request):
     res = {}
     for i in range(len(titles)):
         code = i + 1
-        url = mango_url
-        source = images[i]['data-original']
+        url = images[i]['data-original']
+        source = mango_url
         place = images[i]['alt'].split(' - ')[-1]
         name = titles[i].get_text().replace('\n', '')
 

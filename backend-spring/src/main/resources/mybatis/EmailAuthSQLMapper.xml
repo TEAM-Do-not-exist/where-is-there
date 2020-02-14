@@ -6,7 +6,6 @@
 
 	<insert id="insert" parameterType="MemberDTO">
 		insert into email_auth values(
-			#{id},
 			#{email},
 			#{auth_key},
 			date_add(now(),interval 5 minute),
@@ -14,7 +13,7 @@
 		)
 	</insert>
 	<delete id="delete" parameterType="string">
-		delete from email_auth where id = #{id}
+		delete from email_auth where email = #{email}
 	</delete>
 	<delete id="delete_useless">
 <!-- 		set sql_safe_updates=0;
@@ -25,28 +24,28 @@
 		update email_auth set 
 							auth_key=#{auth_key},
 							time_expire=date_add(now(),interval 5 minute)
-		where id=#{id}
+		where email=#{email}
 	</update>
 	<update id="update_check" parameterType="EmailAuthDTO">
 		update email_auth set auth_check=true
-		where id=#{id}
+		where email=#{email}
 	</update>
 	<!--인증 재요청  -->
 	<select id="selectList" resultType="EmailAuthDTO">
 		select * from email_auth
 	</select>
 	<select id="selectOne" parameterType="EmailAuthDTO" resultType="EmailAuthDTO">
-		select * from email_auth where id=#{id}
+		select * from email_auth where email=#{email}
 	</select>
 	
 	<select id="selectOneIdTime" parameterType="EmailAuthDTO" resultType="EmailAuthDTO">
-		select * from email_auth where id=#{id} and auth_key=#{auth_key} and time_expire >= now()
+		select * from email_auth where email=#{email} and auth_key=#{auth_key} and time_expire >= now()
 	</select>
 	
 	<select id="exists_check_member" parameterType="EmailAuthDTO" resultType="SuccessTemp">
-		select exists (select * from mem_p1 where id=#{id}) as success
+		select exists (select * from mem_p1 where email=#{email}) as success
 	</select>
 	<select id="exists_check_email_auth"  parameterType="EmailAuthDTO" resultType="SuccessTemp">
-		select exists (select * from email_auth where id=#{id}) as success
+		select exists (select * from email_auth where email=#{email}) as success
 	</select>
 </mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ssafy.report">
+	<insert id="insert" parameterType="ReportDTO">
+		insert into report(rnum,rcode,rid,rreason)
+		values(
+			#{rnum},
+			#{rcode},
+			#{rid},
+			#{rreason}
+		)
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from report where rnum = #{rnum}
+	</delete>
+	
+	<select id="selectReportList" resultType="ReportDTO">
+		select * from report
+	</select>
+
+	<select id="selectReportOne" parameterType="ReportDTO" resultType="ReportDTO">
+		select * from report where rnum=#{rnum}
+	</select>
+</mapper>
