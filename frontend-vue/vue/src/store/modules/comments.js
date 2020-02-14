@@ -8,6 +8,7 @@ const state = {
 
 const mutations = {
   getComments(state, ccode) {
+    state.comments = [];
     axios.get(`${url}/api/comment/selectPhotoList/${ccode}`).then(r => {
       if (JSON.stringify(r.data) !== "{}") {
         state.comments = r.data.resvalue;

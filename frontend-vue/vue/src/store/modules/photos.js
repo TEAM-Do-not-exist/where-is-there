@@ -8,6 +8,7 @@ const state = {
 
 const mutations = {
   getPhotos(state) {
+    state.photos = [];
     axios.get(`${url}/selectList`).then(r => {
       const { resvalue } = r.data;
       const suffled = resvalue.slice(0);
