@@ -67,10 +67,11 @@ export default {
         // Native form submission is not yet supported
         const uriEmailCheck = `${process.env.VUE_APP_SPRING_URL}/api/emailauth/auth_check`;
         const uriSignUp = `${process.env.VUE_APP_SPRING_URL}/api/member/insert`;
-        axios
+        
+	axios
           .put(uriEmailCheck, {
             email: this.$route.params.email,
-            auth_key: this.auth_key
+            auth_key: this.authKey
           })
           .then(r => {
             if (r.data.resvalue == 1) {

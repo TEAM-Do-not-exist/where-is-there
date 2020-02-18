@@ -10,8 +10,6 @@ import traceback
 from builtins import open
 from time import sleep
 
-from tqdm import tqdm
-
 from . import secret
 from .browser import Browser
 from .exceptions import RetryException
@@ -196,8 +194,6 @@ class InsCrawler(Logging):
         ele_post.click()
         dict_posts = {}
 
-        pbar = tqdm(total=num)
-        pbar.set_description("fetching")
         cur_key = None
 
         # Fetching all posts
@@ -242,12 +238,10 @@ class InsCrawler(Logging):
             self.log(json.dumps(dict_post, ensure_ascii=False))
             dict_posts[browser.current_url] = dict_post
 
-            pbar.update(1)
             left_arrow = browser.find_one(".HBoOv")
             if left_arrow:
                 left_arrow.click()
 
-        pbar.close()
         posts = list(dict_posts.values())
         if posts:
             posts.sort(key=lambda post: post["datetime"], reverse=True)
@@ -264,8 +258,6 @@ class InsCrawler(Logging):
         posts = []
         pre_post_num = 0
         wait_time = 1
-
-        pbar = tqdm(total=num)
 
         def start_fetching(pre_post_num, wait_time):
             ele_posts = browser.find(".v1Nh3 a")
@@ -286,10 +278,7 @@ class InsCrawler(Logging):
                         break
 
             if pre_post_num == len(posts):
-                pbar.set_description("Wait for %s sec" % (wait_time))
                 sleep(wait_time)
-                pbar.set_description("fetching")
-
                 wait_time *= 2
                 browser.scroll_up(300)
             else:
@@ -300,16 +289,13 @@ class InsCrawler(Logging):
 
             return pre_post_num, wait_time
 
-        pbar.set_description("fetching")
         while len(posts) < num and wait_time < TIMEOUT:
             post_num, wait_time = start_fetching(pre_post_num, wait_time)
-            pbar.update(post_num - pre_post_num)
             pre_post_num = post_num
 
             loading = browser.find_one(".W1Bne")
             if not loading and wait_time > TIMEOUT / 2:
                 break
 
-        pbar.close()
         print("Done. Fetched %s posts." % (min(len(posts), num)))
         return posts[:num]

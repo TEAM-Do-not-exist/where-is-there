@@ -81,11 +81,15 @@ public class RestExternalLogInController {
 	public ResponseEntity<Map> loginKakao(@PathVariable("access_token") String access_token) {
 		ResponseEntity<Map> resEntity = null;
 		int state = 0;
+		System.out.println("access_token "+access_token);
 		try {
 			Map<String, Object> msg = new HashMap<String, Object>();
 			KakaoMember kakaoMember = HttpConnectionKakao.getUserInfo(access_token);
+			System.out.println("http conn");
 			MemberDTO dto = new MemberDTO(kakaoMember.getEmail(), kakaoMember.getNickName());
+			System.out.println("get email");
 			int loginKakao = memSer.loginKakao(dto);
+			System.out.println("kkk");
 			if (loginKakao == 3) {
 				state = 1;
 				String token = jwtService.create("member", memSer.selectOneId(dto), "user");

@@ -117,7 +117,7 @@ const mutations = {
         if (r.data.state == 1) {
           axios
             .get(
-              `${process.envVUE_APP_SPRING_URL}/api/member/selectOneToken/` +
+              `${process.env.VUE_APP_SPRING_URL}/api/member/selectOneToken/` +
                 r.data.token
             )
             .then(r => {
