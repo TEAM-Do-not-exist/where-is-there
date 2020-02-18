@@ -31,7 +31,6 @@ class Browser:
         # )
         # for AWS
         self.driver = webdriver.Chrome(
-            executable_path='/usr/lib/chromium-browser/chromedriver',
             service_args=service_args,
             chrome_options=chrome_options,
             port=8888

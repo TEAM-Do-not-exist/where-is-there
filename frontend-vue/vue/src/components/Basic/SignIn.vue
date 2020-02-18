@@ -8,7 +8,11 @@
           </v-card-title>
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field
+       	<v-row>
+	<v-col
+	:cols=8
+	> 
+	    <v-text-field
                 v-model="id"
                 :rules="nameRules"
                 :counter="30"
@@ -24,15 +28,19 @@
                 required
                 @keyup.13="submit"
               ></v-text-field>
-
-              <v-btn @click="submit" outlined width="277.33" height="60">
-                로 그 인
+		</v-col>
+	<v-col
+	:cols=4
+	>
+              <v-btn @click="submit" outlined  height="90%">
+                로그인
               </v-btn>
-
+		</v-col>
+		</v-row>
               <v-layout align-center justify-center>
                 <KakaoLogin
                   api-key="1ccf33bc552996470ef083f21eff16c2"
-                  image="kakao_account_login_btn_medium_narrow"
+                  image="kakao_account_login_btn_large_narrow_ov"
                   :on-success="onSuccess"
                   :on-failure="onFailure"
                 />
@@ -40,7 +48,7 @@
               <v-layout align-center justify-center>
                 <NaverLogin
                   client-id="nsrxqIjEGhhBf9jdPBFD"
-                  callback-url="http://127.0.0.1:8080/naversignin"
+                  callback-url="http://i02c107.p.ssafy.io/naversignin"
                   v-bind:is-popup="false"
                   v-bind:button-type="3"
                   v-bind:button-height="60"
@@ -93,7 +101,7 @@ export default {
       }
     },
     onSuccess(data) {
-      this.$store.dispatch("LOGIN_KAKAO", data.access_token).then();
+      this.$store.dispatch("LOGIN_KAKAO", data.access_token).then()
     },
     onFailure() {},
     callbackFunction() {},
