@@ -29,7 +29,11 @@ public class MemberRepositoryImpl implements MemberRepository {
 	@Override
 	public int insert2(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return session.insert("ssafy.member.insert2", dto);
+		System.out.println(dto.getEmail());
+		System.out.println(dto.getNickname());
+		int insert = session.insert("ssafy.member.insert2",dto);
+		System.out.println(insert);
+		return insert;
 	}
 
 	@Override

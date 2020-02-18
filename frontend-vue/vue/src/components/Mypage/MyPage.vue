@@ -33,7 +33,7 @@
           <!-- Update My Information -->
           <v-card-actions>
             <v-btn text>
-              <MyInfoUpdateModal :item="item" />
+              <MyInfoUpdateModal />
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -95,7 +95,7 @@ export default {
       const token = this.token;
       axios
         .get(basicUrl + addUrl + token)
-        .then(response => (this.item = response.data["resvalue"]))
+        .then(response => {this.item = response.data["resvalue"]})
         .catch(() => {
           this.errored = true;
         })

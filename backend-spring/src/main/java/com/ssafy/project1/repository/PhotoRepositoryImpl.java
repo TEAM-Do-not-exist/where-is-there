@@ -35,7 +35,8 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 	@Override
 	public List<PhotoDTO> selectList() {
 		// TODO Auto-generated method stub
-		return session.selectList("ssafy.photo.selectList");
+		List<PhotoDTO> selectList = session.selectList("ssafy.photo.selectList");
+		return selectList;
 	}
 
 	@Override
