@@ -43,5 +43,5 @@ spring:
     basename: messages/message           
 
 mybatis:
-  config-location: classpath:/mybatis/mybatisConfig.xml
+  config-location: classpath:/mybatis/MybatisConfig.xml
 

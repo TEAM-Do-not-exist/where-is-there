@@ -81,14 +81,14 @@ export default {
     nickname: "",
     external: "",
     dialog: false,
-    item: {}
+    item: []
   }),
   methods: {
     showmyinfo() {
       const basicUrl = process.env.VUE_APP_SPRING_URL;
-      const addUrl = "/api/member/selectOneToken/";
+      const addUrl = "api/member/selectOneToken/";
       const token = this.token;
-	 axios
+      axios
         .get(basicUrl + addUrl + token)
         .then(response => {
           this.item = response.data["resvalue"];
@@ -97,10 +97,11 @@ export default {
           this.name = this.item.name;
           this.nickname = this.item.nickname;
           this.external = this.item.external;
+	console.log(response);
+	alert("메롱");
         })
         .catch(() => {
           this.errored = true;
-	console.log("캐치캐치")
         })
         .finally(() => (this.loading = false));
     },
@@ -128,6 +129,7 @@ export default {
     }
   },
   mounted() {
+alert("?????");  
  this.showmyinfo();
   }
 };

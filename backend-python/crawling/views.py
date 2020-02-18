@@ -29,7 +29,7 @@ def crawling_info(info, idx, filename):
 
         tags = []
         if filename == 'greedeat':
-            source = info.get('img_urls')
+            source = [info.get('img_url')]
 
             # hashtag do cannot find in instagram crawlers, so find it one more
             options = webdriver.ChromeOptions()
@@ -42,8 +42,7 @@ def crawling_info(info, idx, filename):
             # driver = webdriver.Chrome(
             #     './crawling/instagram-crawler/inscrawler/bin/chromedriver.exe', options=options, port=8888)
             # for AWS
-            driver = webdriver.Chrome(
-                '/usr/lib/chromium-browser/chromedriver', options=options, port=8888)
+            driver = webdriver.Chrome(options=options, port=8888)
             driver.get(url)
             sleep(5)
 
@@ -106,7 +105,7 @@ def crawling(target, length, filename):
             f'python {crawler} hashtag -t {tag} -n {length} -o {address} --fetch_details')
     else:
         os.system(
-            f'python {crawler} posts_full -u {account} -n {length} -o {address}')
+            f'python {crawler} posts -u {account} -n {length} -o {address}')
 
     with open(address, 'r', encoding='utf-8') as f:
         datas = json.load(f)

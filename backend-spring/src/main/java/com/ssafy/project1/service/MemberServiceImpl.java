@@ -104,6 +104,7 @@ public class MemberServiceImpl implements MemberService {
 			memRepo.insert2(dto);
 			return 3;
 		} else {
+			System.out.println("not null");
 			if (mem.getExternal() == 2) {
 				return 3;
 			} else if (mem.getExternal() == 0) {
