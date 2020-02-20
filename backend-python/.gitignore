@@ -1,5 +1,5 @@
 ./crawling/output/
-./crawling/instagram-crawler/output
+./crawling/instagram-crawler/output/
 
 # Created by https://www.gitignore.io/api/venv,django,python,windows,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=venv,django,python,windows,visualstudiocode
