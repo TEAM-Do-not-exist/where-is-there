@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ssafy.member">
 	<insert id="insert0" parameterType="MemberDTO">
-		insert into mem_p1 
+		insert into mem_p1
 		values(
 			#{email},
 			#{pw},
@@ -15,7 +15,7 @@
 		)
 	</insert>
 	<insert id="insert1" parameterType="MemberDTO">
-		insert into mem_p1(email,nickname,name,external) 
+		insert into mem_p1(email,nickname,name,external)
 		values(
 			#{email},
 			#{nickname},
@@ -24,7 +24,7 @@
 		)
 	</insert>
 	<insert id="insert2" parameterType="MemberDTO">
-		insert into mem_p1(email,nickname,external) 
+		insert into mem_p1(email,nickname,external)
 		values(
 			#{email},
 			#{nickname},

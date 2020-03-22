@@ -78,7 +78,7 @@ insert into favorite values ('123@123',5);
 
 
 select comment.cid,comment.ccode,comment.content,comment.ctime,photo.psource
-from photo 
+from photo
 left join comment on comment.ccode = photo.pcode
 where comment.cid='123123';
 

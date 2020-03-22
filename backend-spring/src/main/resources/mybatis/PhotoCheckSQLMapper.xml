@@ -13,7 +13,7 @@
 		delete from photo_check where pcode = #{pcode}
 	</delete>
 	<update id="update" parameterType="PhotoCheckDTO">
-		update photo_check set 
+		update photo_check set
 						purl=#{purl}
 		where pcode=#{pcode}
 	</update>
