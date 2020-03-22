@@ -1,18 +1,11 @@
 <template>
   <v-container>
-    <v-card
-      v-for="(report, idx) in reports"
-      :key="idx"
-      :outlined="true"
-      class="mx-auto"
-    >
+    <v-card v-for="(report, idx) in reports" :key="idx" :outlined="true" class="mx-auto">
       <!-- simple info of report -->
       <v-card-text>
         <p class="title text--white">아이디: {{ report.rid }}</p>
         <div>사유:</div>
-        <p class="subtitle-2 text--primary">
-          {{ report.rreason }}
-        </p>
+        <p class="subtitle-2 text--primary">{{ report.rreason }}</p>
       </v-card-text>
 
       <!-- check report button -->

@@ -8,22 +8,8 @@
       </template>
       <v-sheet class="text-center" height="200px">
         <div class="py-12">정말로 삭제하시겠습니까?</div>
-        <v-btn
-          class="mt-6 font-weight-black"
-          small
-          text
-          color="red"
-          @click="deleteComment"
-          >예</v-btn
-        >
-        <v-btn
-          class="mt-6 font-weight-black"
-          small
-          text
-          color="blue"
-          @click="sheet = !sheet"
-          >아니오</v-btn
-        >
+        <v-btn class="mt-6 font-weight-black" small text color="red" @click="deleteComment">예</v-btn>
+        <v-btn class="mt-6 font-weight-black" small text color="blue" @click="sheet = !sheet">아니오</v-btn>
       </v-sheet>
     </v-bottom-sheet>
   </div>

@@ -31,9 +31,7 @@
                 required
                 @keyup.enter="submit"
               ></v-text-field>
-              <v-btn @click="submit" outlined width="277.33" height="60"
-                >submit</v-btn
-              >
+              <v-btn @click="submit" outlined width="277.33" height="60">submit</v-btn>
               <v-container />
               <v-layout align-center justify-center>
                 <p style="upper-margin: 10px;">

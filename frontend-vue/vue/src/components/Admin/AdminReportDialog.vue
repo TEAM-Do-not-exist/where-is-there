@@ -8,8 +8,7 @@
           color="orange darken-1"
           v-on="on"
           :disabled="!isAdmin"
-          >상세보기</v-btn
-        >
+        >상세보기</v-btn>
       </template>
 
       <!-- dialog information -->
@@ -35,18 +34,9 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="6">
-                <v-text-field
-                  label="신고한 유저*"
-                  :value="report.rid"
-                  disabled
-                ></v-text-field>
+                <v-text-field label="신고한 유저*" :value="report.rid" disabled></v-text-field>
               </v-col>
-              <v-textarea
-                label="사유"
-                :value="report.rreason"
-                counter
-                disabled
-              ></v-textarea>
+              <v-textarea label="사유" :value="report.rreason" counter disabled></v-textarea>
             </v-row>
           </v-container>
         </v-card-text>
@@ -56,20 +46,8 @@
         <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            class="font-weight-black"
-            color="blue darken-1 "
-            text
-            @click="dialog = false"
-            >닫기</v-btn
-          >
-          <v-btn
-            class="font-weight-black"
-            color="blue darken-1"
-            text
-            @click="complete"
-            >완료</v-btn
-          >
+          <v-btn class="font-weight-black" color="blue darken-1 " text @click="dialog = false">닫기</v-btn>
+          <v-btn class="font-weight-black" color="blue darken-1" text @click="complete">완료</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

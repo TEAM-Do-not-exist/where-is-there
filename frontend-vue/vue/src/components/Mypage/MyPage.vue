@@ -47,8 +47,7 @@
                 isLike = !isLike;
                 isComment = false;
               "
-              >내 좋아요</v-btn
-            >
+            >내 좋아요</v-btn>
             <v-btn
               color="yellow"
               text
@@ -56,8 +55,7 @@
                 isComment = !isComment;
                 isLike = false;
               "
-              >내 댓글</v-btn
-            >
+            >내 댓글</v-btn>
           </v-card-actions>
           <MyFavorite v-if="isLike" app style="overflow-x:auto"></MyFavorite>
           <MyComment v-if="isComment" app style="overflow-x:auto"></MyComment>
@@ -95,7 +93,9 @@ export default {
       const token = this.token;
       axios
         .get(basicUrl + addUrl + token)
-        .then(response => {this.item = response.data["resvalue"]})
+        .then(response => {
+          this.item = response.data["resvalue"];
+        })
         .catch(() => {
           this.errored = true;
         })

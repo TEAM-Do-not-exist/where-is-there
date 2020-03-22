@@ -8,35 +8,29 @@
           </v-card-title>
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
-       	<v-row>
-	<v-col
-	:cols=8
-	> 
-	    <v-text-field
-                v-model="id"
-                :rules="nameRules"
-                :counter="30"
-                label="ID"
-                required
-                @keyup.13="submit"
-              ></v-text-field>
-              <v-text-field
-                v-model="password"
-                :rules="passwordRules"
-                label="Password"
-                type="password"
-                required
-                @keyup.13="submit"
-              ></v-text-field>
-		</v-col>
-	<v-col
-	:cols=4
-	>
-              <v-btn @click="submit" outlined  height="90%">
-                로그인
-              </v-btn>
-		</v-col>
-		</v-row>
+              <v-row>
+                <v-col :cols="8">
+                  <v-text-field
+                    v-model="id"
+                    :rules="nameRules"
+                    :counter="30"
+                    label="ID"
+                    required
+                    @keyup.13="submit"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="password"
+                    :rules="passwordRules"
+                    label="Password"
+                    type="password"
+                    required
+                    @keyup.13="submit"
+                  ></v-text-field>
+                </v-col>
+                <v-col :cols="4">
+                  <v-btn @click="submit" outlined height="90%">로그인</v-btn>
+                </v-col>
+              </v-row>
               <v-layout align-center justify-center>
                 <KakaoLogin
                   api-key="1ccf33bc552996470ef083f21eff16c2"
@@ -58,9 +52,7 @@
               </v-layout>
 
               <v-layout align-center justify-center>
-                <v-btn @click="to_sign_up" outlined width="277.33" height="60">
-                  ...or sign up now!
-                </v-btn>
+                <v-btn @click="to_sign_up" outlined width="277.33" height="60">...or sign up now!</v-btn>
               </v-layout>
             </v-form>
           </v-card-text>
@@ -101,7 +93,7 @@ export default {
       }
     },
     onSuccess(data) {
-      this.$store.dispatch("LOGIN_KAKAO", data.access_token).then()
+      this.$store.dispatch("LOGIN_KAKAO", data.access_token).then();
     },
     onFailure() {},
     callbackFunction() {},

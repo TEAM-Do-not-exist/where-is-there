@@ -2,21 +2,11 @@
   <div class="overflow-hidden">
     <!-- title -->
     <div class="text-center mb-2">
-      <v-btn
-        text
-        class="font-weight-black"
-        color="deep-purple"
-        @click="showNav = !showNav"
-        >전체 페이지</v-btn
-      >
+      <v-btn text class="font-weight-black" color="deep-purple" @click="showNav = !showNav">전체 페이지</v-btn>
     </div>
 
     <!-- move page -->
-    <v-bottom-navigation
-      v-model="activeBtn"
-      :input-value="showNav"
-      color="indigo"
-    >
+    <v-bottom-navigation v-model="activeBtn" :input-value="showNav" color="indigo">
       <v-btn @click="onPageChange(-1)">
         <v-icon>mdi-minus</v-icon>
       </v-btn>

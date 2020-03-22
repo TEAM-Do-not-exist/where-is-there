@@ -14,14 +14,7 @@
               required
               @keyup.13="submit"
             ></v-text-field>
-            <v-btn
-              :disabled="!valid"
-              @click="submit"
-              outlined
-              width="277.33"
-              height="60"
-              >submit</v-btn
-            >
+            <v-btn :disabled="!valid" @click="submit" outlined width="277.33" height="60">submit</v-btn>
             <v-container />
             <v-layout align-center justify-center>
               <p style="upper-margin: 10px;">

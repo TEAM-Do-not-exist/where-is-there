@@ -10,7 +10,7 @@
       <v-card>
         <!-- head -->
         <v-card-title>
-          <span class="headline"> 정보 수정 </span>
+          <span class="headline">정보 수정</span>
         </v-card-title>
 
         <!-- body -->
@@ -19,18 +19,12 @@
             <v-row>
               <!-- nickname 입력란 -->
               <v-col cols="12">
-                <v-text-field v-model="nickname" label="nickname" required>
-                  {{ item.nickname }}
-                </v-text-field>
+                <v-text-field v-model="nickname" label="nickname" required>{{ item.nickname }}</v-text-field>
               </v-col>
 
               <!-- phone 입력란 -->
               <v-col cols="12">
-                <v-text-field
-                  v-model="phone"
-                  label="phone"
-                  required
-                ></v-text-field>
+                <v-text-field v-model="phone" label="phone" required></v-text-field>
               </v-col>
 
               <!-- pw 입력란 -->
@@ -51,16 +45,8 @@
         <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            :disabled="!validated"
-            color="blue darken-1"
-            text
-            @click="updateMember()"
-            >Save</v-btn
-          >
-          <v-btn color="blue darken-1" text @click="dialog = false"
-            >Close</v-btn
-          >
+          <v-btn :disabled="!validated" color="blue darken-1" text @click="updateMember()">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -88,7 +74,7 @@ export default {
       const basicUrl = process.env.VUE_APP_SPRING_URL;
       const addUrl = "/api/member/selectOneToken/";
       const token = this.token;
-	 axios
+      axios
         .get(basicUrl + addUrl + token)
         .then(response => {
           this.item = response.data["resvalue"];
@@ -100,7 +86,7 @@ export default {
         })
         .catch(() => {
           this.errored = true;
-	console.log("캐치캐치")
+          console.log("캐치캐치");
         })
         .finally(() => (this.loading = false));
     },
@@ -128,7 +114,7 @@ export default {
     }
   },
   mounted() {
- this.showmyinfo();
+    this.showmyinfo();
   }
 };
 </script>
