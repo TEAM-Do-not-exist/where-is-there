@@ -81,7 +81,7 @@ public class RestExternalLogInController {
 	public ResponseEntity<Map> loginKakao(@PathVariable("access_token") String access_token) {
 		ResponseEntity<Map> resEntity = null;
 		int state = 0;
-		System.out.println("access_token "+access_token);
+		System.out.println("access_token " + access_token);
 		try {
 			Map<String, Object> msg = new HashMap<String, Object>();
 			KakaoMember kakaoMember = HttpConnectionKakao.getUserInfo(access_token);

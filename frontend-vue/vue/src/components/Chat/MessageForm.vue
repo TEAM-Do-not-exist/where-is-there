@@ -12,12 +12,7 @@
     </div>
     <!-- 로그인이 안되었을 때 채팅 -->
     <div v-else>
-      <v-text-field
-        v-model="msg"
-        label="chat"
-        placeholder="로그인 후 사용 가능합니다."
-        solo
-      ></v-text-field>
+      <v-text-field v-model="msg" label="chat" placeholder="로그인 후 사용 가능합니다." solo></v-text-field>
     </div>
   </div>
 </template>

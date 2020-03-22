@@ -40,8 +40,7 @@ spring:
           starttls:
             enable: true
   messages:
-    basename: messages/message           
+    basename: messages/message
 
 mybatis:
   config-location: classpath:/mybatis/MybatisConfig.xml
-

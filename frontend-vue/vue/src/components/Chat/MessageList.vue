@@ -10,12 +10,12 @@
               style="display:block; text-align:right; padding:5px;"
             >
               <div class="list-chat">
-                <span>{{ msg.msg }} </span>
+                <span>{{ msg.msg }}</span>
               </div>
             </span>
 
             <!-- 상대방 메세지 -->
-            <span v-else> {{ msg.from.name }} {{ msg.msg }} </span>
+            <span v-else>{{ msg.from.name }} {{ msg.msg }}</span>
           </div>
         </div>
       </div>

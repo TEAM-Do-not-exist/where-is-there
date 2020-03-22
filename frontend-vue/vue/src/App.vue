@@ -1,45 +1,26 @@
 <template>
   <v-app id="inspire" v-if="enter">
-    <v-layout align-center justify-center class="wrapper " fluid fill-height>
+    <v-layout align-center justify-center class="wrapper" fluid fill-height>
       <h1 align="center" class="effect-underline effect-shine .d-inline-flex">
-        <a @click="enterf" style="color:rgba(255, 255, 255, 0.65);">
-          거기
-        </a>
-        <a @click="enterf" style="color:rgba(255, 255, 255, 0.65);">
-          어디니
-        </a>
+        <a @click="enterf" style="color:rgba(255, 255, 255, 0.65);">거기</a>
+        <a @click="enterf" style="color:rgba(255, 255, 255, 0.65);">어디니</a>
       </h1>
     </v-layout>
   </v-app>
 
   <v-app id="inspire" v-else>
     <!-- 오른쪽 채팅창 -->
-    <v-navigation-drawer
-      v-model="drawerRight"
-      app
-      right
-      class=".d-flex"
-      style="z-index:2"
-    >
+    <v-navigation-drawer v-model="drawerRight" app right class=".d-flex" style="z-index:2">
       <v-list dense>
         <div class="inner-wrap" fluid fill-height inner-wrap>
-          <Message-List :msgs="msgDatas" class="msg-list"> </Message-List>
-          <Message-From
-            v-on:submitMessage="sendMessage"
-            class="msg-form"
-          ></Message-From>
+          <Message-List :msgs="msgDatas" class="msg-list"></Message-List>
+          <Message-From v-on:submitMessage="sendMessage" class="msg-form"></Message-From>
         </div>
       </v-list>
     </v-navigation-drawer>
 
     <!-- 왼쪽 네비게이션바 -->
-    <v-navigation-drawer
-      v-model="drawer"
-      class=".d-flex"
-      temporary
-      app
-      style="z-index:3"
-    >
+    <v-navigation-drawer v-model="drawer" class=".d-flex" temporary app style="z-index:3">
       <v-container>
         <v-card>
           <!-- 맨 위 로고 들어갈 자리 -->
@@ -47,30 +28,22 @@
             <i class="fas fa-home fa-10x"></i>
           </div>
           <!-- 로그인 되었을 때 -->
-          <div
-            v-if="token != 'null' && token != undefined"
-            style="text-align:center;"
-          >
+          <div v-if="token != 'null' && token != undefined" style="text-align:center;">
             <br />
-            <span v-text="nickname"> </span>
-            <span>
-              님 환영합니다 :>
-            </span>
-            <br /><br />
+            <span v-text="nickname"></span>
+            <span>님 환영합니다 :></span>
+            <br />
+            <br />
             <span
               v-if="token != 'null' && token != undefined"
               @click="to_mypage"
               style="cursor:pointer; display:inline-block; width:100px; text-decoration:underline;"
-            >
-              MyPage
-            </span>
+            >MyPage</span>
             <span
               v-if="token != 'null' && token != undefined"
               @click="to_log_out"
               style="text-align:center; cursor:pointer; text-decoration:underline;"
-            >
-              Logout
-            </span>
+            >Logout</span>
           </div>
           <!-- 로그인 안되었을 때 -->
           <div v-else style="text-align:center;">
@@ -81,9 +54,7 @@
               v-if="token == 'null' || token == undefined"
               @click="to_sign_in"
               style="cursor:pointer; text-decoration:underline;"
-            >
-              로그인
-            </span>
+            >로그인</span>
           </div>
         </v-card>
       </v-container>
@@ -113,10 +84,7 @@
     </v-navigation-drawer>
 
     <v-app-bar id="navbar" app flat style="pointer-events: none; z-index:1">
-      <v-app-bar-nav-icon
-        @click.stop="drawer = !drawer"
-        style="pointer-events: auto;"
-      ></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" style="pointer-events: auto;"></v-app-bar-nav-icon>
       <v-spacer style="pointer-events: none;"></v-spacer>
       <i
         class="far fa-comments fa-2x"
