@@ -8,8 +8,7 @@
         v-on="on"
         outlined
         dark
-        >수정하기</v-btn
-      >
+      >수정하기</v-btn>
     </template>
 
     <v-card>
@@ -41,18 +40,10 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field
-                label="사진 URL*"
-                :value="photo[0].psource"
-                disabled
-              ></v-text-field>
+              <v-text-field label="사진 URL*" :value="photo[0].psource" disabled></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field
-                label="원본 URL*"
-                :value="photo[0].purl"
-                disabled
-              ></v-text-field>
+              <v-text-field label="원본 URL*" :value="photo[0].purl" disabled></v-text-field>
             </v-col>
           </v-row>
         </v-container>
@@ -67,15 +58,8 @@
           text
           :disabled="!validated || !isAdmin"
           @click="updatePhoto"
-          >수정하기</v-btn
-        >
-        <v-btn
-          class="font-weight-black"
-          color="blue darken-1"
-          text
-          @click="dialog = false"
-          >취소하기</v-btn
-        >
+        >수정하기</v-btn>
+        <v-btn class="font-weight-black" color="blue darken-1" text @click="dialog = false">취소하기</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

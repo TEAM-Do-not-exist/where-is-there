@@ -15,12 +15,8 @@
             required
             @keyup.13="submit"
           ></v-text-field>
-          <v-btn @click="submit" outlined width="277.33" height="60"
-            >submit</v-btn
-          >
-          <v-btn @click="re_request" outlined width="277.33" height="60"
-            >인증번호 재발급</v-btn
-          >
+          <v-btn @click="submit" outlined width="277.33" height="60">submit</v-btn>
+          <v-btn @click="re_request" outlined width="277.33" height="60">인증번호 재발급</v-btn>
           <v-container />
           <v-layout align-center justify-center>
             <p style="upper-margin: 10px;">
@@ -67,8 +63,8 @@ export default {
         // Native form submission is not yet supported
         const uriEmailCheck = `${process.env.VUE_APP_SPRING_URL}/api/emailauth/auth_check`;
         const uriSignUp = `${process.env.VUE_APP_SPRING_URL}/api/member/insert`;
-        
-	axios
+
+        axios
           .put(uriEmailCheck, {
             email: this.$route.params.email,
             auth_key: this.authKey

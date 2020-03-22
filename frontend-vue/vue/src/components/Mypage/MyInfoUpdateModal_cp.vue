@@ -10,7 +10,7 @@
       <v-card>
         <!-- head -->
         <v-card-title>
-          <span class="headline"> 정보 수정 </span>
+          <span class="headline">정보 수정</span>
         </v-card-title>
 
         <!-- body -->
@@ -19,18 +19,12 @@
             <v-row>
               <!-- nickname 입력란 -->
               <v-col cols="12">
-                <v-text-field v-model="nickname" label="nickname" required>
-                  {{ item.nickname }}
-                </v-text-field>
+                <v-text-field v-model="nickname" label="nickname" required>{{ item.nickname }}</v-text-field>
               </v-col>
 
               <!-- phone 입력란 -->
               <v-col cols="12">
-                <v-text-field
-                  v-model="phone"
-                  label="phone"
-                  required
-                ></v-text-field>
+                <v-text-field v-model="phone" label="phone" required></v-text-field>
               </v-col>
 
               <!-- pw 입력란 -->
@@ -51,16 +45,8 @@
         <!-- footer -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            :disabled="!validated"
-            color="blue darken-1"
-            text
-            @click="updateMember()"
-            >Save</v-btn
-          >
-          <v-btn color="blue darken-1" text @click="dialog = false"
-            >Close</v-btn
-          >
+          <v-btn :disabled="!validated" color="blue darken-1" text @click="updateMember()">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -97,8 +83,8 @@ export default {
           this.name = this.item.name;
           this.nickname = this.item.nickname;
           this.external = this.item.external;
-	console.log(response);
-	alert("메롱");
+          console.log(response);
+          alert("메롱");
         })
         .catch(() => {
           this.errored = true;
@@ -129,8 +115,8 @@ export default {
     }
   },
   mounted() {
-alert("?????");  
- this.showmyinfo();
+    alert("?????");
+    this.showmyinfo();
   }
 };
 </script>

@@ -17,11 +17,11 @@
 	</delete>
 	<delete id="delete_useless">
 <!-- 		set sql_safe_updates=0;
- -->		
+ -->
  		delete  from email_auth where now() >= time_expire or auth_check=true;
 	</delete>
 	<update id="update_key" parameterType="EmailAuthDTO">
-		update email_auth set 
+		update email_auth set
 							auth_key=#{auth_key},
 							time_expire=date_add(now(),interval 5 minute)
 		where email=#{email}
@@ -37,11 +37,11 @@
 	<select id="selectOne" parameterType="EmailAuthDTO" resultType="EmailAuthDTO">
 		select * from email_auth where email=#{email}
 	</select>
-	
+
 	<select id="selectOneIdTime" parameterType="EmailAuthDTO" resultType="EmailAuthDTO">
 		select * from email_auth where email=#{email} and auth_key=#{auth_key} and time_expire >= now()
 	</select>
-	
+
 	<select id="exists_check_member" parameterType="EmailAuthDTO" resultType="SuccessTemp">
 		select exists (select * from mem_p1 where email=#{email}) as success
 	</select>

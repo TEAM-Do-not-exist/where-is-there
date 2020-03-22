@@ -8,28 +8,13 @@
         v-on="on"
         outlined
         dark
-        >삭제하기</v-btn
-      >
+      >삭제하기</v-btn>
     </template>
 
     <v-sheet class="text-center" height="200px">
       <div class="py-12">정말로 삭제하시겠습니까?</div>
-      <v-btn
-        class="mb-6 font-weight-black"
-        color="red"
-        @click="deletePhoto"
-        small
-        text
-        >예</v-btn
-      >
-      <v-btn
-        class="mb-6 font-weight-black"
-        color="blue"
-        @click="sheet = !sheet"
-        small
-        text
-        >아니오</v-btn
-      >
+      <v-btn class="mb-6 font-weight-black" color="red" @click="deletePhoto" small text>예</v-btn>
+      <v-btn class="mb-6 font-weight-black" color="blue" @click="sheet = !sheet" small text>아니오</v-btn>
     </v-sheet>
   </v-bottom-sheet>
 </template>

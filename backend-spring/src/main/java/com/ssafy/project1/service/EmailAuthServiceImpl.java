@@ -38,8 +38,9 @@ public class EmailAuthServiceImpl implements EmailAuthService {
 			// 인증요청 db에 저장
 			emailAuthRepo.insert(dto);
 			// 인증요청 email 발송
-			boolean sendMail = mailService.sendMail(dto.getEmail(), "[거기어디니]의 인증 메일 입니다", "인증번호는 " + dto.getAuth_key() + " 입니다.");
-			System.out.println("sendmailok : "+sendMail);
+			boolean sendMail = mailService.sendMail(dto.getEmail(), "[거기어디니]의 인증 메일 입니다",
+					"인증번호는 " + dto.getAuth_key() + " 입니다.");
+			System.out.println("sendmailok : " + sendMail);
 			return 1;
 		} else
 			return -1;

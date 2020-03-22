@@ -11,8 +11,7 @@
                 gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                 height="200px"
                 @click="showDetail(photo)"
-              >
-              </v-img>
+              ></v-img>
             </v-card>
           </v-col>
         </v-row>

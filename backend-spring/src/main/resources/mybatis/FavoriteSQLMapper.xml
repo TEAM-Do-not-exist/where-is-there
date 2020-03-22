@@ -4,34 +4,34 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ssafy.favorite">
 	<insert id="insert" parameterType="FavoriteDTO">
-		insert into favorite 
+		insert into favorite
 		(fid,fcode)
 		values(
 			#{fid},
 			#{fcode}
 		)
 	</insert>
-	
+
 	<delete id="delete" parameterType="FavoriteDTO">
-		delete from favorite 
+		delete from favorite
 		where fid=#{fid} and
 				fcode=#{fcode}
 	</delete>
-	
+
 	<select id="selectMyList" resultType="FavoriteDTO">
 		select favorite.fid, favorite.fcode, photo.psource
 		from photo
 		left join favorite on favorite.fcode = photo.pcode
 		where favorite.fid=#{fid};
 	</select>
-	
+
 		<select id="selectPhotoList" resultType="FavoriteDTO">
 		select * from favorite where fcode = #{fcode}
 	</select>
-	
+
 	<select id="selectBestList" resultType="FavoriteDTO">
 		select photo.psource,favorite.fcode,count(*)
-		from favorite 
+		from favorite
 		left join photo on photo.pcode = favorite.fcode
 		group by fcode order by count(fcode) desc limit 5 ;
 	</select>

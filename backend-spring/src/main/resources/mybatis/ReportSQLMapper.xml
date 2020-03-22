@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="ssafy.report">
 	<insert id="insert" parameterType="ReportDTO">
 		insert into report(rnum,rcode,rid,rreason)
@@ -13,11 +13,11 @@
 			#{rreason}
 		)
 	</insert>
-	
+
 	<delete id="delete" parameterType="int">
 		delete from report where rnum = #{rnum}
 	</delete>
-	
+
 	<select id="selectReportList" resultType="ReportDTO">
 		select * from report
 	</select>

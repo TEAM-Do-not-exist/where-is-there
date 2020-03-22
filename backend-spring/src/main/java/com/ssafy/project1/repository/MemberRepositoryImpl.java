@@ -31,7 +31,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 		// TODO Auto-generated method stub
 		System.out.println(dto.getEmail());
 		System.out.println(dto.getNickname());
-		int insert = session.insert("ssafy.member.insert2",dto);
+		int insert = session.insert("ssafy.member.insert2", dto);
 		System.out.println(insert);
 		return insert;
 	}
