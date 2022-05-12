@@ -12,6 +12,7 @@
     "@mdi/font": "^3.6.95",
     "axios": "^0.21.2",
     "core-js": "^3.4.4",
+    "glob-parent": "^6.0.2",
     "infinite-scroll": "^3.0.6",
     "jwt-decode": "^2.2.0",
     "masonry-layout": "^4.2.2",
