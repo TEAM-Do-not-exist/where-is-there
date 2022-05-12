@@ -16,7 +16,7 @@
     "jwt-decode": "^2.2.0",
     "masonry-layout": "^4.2.2",
     "roboto-fontface": "*",
-    "socket.io": "^2.4.0",
+    "socket.io": "^4.5.0",
     "socket.io-client": "^2.3.0",
     "vue": "^2.6.10",
     "vue-daum-map": "^1.0.15",
@@ -30,9 +30,9 @@
     "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.1.0",
-    "@vue/cli-plugin-eslint": "^4.1.0",
-    "@vue/cli-service": "^4.1.0",
+    "@vue/cli-plugin-babel": "^5.0.4",
+    "@vue/cli-plugin-eslint": "^5.0.4",
+    "@vue/cli-service": "^5.0.4",
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
